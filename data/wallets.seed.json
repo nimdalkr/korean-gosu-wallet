@@ -1,0 +1,5452 @@
+{
+  "schemaVersion": 1,
+  "source": {
+    "kind": "frozen-onchain-snapshot",
+    "chain": "Base mainnet",
+    "chainId": 8453,
+    "token": {
+      "contract": "0x1a44233fae8d50f1aeb3a5d58dd426ff4814cb53",
+      "name": "Squid",
+      "symbol": "QUID",
+      "decimals": 18
+    },
+    "cutoffBlock": 49531614,
+    "cutoffTimestampUtc": "2026-08-04T14:09:35Z",
+    "cutoffTimestampKst": "2026-08-04T23:09:35+09:00",
+    "generatedAtUtc": "2026-08-04T14:13:58.305509Z",
+    "populationDefinition": "Successful ERC-20 Transfer events emitted by the QUID token contract, with `to` equal to one of the five supplied exchange wallets, from the contract creation block through the frozen safe cutoff block.",
+    "rankingDefinition": "Known Upbit and Bithumb hot-wallet senders are excluded first. Remaining sender addresses are aggregated per exchange by raw QUID amount, ranked by amount descending, and ties are ordered by lowercase address.",
+    "externalSenderDefinition": "A sender is external when its lowercase address is not one of the five supplied exchange hot wallets.",
+    "knownHotWallets": {
+      "Upbit": [
+        "0x99c39d665c353920ada681b306a927d14978a345",
+        "0x07003d24d866a705af126a23d4ea4ac4ed85e02f",
+        "0xee9345326f336b86c8d0529b8a1b874041f81877"
+      ],
+      "Bithumb": [
+        "0x65513d9cd1927054f68eb55d93f1dfc67bc4c24d",
+        "0x0f5d1d63647342ff0fbe2f1ee879786c48f143ad"
+      ]
+    },
+    "provenance": {
+      "primarySource": "Base JSON-RPC eth_getLogs",
+      "validationSource": "Independent Base JSON-RPC eth_getLogs",
+      "rpcEventFingerprintsMatch": true,
+      "sourceEventCount": 608
+    }
+  },
+  "summary": {
+    "walletRows": 406,
+    "uniqueAddressCount": 406,
+    "overlappingAddressCount": 0,
+    "overlappingAddresses": [],
+    "allSenders": {
+      "uniqueAddressCount": 408,
+      "overlappingAddressCount": 0,
+      "overlappingAddresses": [],
+      "internalKnownSenderCount": 2,
+      "internalKnownSenderAddresses": [
+        "0x0f5d1d63647342ff0fbe2f1ee879786c48f143ad",
+        "0x65513d9cd1927054f68eb55d93f1dfc67bc4c24d"
+      ],
+      "byExchange": {
+        "Upbit": {
+          "walletCount": 267
+        },
+        "Bithumb": {
+          "walletCount": 141
+        }
+      }
+    },
+    "byExchange": {
+      "Upbit": {
+        "walletCount": 267,
+        "top100Count": 100,
+        "depositTransferCount": 370,
+        "depositAmountQuid": "22719386.73322875769671431"
+      },
+      "Bithumb": {
+        "walletCount": 139,
+        "top100Count": 100,
+        "depositTransferCount": 235,
+        "depositAmountQuid": "4122126.182613825915098445"
+      }
+    }
+  },
+  "wallets": [
+    {
+      "address": "0xd62555ab18ea8fa8566eea8e117b9e3ee4212d97",
+      "exchange": "Upbit",
+      "rank": 1,
+      "depositAmountQuid": "3518503.959366911627603145",
+      "depositTransferCount": 3,
+      "firstDepositAt": "2026-08-04T13:30:47Z",
+      "lastDepositAt": "2026-08-04T14:06:33Z",
+      "targetHotWallets": [
+        "0x07003d24d866a705af126a23d4ea4ac4ed85e02f",
+        "0xee9345326f336b86c8d0529b8a1b874041f81877"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0x2172c5964e1a999da236a97f2898eff67210de5a",
+      "exchange": "Upbit",
+      "rank": 2,
+      "depositAmountQuid": "925974.832567377682550836",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:48:03Z",
+      "lastDepositAt": "2026-08-04T13:48:03Z",
+      "targetHotWallets": [
+        "0x99c39d665c353920ada681b306a927d14978a345"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0x1af2517b9146c7ec25c014efeee61cf13bddf756",
+      "exchange": "Upbit",
+      "rank": 3,
+      "depositAmountQuid": "800550",
+      "depositTransferCount": 2,
+      "firstDepositAt": "2026-08-04T13:40:53Z",
+      "lastDepositAt": "2026-08-04T13:48:15Z",
+      "targetHotWallets": [
+        "0x07003d24d866a705af126a23d4ea4ac4ed85e02f",
+        "0x99c39d665c353920ada681b306a927d14978a345"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0xc340579810fb4775957347552e056ddf0d65910a",
+      "exchange": "Upbit",
+      "rank": 4,
+      "depositAmountQuid": "752042.157526190580483354",
+      "depositTransferCount": 2,
+      "firstDepositAt": "2026-08-04T13:25:39Z",
+      "lastDepositAt": "2026-08-04T13:25:45Z",
+      "targetHotWallets": [
+        "0x99c39d665c353920ada681b306a927d14978a345"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0x8c795060e7a0d4304d1f565c61480fad3cf0e025",
+      "exchange": "Upbit",
+      "rank": 5,
+      "depositAmountQuid": "746321.375670080789262425",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:25:39Z",
+      "lastDepositAt": "2026-08-04T13:25:39Z",
+      "targetHotWallets": [
+        "0x99c39d665c353920ada681b306a927d14978a345"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0x6dad34d67d76f453369efd06216ba85f00d117b5",
+      "exchange": "Upbit",
+      "rank": 6,
+      "depositAmountQuid": "741746.516453897023691817",
+      "depositTransferCount": 2,
+      "firstDepositAt": "2026-08-04T13:35:27Z",
+      "lastDepositAt": "2026-08-04T13:51:21Z",
+      "targetHotWallets": [
+        "0x07003d24d866a705af126a23d4ea4ac4ed85e02f",
+        "0xee9345326f336b86c8d0529b8a1b874041f81877"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0x3f9cbe896566b60d7ce228bc740dd2744ada67b5",
+      "exchange": "Upbit",
+      "rank": 7,
+      "depositAmountQuid": "659817.578500114462876371",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T14:06:41Z",
+      "lastDepositAt": "2026-08-04T14:06:41Z",
+      "targetHotWallets": [
+        "0x07003d24d866a705af126a23d4ea4ac4ed85e02f"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0x83038f3182e5cef9a50e2b770bff1a4056b03376",
+      "exchange": "Upbit",
+      "rank": 8,
+      "depositAmountQuid": "534688.615950527273344243",
+      "depositTransferCount": 2,
+      "firstDepositAt": "2026-08-04T13:48:05Z",
+      "lastDepositAt": "2026-08-04T13:50:55Z",
+      "targetHotWallets": [
+        "0x99c39d665c353920ada681b306a927d14978a345",
+        "0xee9345326f336b86c8d0529b8a1b874041f81877"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0xb2bf0d24e21e8f36c543ba1e899c568417761a39",
+      "exchange": "Upbit",
+      "rank": 9,
+      "depositAmountQuid": "522705.491048356924764562",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:51:25Z",
+      "lastDepositAt": "2026-08-04T13:51:25Z",
+      "targetHotWallets": [
+        "0xee9345326f336b86c8d0529b8a1b874041f81877"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0x791235d39819e989a12ac4218fcdd24e48ea80f4",
+      "exchange": "Upbit",
+      "rank": 10,
+      "depositAmountQuid": "435519.629618447619432694",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:48:31Z",
+      "lastDepositAt": "2026-08-04T13:48:31Z",
+      "targetHotWallets": [
+        "0x99c39d665c353920ada681b306a927d14978a345"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0x1da712b8140195ea524ce02ddb721aa6e38193bd",
+      "exchange": "Upbit",
+      "rank": 11,
+      "depositAmountQuid": "428846.346187488505073261",
+      "depositTransferCount": 2,
+      "firstDepositAt": "2026-08-04T13:48:15Z",
+      "lastDepositAt": "2026-08-04T13:51:17Z",
+      "targetHotWallets": [
+        "0x99c39d665c353920ada681b306a927d14978a345",
+        "0xee9345326f336b86c8d0529b8a1b874041f81877"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0x7be95e473627d0c2b13b774a5bdf125c5236be96",
+      "exchange": "Upbit",
+      "rank": 12,
+      "depositAmountQuid": "400000",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:41:01Z",
+      "lastDepositAt": "2026-08-04T13:41:01Z",
+      "targetHotWallets": [
+        "0x07003d24d866a705af126a23d4ea4ac4ed85e02f"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0xeb87729d01deba5cb7a5abdd80e271ab402ad705",
+      "exchange": "Upbit",
+      "rank": 13,
+      "depositAmountQuid": "338617.373555622478473541",
+      "depositTransferCount": 3,
+      "firstDepositAt": "2026-08-04T13:40:47Z",
+      "lastDepositAt": "2026-08-04T14:06:35Z",
+      "targetHotWallets": [
+        "0x07003d24d866a705af126a23d4ea4ac4ed85e02f",
+        "0xee9345326f336b86c8d0529b8a1b874041f81877"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0x4193d6164912888abb8eb2a093929bcf4a240066",
+      "exchange": "Upbit",
+      "rank": 14,
+      "depositAmountQuid": "300000",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:35:45Z",
+      "lastDepositAt": "2026-08-04T13:35:45Z",
+      "targetHotWallets": [
+        "0x07003d24d866a705af126a23d4ea4ac4ed85e02f"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0xbae6576e76f7a09d7fd779928c63d417aa446bea",
+      "exchange": "Upbit",
+      "rank": 15,
+      "depositAmountQuid": "298033.6112",
+      "depositTransferCount": 3,
+      "firstDepositAt": "2026-08-04T13:40:47Z",
+      "lastDepositAt": "2026-08-04T14:06:31Z",
+      "targetHotWallets": [
+        "0x07003d24d866a705af126a23d4ea4ac4ed85e02f",
+        "0xee9345326f336b86c8d0529b8a1b874041f81877"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0x3257772c9dbaf4feeba95e9938923054e3639565",
+      "exchange": "Upbit",
+      "rank": 16,
+      "depositAmountQuid": "282265.761156532454780045",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T14:06:27Z",
+      "lastDepositAt": "2026-08-04T14:06:27Z",
+      "targetHotWallets": [
+        "0x07003d24d866a705af126a23d4ea4ac4ed85e02f"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0x6977adaaa47e2bd3e26a3aa2bae5a472aea2f259",
+      "exchange": "Upbit",
+      "rank": 17,
+      "depositAmountQuid": "281467.823651732373356634",
+      "depositTransferCount": 3,
+      "firstDepositAt": "2026-08-04T13:20:27Z",
+      "lastDepositAt": "2026-08-04T13:51:15Z",
+      "targetHotWallets": [
+        "0x07003d24d866a705af126a23d4ea4ac4ed85e02f",
+        "0xee9345326f336b86c8d0529b8a1b874041f81877"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0xe4eba9bb8de1a5b3667e81d553d2ed19d93d446c",
+      "exchange": "Upbit",
+      "rank": 18,
+      "depositAmountQuid": "275256.895120868716212362",
+      "depositTransferCount": 2,
+      "firstDepositAt": "2026-08-04T13:30:49Z",
+      "lastDepositAt": "2026-08-04T14:06:33Z",
+      "targetHotWallets": [
+        "0x07003d24d866a705af126a23d4ea4ac4ed85e02f",
+        "0xee9345326f336b86c8d0529b8a1b874041f81877"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0xdba7aaee7854dc170ecbe47be0060d57349bdb70",
+      "exchange": "Upbit",
+      "rank": 19,
+      "depositAmountQuid": "247202.110539839253110092",
+      "depositTransferCount": 2,
+      "firstDepositAt": "2026-08-04T13:40:45Z",
+      "lastDepositAt": "2026-08-04T13:50:57Z",
+      "targetHotWallets": [
+        "0x07003d24d866a705af126a23d4ea4ac4ed85e02f",
+        "0xee9345326f336b86c8d0529b8a1b874041f81877"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0x96586d96e8bafaa2af5ef37dc95958b9b454f208",
+      "exchange": "Upbit",
+      "rank": 20,
+      "depositAmountQuid": "246823.296272516170934258",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:48:35Z",
+      "lastDepositAt": "2026-08-04T13:48:35Z",
+      "targetHotWallets": [
+        "0x99c39d665c353920ada681b306a927d14978a345"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0x4ecca4d8ca05e02e6c5dd9087d29fbbf39e8b90c",
+      "exchange": "Upbit",
+      "rank": 21,
+      "depositAmountQuid": "220202.114049922512896788",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:48:27Z",
+      "lastDepositAt": "2026-08-04T13:48:27Z",
+      "targetHotWallets": [
+        "0x99c39d665c353920ada681b306a927d14978a345"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0x9d92be3ee14373d96fa35a17cd93a8c67673b354",
+      "exchange": "Upbit",
+      "rank": 22,
+      "depositAmountQuid": "214179.928013172404978782",
+      "depositTransferCount": 2,
+      "firstDepositAt": "2026-08-04T13:48:37Z",
+      "lastDepositAt": "2026-08-04T14:06:31Z",
+      "targetHotWallets": [
+        "0x07003d24d866a705af126a23d4ea4ac4ed85e02f",
+        "0x99c39d665c353920ada681b306a927d14978a345"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0x57517903c5faaaa6b2cfd405923ed96da2450fd8",
+      "exchange": "Upbit",
+      "rank": 23,
+      "depositAmountQuid": "196798.527216854459817648",
+      "depositTransferCount": 6,
+      "firstDepositAt": "2026-08-04T13:20:27Z",
+      "lastDepositAt": "2026-08-04T14:06:29Z",
+      "targetHotWallets": [
+        "0x07003d24d866a705af126a23d4ea4ac4ed85e02f",
+        "0x99c39d665c353920ada681b306a927d14978a345",
+        "0xee9345326f336b86c8d0529b8a1b874041f81877"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0x073778f1f9960b697a79fcd9e0069ca8165d4dc2",
+      "exchange": "Upbit",
+      "rank": 24,
+      "depositAmountQuid": "194965.548560087927827324",
+      "depositTransferCount": 4,
+      "firstDepositAt": "2026-08-04T13:25:49Z",
+      "lastDepositAt": "2026-08-04T13:51:13Z",
+      "targetHotWallets": [
+        "0x07003d24d866a705af126a23d4ea4ac4ed85e02f",
+        "0x99c39d665c353920ada681b306a927d14978a345",
+        "0xee9345326f336b86c8d0529b8a1b874041f81877"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0x64974a46b81611132303714a1e476beb888b0c00",
+      "exchange": "Upbit",
+      "rank": 25,
+      "depositAmountQuid": "188888.888888888888888888",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:51:21Z",
+      "lastDepositAt": "2026-08-04T13:51:21Z",
+      "targetHotWallets": [
+        "0xee9345326f336b86c8d0529b8a1b874041f81877"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0xfe53331181293e8cdf056d032ba3dbf38519429d",
+      "exchange": "Upbit",
+      "rank": 26,
+      "depositAmountQuid": "186847.944985193262256204",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:51:05Z",
+      "lastDepositAt": "2026-08-04T13:51:05Z",
+      "targetHotWallets": [
+        "0xee9345326f336b86c8d0529b8a1b874041f81877"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0x1571a419a73589b5be9f0df5694897d5b3d74de5",
+      "exchange": "Upbit",
+      "rank": 27,
+      "depositAmountQuid": "182908.263414520655298674",
+      "depositTransferCount": 3,
+      "firstDepositAt": "2026-08-04T13:35:49Z",
+      "lastDepositAt": "2026-08-04T13:48:11Z",
+      "targetHotWallets": [
+        "0x07003d24d866a705af126a23d4ea4ac4ed85e02f",
+        "0x99c39d665c353920ada681b306a927d14978a345"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0xe49575e4711c2820f15d8d31a500ac3c9871fd2c",
+      "exchange": "Upbit",
+      "rank": 28,
+      "depositAmountQuid": "181061.7518792058938829",
+      "depositTransferCount": 2,
+      "firstDepositAt": "2026-08-04T13:50:53Z",
+      "lastDepositAt": "2026-08-04T14:06:33Z",
+      "targetHotWallets": [
+        "0x07003d24d866a705af126a23d4ea4ac4ed85e02f",
+        "0xee9345326f336b86c8d0529b8a1b874041f81877"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0x663133d5a75f13213e1ac08d054e4e10a8f9c556",
+      "exchange": "Upbit",
+      "rank": 29,
+      "depositAmountQuid": "180146.412963251297441361",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:48:03Z",
+      "lastDepositAt": "2026-08-04T13:48:03Z",
+      "targetHotWallets": [
+        "0x99c39d665c353920ada681b306a927d14978a345"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0x79869697b5452d44048fde85340ab7c9295c864d",
+      "exchange": "Upbit",
+      "rank": 30,
+      "depositAmountQuid": "178317.590184924615934741",
+      "depositTransferCount": 2,
+      "firstDepositAt": "2026-08-04T13:40:43Z",
+      "lastDepositAt": "2026-08-04T14:06:37Z",
+      "targetHotWallets": [
+        "0x07003d24d866a705af126a23d4ea4ac4ed85e02f"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0x721af2f3b17e4b380be8f535d105179d82b9dcb5",
+      "exchange": "Upbit",
+      "rank": 31,
+      "depositAmountQuid": "177777.777777777777777777",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:48:05Z",
+      "lastDepositAt": "2026-08-04T13:48:05Z",
+      "targetHotWallets": [
+        "0x99c39d665c353920ada681b306a927d14978a345"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0x44d962e79653e32b2fa6d7a705650749d015fa94",
+      "exchange": "Upbit",
+      "rank": 32,
+      "depositAmountQuid": "171486.57",
+      "depositTransferCount": 2,
+      "firstDepositAt": "2026-08-04T13:30:59Z",
+      "lastDepositAt": "2026-08-04T13:48:25Z",
+      "targetHotWallets": [
+        "0x99c39d665c353920ada681b306a927d14978a345",
+        "0xee9345326f336b86c8d0529b8a1b874041f81877"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0x8f1748437c4c4105e9c9ec36d26ef9fdd06d0a1c",
+      "exchange": "Upbit",
+      "rank": 33,
+      "depositAmountQuid": "166666.666666666666666666",
+      "depositTransferCount": 2,
+      "firstDepositAt": "2026-08-04T13:20:31Z",
+      "lastDepositAt": "2026-08-04T13:25:43Z",
+      "targetHotWallets": [
+        "0x07003d24d866a705af126a23d4ea4ac4ed85e02f",
+        "0x99c39d665c353920ada681b306a927d14978a345"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0xabbd22a35001c8d9257884f5a5ae10a4a3dd0516",
+      "exchange": "Upbit",
+      "rank": 34,
+      "depositAmountQuid": "162310.682614681144166571",
+      "depositTransferCount": 3,
+      "firstDepositAt": "2026-08-04T13:30:43Z",
+      "lastDepositAt": "2026-08-04T13:51:11Z",
+      "targetHotWallets": [
+        "0x99c39d665c353920ada681b306a927d14978a345",
+        "0xee9345326f336b86c8d0529b8a1b874041f81877"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0x47283d8e38489ca2783a561c57f12e793dafba5a",
+      "exchange": "Upbit",
+      "rank": 35,
+      "depositAmountQuid": "159216.959571099574472125",
+      "depositTransferCount": 2,
+      "firstDepositAt": "2026-08-04T13:48:27Z",
+      "lastDepositAt": "2026-08-04T14:06:41Z",
+      "targetHotWallets": [
+        "0x07003d24d866a705af126a23d4ea4ac4ed85e02f",
+        "0x99c39d665c353920ada681b306a927d14978a345"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0xcebd1a277d29eb284171c9c78f4ef08006fcfa17",
+      "exchange": "Upbit",
+      "rank": 36,
+      "depositAmountQuid": "158754.08923882919063897",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:50:57Z",
+      "lastDepositAt": "2026-08-04T13:50:57Z",
+      "targetHotWallets": [
+        "0xee9345326f336b86c8d0529b8a1b874041f81877"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0x740bb7a07ebaf211af52728d5eef625e9aeed40d",
+      "exchange": "Upbit",
+      "rank": 37,
+      "depositAmountQuid": "158350.907788336414726168",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T14:06:39Z",
+      "lastDepositAt": "2026-08-04T14:06:39Z",
+      "targetHotWallets": [
+        "0x07003d24d866a705af126a23d4ea4ac4ed85e02f"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0x1f3614d091c66405436c81f4b9ec49be4037c7b1",
+      "exchange": "Upbit",
+      "rank": 38,
+      "depositAmountQuid": "153365.243240687582324321",
+      "depositTransferCount": 3,
+      "firstDepositAt": "2026-08-04T13:47:57Z",
+      "lastDepositAt": "2026-08-04T14:06:43Z",
+      "targetHotWallets": [
+        "0x07003d24d866a705af126a23d4ea4ac4ed85e02f",
+        "0x99c39d665c353920ada681b306a927d14978a345",
+        "0xee9345326f336b86c8d0529b8a1b874041f81877"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0x15e3b2a75640ae7e3dc1079fd06334fc6bf5439d",
+      "exchange": "Upbit",
+      "rank": 39,
+      "depositAmountQuid": "150200",
+      "depositTransferCount": 2,
+      "firstDepositAt": "2026-08-04T13:48:01Z",
+      "lastDepositAt": "2026-08-04T14:06:43Z",
+      "targetHotWallets": [
+        "0x07003d24d866a705af126a23d4ea4ac4ed85e02f",
+        "0x99c39d665c353920ada681b306a927d14978a345"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0xed0aca8812fdb07373c6aedc00d177d1272855a7",
+      "exchange": "Upbit",
+      "rank": 40,
+      "depositAmountQuid": "150000",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:51:13Z",
+      "lastDepositAt": "2026-08-04T13:51:13Z",
+      "targetHotWallets": [
+        "0xee9345326f336b86c8d0529b8a1b874041f81877"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0x86be8035ace79b6235e4c4844ba2c2a3338e2702",
+      "exchange": "Upbit",
+      "rank": 41,
+      "depositAmountQuid": "146955.968958245956009375",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:51:17Z",
+      "lastDepositAt": "2026-08-04T13:51:17Z",
+      "targetHotWallets": [
+        "0xee9345326f336b86c8d0529b8a1b874041f81877"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0x66bedeb80798e67b89f5af2bf57592703d0c0ebd",
+      "exchange": "Upbit",
+      "rank": 42,
+      "depositAmountQuid": "145852.449206926055325863",
+      "depositTransferCount": 2,
+      "firstDepositAt": "2026-08-04T13:40:59Z",
+      "lastDepositAt": "2026-08-04T13:48:31Z",
+      "targetHotWallets": [
+        "0x07003d24d866a705af126a23d4ea4ac4ed85e02f",
+        "0x99c39d665c353920ada681b306a927d14978a345"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0x80f6d5ad3a840796b983f27bb1b240c54bf18965",
+      "exchange": "Upbit",
+      "rank": 43,
+      "depositAmountQuid": "143839.771822186901456477",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:48:33Z",
+      "lastDepositAt": "2026-08-04T13:48:33Z",
+      "targetHotWallets": [
+        "0x99c39d665c353920ada681b306a927d14978a345"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0x19b04a666f67999383c8d4b809fa0d2cfbcd6da1",
+      "exchange": "Upbit",
+      "rank": 44,
+      "depositAmountQuid": "137901.966944924779893352",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:48:13Z",
+      "lastDepositAt": "2026-08-04T13:48:13Z",
+      "targetHotWallets": [
+        "0x99c39d665c353920ada681b306a927d14978a345"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0x31c9b1ee6b754de0b76b32199e244600ab242f59",
+      "exchange": "Upbit",
+      "rank": 45,
+      "depositAmountQuid": "135100",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:25:41Z",
+      "lastDepositAt": "2026-08-04T13:25:41Z",
+      "targetHotWallets": [
+        "0x99c39d665c353920ada681b306a927d14978a345"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0x3d73813545c7ee068da84292f78e3ab6b660707f",
+      "exchange": "Upbit",
+      "rank": 46,
+      "depositAmountQuid": "131974.609005248468529502",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:20:17Z",
+      "lastDepositAt": "2026-08-04T13:20:17Z",
+      "targetHotWallets": [
+        "0x07003d24d866a705af126a23d4ea4ac4ed85e02f"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0x4f271cdf64ec0f612cfda2cd20091e22eeca226a",
+      "exchange": "Upbit",
+      "rank": 47,
+      "depositAmountQuid": "129439.501632162005466132",
+      "depositTransferCount": 2,
+      "firstDepositAt": "2026-08-04T13:47:57Z",
+      "lastDepositAt": "2026-08-04T14:06:39Z",
+      "targetHotWallets": [
+        "0x07003d24d866a705af126a23d4ea4ac4ed85e02f",
+        "0x99c39d665c353920ada681b306a927d14978a345"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0x74828e5393f6a1c63dcafbfc1bb3de36ca81b9be",
+      "exchange": "Upbit",
+      "rank": 48,
+      "depositAmountQuid": "121222.22222222222",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:48:05Z",
+      "lastDepositAt": "2026-08-04T13:48:05Z",
+      "targetHotWallets": [
+        "0x99c39d665c353920ada681b306a927d14978a345"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0xcef8254ac0d7b0491ca06ca5c3901e4749523a97",
+      "exchange": "Upbit",
+      "rank": 49,
+      "depositAmountQuid": "119952.949154736072781129",
+      "depositTransferCount": 2,
+      "firstDepositAt": "2026-08-04T13:51:05Z",
+      "lastDepositAt": "2026-08-04T14:06:33Z",
+      "targetHotWallets": [
+        "0x07003d24d866a705af126a23d4ea4ac4ed85e02f",
+        "0xee9345326f336b86c8d0529b8a1b874041f81877"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0x975e1a8644781c14d4b2570c270cba987d8bf4df",
+      "exchange": "Upbit",
+      "rank": 50,
+      "depositAmountQuid": "116666",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:30:33Z",
+      "lastDepositAt": "2026-08-04T13:30:33Z",
+      "targetHotWallets": [
+        "0xee9345326f336b86c8d0529b8a1b874041f81877"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0xe6a1b633adc647655d73fd514c99a16551a7e414",
+      "exchange": "Upbit",
+      "rank": 51,
+      "depositAmountQuid": "111111.1",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:30:49Z",
+      "lastDepositAt": "2026-08-04T13:30:49Z",
+      "targetHotWallets": [
+        "0xee9345326f336b86c8d0529b8a1b874041f81877"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0x605cd22b33efefa73da23ed9c25d6589ae5bed4e",
+      "exchange": "Upbit",
+      "rank": 52,
+      "depositAmountQuid": "105000",
+      "depositTransferCount": 2,
+      "firstDepositAt": "2026-08-04T13:48:29Z",
+      "lastDepositAt": "2026-08-04T13:51:19Z",
+      "targetHotWallets": [
+        "0x99c39d665c353920ada681b306a927d14978a345",
+        "0xee9345326f336b86c8d0529b8a1b874041f81877"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0x878c6ac33329b70ed181aa78085363ea6cbf6fc2",
+      "exchange": "Upbit",
+      "rank": 53,
+      "depositAmountQuid": "100011",
+      "depositTransferCount": 2,
+      "firstDepositAt": "2026-08-04T13:30:47Z",
+      "lastDepositAt": "2026-08-04T13:48:33Z",
+      "targetHotWallets": [
+        "0x99c39d665c353920ada681b306a927d14978a345",
+        "0xee9345326f336b86c8d0529b8a1b874041f81877"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0x6dcbf9a02c37d907b90f83a75b18e77b98e85735",
+      "exchange": "Upbit",
+      "rank": 54,
+      "depositAmountQuid": "100000",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:48:31Z",
+      "lastDepositAt": "2026-08-04T13:48:31Z",
+      "targetHotWallets": [
+        "0x99c39d665c353920ada681b306a927d14978a345"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0x8de95e3ea4e07f208948ebae550ec32395db00f5",
+      "exchange": "Upbit",
+      "rank": 55,
+      "depositAmountQuid": "90000",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:25:43Z",
+      "lastDepositAt": "2026-08-04T13:25:43Z",
+      "targetHotWallets": [
+        "0x99c39d665c353920ada681b306a927d14978a345"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0x6cd630e29d2bc4ac692a4143a9286a3501ed5add",
+      "exchange": "Upbit",
+      "rank": 56,
+      "depositAmountQuid": "84190.63833",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T14:06:39Z",
+      "lastDepositAt": "2026-08-04T14:06:39Z",
+      "targetHotWallets": [
+        "0x07003d24d866a705af126a23d4ea4ac4ed85e02f"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0x9487f7b408b8d1f4ad5bddd439ee2e74ef7e4364",
+      "exchange": "Upbit",
+      "rank": 57,
+      "depositAmountQuid": "82801.733801700274972871",
+      "depositTransferCount": 2,
+      "firstDepositAt": "2026-08-04T13:48:35Z",
+      "lastDepositAt": "2026-08-04T14:06:31Z",
+      "targetHotWallets": [
+        "0x07003d24d866a705af126a23d4ea4ac4ed85e02f",
+        "0x99c39d665c353920ada681b306a927d14978a345"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0xc2a275fd99e054158d0c0bcba0539ece489ca1a5",
+      "exchange": "Upbit",
+      "rank": 58,
+      "depositAmountQuid": "82040.851892779975244588",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:51:01Z",
+      "lastDepositAt": "2026-08-04T13:51:01Z",
+      "targetHotWallets": [
+        "0xee9345326f336b86c8d0529b8a1b874041f81877"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0x9a7de3f135c4704e7745c197c206c1297ea3558c",
+      "exchange": "Upbit",
+      "rank": 59,
+      "depositAmountQuid": "81062",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:48:37Z",
+      "lastDepositAt": "2026-08-04T13:48:37Z",
+      "targetHotWallets": [
+        "0x99c39d665c353920ada681b306a927d14978a345"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0x7fa700beb918306743e780db727713029bbe6f97",
+      "exchange": "Upbit",
+      "rank": 60,
+      "depositAmountQuid": "80358.850295317660337183",
+      "depositTransferCount": 2,
+      "firstDepositAt": "2026-08-04T13:48:33Z",
+      "lastDepositAt": "2026-08-04T13:51:05Z",
+      "targetHotWallets": [
+        "0x99c39d665c353920ada681b306a927d14978a345",
+        "0xee9345326f336b86c8d0529b8a1b874041f81877"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0x21d2529e8881db085328b74e5a8ef45c4da62b40",
+      "exchange": "Upbit",
+      "rank": 61,
+      "depositAmountQuid": "80000",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:48:17Z",
+      "lastDepositAt": "2026-08-04T13:48:17Z",
+      "targetHotWallets": [
+        "0x99c39d665c353920ada681b306a927d14978a345"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0x361364e89bbd3bcf851b818dc3c8bf963ef108f0",
+      "exchange": "Upbit",
+      "rank": 62,
+      "depositAmountQuid": "80000",
+      "depositTransferCount": 2,
+      "firstDepositAt": "2026-08-04T13:35:47Z",
+      "lastDepositAt": "2026-08-04T13:48:21Z",
+      "targetHotWallets": [
+        "0x07003d24d866a705af126a23d4ea4ac4ed85e02f",
+        "0x99c39d665c353920ada681b306a927d14978a345"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0x4fc0dcea6f90ad985639a752331b082aeaab1ce1",
+      "exchange": "Upbit",
+      "rank": 63,
+      "depositAmountQuid": "77777.777777777777777777",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:20:27Z",
+      "lastDepositAt": "2026-08-04T13:20:27Z",
+      "targetHotWallets": [
+        "0x07003d24d866a705af126a23d4ea4ac4ed85e02f"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0x433052613de25d7d4a5bcdd8e22d8474ef23259c",
+      "exchange": "Upbit",
+      "rank": 64,
+      "depositAmountQuid": "77378.544718401986111023",
+      "depositTransferCount": 2,
+      "firstDepositAt": "2026-08-04T13:48:25Z",
+      "lastDepositAt": "2026-08-04T13:50:57Z",
+      "targetHotWallets": [
+        "0x99c39d665c353920ada681b306a927d14978a345",
+        "0xee9345326f336b86c8d0529b8a1b874041f81877"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0xf42e52884cc828514cbe35684efdd816c2f878b1",
+      "exchange": "Upbit",
+      "rank": 65,
+      "depositAmountQuid": "74611.853608886434663493",
+      "depositTransferCount": 2,
+      "firstDepositAt": "2026-08-04T13:50:53Z",
+      "lastDepositAt": "2026-08-04T13:51:13Z",
+      "targetHotWallets": [
+        "0xee9345326f336b86c8d0529b8a1b874041f81877"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0x53f833ef50c7d3faada43ec2cfc476ea39461691",
+      "exchange": "Upbit",
+      "rank": 66,
+      "depositAmountQuid": "74208.509710234885524531",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:48:27Z",
+      "lastDepositAt": "2026-08-04T13:48:27Z",
+      "targetHotWallets": [
+        "0x99c39d665c353920ada681b306a927d14978a345"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0x4a87098f142ec4bf5c4ca30d89478fc74cce9f3d",
+      "exchange": "Upbit",
+      "rank": 67,
+      "depositAmountQuid": "72330.150263950422901303",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:48:27Z",
+      "lastDepositAt": "2026-08-04T13:48:27Z",
+      "targetHotWallets": [
+        "0x99c39d665c353920ada681b306a927d14978a345"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0x2a4a71c97b7c01d9e5df982b9e79354db8bdd18e",
+      "exchange": "Upbit",
+      "rank": 68,
+      "depositAmountQuid": "70100",
+      "depositTransferCount": 2,
+      "firstDepositAt": "2026-08-04T13:25:41Z",
+      "lastDepositAt": "2026-08-04T13:48:19Z",
+      "targetHotWallets": [
+        "0x99c39d665c353920ada681b306a927d14978a345"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0x36546541fd6b09ea180f0edec52e58adf5378741",
+      "exchange": "Upbit",
+      "rank": 69,
+      "depositAmountQuid": "66800.184748521400642217",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:48:23Z",
+      "lastDepositAt": "2026-08-04T13:48:23Z",
+      "targetHotWallets": [
+        "0x99c39d665c353920ada681b306a927d14978a345"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0x1e40b94d026a58f23fdbc20b8354c816bdd3dac9",
+      "exchange": "Upbit",
+      "rank": 70,
+      "depositAmountQuid": "66666.666666666666666666",
+      "depositTransferCount": 2,
+      "firstDepositAt": "2026-08-04T13:20:15Z",
+      "lastDepositAt": "2026-08-04T13:35:47Z",
+      "targetHotWallets": [
+        "0x07003d24d866a705af126a23d4ea4ac4ed85e02f"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0x2b6c539135519f4b9520a0ee91a47d86f443565a",
+      "exchange": "Upbit",
+      "rank": 71,
+      "depositAmountQuid": "66666.66666",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:25:51Z",
+      "lastDepositAt": "2026-08-04T13:25:51Z",
+      "targetHotWallets": [
+        "0x99c39d665c353920ada681b306a927d14978a345"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0xf5332cf17a6d5b92c8b024c620a89f97940ebac7",
+      "exchange": "Upbit",
+      "rank": 72,
+      "depositAmountQuid": "66666.66",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:51:17Z",
+      "lastDepositAt": "2026-08-04T13:51:17Z",
+      "targetHotWallets": [
+        "0xee9345326f336b86c8d0529b8a1b874041f81877"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0xf13496ae45fd5255a31ec2d16744f718139f41fc",
+      "exchange": "Upbit",
+      "rank": 73,
+      "depositAmountQuid": "66374.606285",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T14:06:37Z",
+      "lastDepositAt": "2026-08-04T14:06:37Z",
+      "targetHotWallets": [
+        "0x07003d24d866a705af126a23d4ea4ac4ed85e02f"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0x846b0a320c3397f2880b59095c4b4ae5085cdbd4",
+      "exchange": "Upbit",
+      "rank": 74,
+      "depositAmountQuid": "65555.666666666666666666",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:35:31Z",
+      "lastDepositAt": "2026-08-04T13:35:31Z",
+      "targetHotWallets": [
+        "0x07003d24d866a705af126a23d4ea4ac4ed85e02f"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0x2659ab99ab1aeb782081c6021479f64ba8f1dec5",
+      "exchange": "Upbit",
+      "rank": 75,
+      "depositAmountQuid": "65183.989404287103709832",
+      "depositTransferCount": 2,
+      "firstDepositAt": "2026-08-04T13:35:29Z",
+      "lastDepositAt": "2026-08-04T14:06:43Z",
+      "targetHotWallets": [
+        "0x07003d24d866a705af126a23d4ea4ac4ed85e02f"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0x3e96e5cb37c153ed8aac45dc0cdb8a91f4341906",
+      "exchange": "Upbit",
+      "rank": 76,
+      "depositAmountQuid": "64427.524481739668026142",
+      "depositTransferCount": 4,
+      "firstDepositAt": "2026-08-04T13:30:53Z",
+      "lastDepositAt": "2026-08-04T13:51:15Z",
+      "targetHotWallets": [
+        "0x07003d24d866a705af126a23d4ea4ac4ed85e02f",
+        "0x99c39d665c353920ada681b306a927d14978a345",
+        "0xee9345326f336b86c8d0529b8a1b874041f81877"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0x4137e8670e141d2dc4da94b3dbad8ea5de4a1cfb",
+      "exchange": "Upbit",
+      "rank": 77,
+      "depositAmountQuid": "63013.686555418785395605",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:48:25Z",
+      "lastDepositAt": "2026-08-04T13:48:25Z",
+      "targetHotWallets": [
+        "0x99c39d665c353920ada681b306a927d14978a345"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0x22bb540af3474fbe91ce27b38b3ba1777e684f64",
+      "exchange": "Upbit",
+      "rank": 78,
+      "depositAmountQuid": "59232.115155060997462334",
+      "depositTransferCount": 2,
+      "firstDepositAt": "2026-08-04T13:48:17Z",
+      "lastDepositAt": "2026-08-04T13:51:15Z",
+      "targetHotWallets": [
+        "0x99c39d665c353920ada681b306a927d14978a345",
+        "0xee9345326f336b86c8d0529b8a1b874041f81877"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0x7a06dcd9177a6b789449137e07c7089397e3cba1",
+      "exchange": "Upbit",
+      "rank": 79,
+      "depositAmountQuid": "57281.986439450795095118",
+      "depositTransferCount": 2,
+      "firstDepositAt": "2026-08-04T13:20:29Z",
+      "lastDepositAt": "2026-08-04T13:48:33Z",
+      "targetHotWallets": [
+        "0x07003d24d866a705af126a23d4ea4ac4ed85e02f",
+        "0x99c39d665c353920ada681b306a927d14978a345"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0x4bb60d0b8efdfb4e4c90a3f9ea39f5175a98a533",
+      "exchange": "Upbit",
+      "rank": 80,
+      "depositAmountQuid": "56191.555583829853570314",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:48:27Z",
+      "lastDepositAt": "2026-08-04T13:48:27Z",
+      "targetHotWallets": [
+        "0x99c39d665c353920ada681b306a927d14978a345"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0xf047829979ea207dfac88d9ebb3de4b5baacecdd",
+      "exchange": "Upbit",
+      "rank": 81,
+      "depositAmountQuid": "55561.055",
+      "depositTransferCount": 2,
+      "firstDepositAt": "2026-08-04T13:20:31Z",
+      "lastDepositAt": "2026-08-04T13:30:51Z",
+      "targetHotWallets": [
+        "0x07003d24d866a705af126a23d4ea4ac4ed85e02f",
+        "0xee9345326f336b86c8d0529b8a1b874041f81877"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0xe2ea1951283821cc2784e5a57d50e39cfe30dfa3",
+      "exchange": "Upbit",
+      "rank": 82,
+      "depositAmountQuid": "55555.555555555555555555",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:35:43Z",
+      "lastDepositAt": "2026-08-04T13:35:43Z",
+      "targetHotWallets": [
+        "0x07003d24d866a705af126a23d4ea4ac4ed85e02f"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0x0be3864c30a54610ca3bcd4b036707b22195df00",
+      "exchange": "Upbit",
+      "rank": 83,
+      "depositAmountQuid": "55555",
+      "depositTransferCount": 2,
+      "firstDepositAt": "2026-08-04T13:30:53Z",
+      "lastDepositAt": "2026-08-04T13:35:49Z",
+      "targetHotWallets": [
+        "0x07003d24d866a705af126a23d4ea4ac4ed85e02f",
+        "0xee9345326f336b86c8d0529b8a1b874041f81877"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0x110431d2e294a2a095ca1f86ddf1668ff4f15ece",
+      "exchange": "Upbit",
+      "rank": 84,
+      "depositAmountQuid": "55444",
+      "depositTransferCount": 3,
+      "firstDepositAt": "2026-08-04T13:30:53Z",
+      "lastDepositAt": "2026-08-04T14:06:37Z",
+      "targetHotWallets": [
+        "0x07003d24d866a705af126a23d4ea4ac4ed85e02f",
+        "0xee9345326f336b86c8d0529b8a1b874041f81877"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0x4142fe6dc8fd9a0d0d15d48a04947bb5e01b5cb4",
+      "exchange": "Upbit",
+      "rank": 85,
+      "depositAmountQuid": "52283.779504699010232822",
+      "depositTransferCount": 2,
+      "firstDepositAt": "2026-08-04T13:48:25Z",
+      "lastDepositAt": "2026-08-04T13:50:57Z",
+      "targetHotWallets": [
+        "0x99c39d665c353920ada681b306a927d14978a345",
+        "0xee9345326f336b86c8d0529b8a1b874041f81877"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0x4e85b55ea1536f0f3ab7a7473dd5a43ffc77587c",
+      "exchange": "Upbit",
+      "rank": 86,
+      "depositAmountQuid": "51566.520730033350551678",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T14:06:41Z",
+      "lastDepositAt": "2026-08-04T14:06:41Z",
+      "targetHotWallets": [
+        "0x07003d24d866a705af126a23d4ea4ac4ed85e02f"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0x5985804d6795ed9653a22a4f9c30e3d33e767c11",
+      "exchange": "Upbit",
+      "rank": 87,
+      "depositAmountQuid": "50000.393058719656006063",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:48:29Z",
+      "lastDepositAt": "2026-08-04T13:48:29Z",
+      "targetHotWallets": [
+        "0x99c39d665c353920ada681b306a927d14978a345"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0x2bcd5ba24b1cf57a846d287acab3f601aceafddf",
+      "exchange": "Upbit",
+      "rank": 88,
+      "depositAmountQuid": "50000",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:48:03Z",
+      "lastDepositAt": "2026-08-04T13:48:03Z",
+      "targetHotWallets": [
+        "0x99c39d665c353920ada681b306a927d14978a345"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0x6c9dc7a7f7d93e93d9229c2de3f4c55d6ff6ad82",
+      "exchange": "Upbit",
+      "rank": 89,
+      "depositAmountQuid": "50000",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:31:01Z",
+      "lastDepositAt": "2026-08-04T13:31:01Z",
+      "targetHotWallets": [
+        "0xee9345326f336b86c8d0529b8a1b874041f81877"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0xd3cc470b31ba849f1b0df862ea4d0ac8921f9c3f",
+      "exchange": "Upbit",
+      "rank": 90,
+      "depositAmountQuid": "46294.553143374563469582",
+      "depositTransferCount": 2,
+      "firstDepositAt": "2026-08-04T13:51:07Z",
+      "lastDepositAt": "2026-08-04T14:06:29Z",
+      "targetHotWallets": [
+        "0x07003d24d866a705af126a23d4ea4ac4ed85e02f",
+        "0xee9345326f336b86c8d0529b8a1b874041f81877"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0xd3c683feebdc85809f4b6644d4194b0e6cfa8962",
+      "exchange": "Upbit",
+      "rank": 91,
+      "depositAmountQuid": "45374.998891210477251269",
+      "depositTransferCount": 3,
+      "firstDepositAt": "2026-08-04T13:25:47Z",
+      "lastDepositAt": "2026-08-04T13:48:07Z",
+      "targetHotWallets": [
+        "0x99c39d665c353920ada681b306a927d14978a345",
+        "0xee9345326f336b86c8d0529b8a1b874041f81877"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0xda78b36288ad896f0faa8617eb0adaa674497ac9",
+      "exchange": "Upbit",
+      "rank": 92,
+      "depositAmountQuid": "44444",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:51:01Z",
+      "lastDepositAt": "2026-08-04T13:51:01Z",
+      "targetHotWallets": [
+        "0xee9345326f336b86c8d0529b8a1b874041f81877"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0xbbf0847d3eb880c08461ae9ced67731c4a041e51",
+      "exchange": "Upbit",
+      "rank": 93,
+      "depositAmountQuid": "44079.528914143776664083",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:51:01Z",
+      "lastDepositAt": "2026-08-04T13:51:01Z",
+      "targetHotWallets": [
+        "0xee9345326f336b86c8d0529b8a1b874041f81877"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0x3a7d7da592fa55c9f5f666e228a9927575495b0e",
+      "exchange": "Upbit",
+      "rank": 94,
+      "depositAmountQuid": "43000",
+      "depositTransferCount": 2,
+      "firstDepositAt": "2026-08-04T13:48:23Z",
+      "lastDepositAt": "2026-08-04T13:51:15Z",
+      "targetHotWallets": [
+        "0x99c39d665c353920ada681b306a927d14978a345",
+        "0xee9345326f336b86c8d0529b8a1b874041f81877"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0x0752b0d325443e1fdeec4c4127d33a9e79660186",
+      "exchange": "Upbit",
+      "rank": 95,
+      "depositAmountQuid": "42160.386516460314261855",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:48:09Z",
+      "lastDepositAt": "2026-08-04T13:48:09Z",
+      "targetHotWallets": [
+        "0x99c39d665c353920ada681b306a927d14978a345"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0x798b811f06ca4036b5c43e29e17ee7c20ac7b2ab",
+      "exchange": "Upbit",
+      "rank": 96,
+      "depositAmountQuid": "41843.887395",
+      "depositTransferCount": 4,
+      "firstDepositAt": "2026-08-04T13:35:31Z",
+      "lastDepositAt": "2026-08-04T13:51:21Z",
+      "targetHotWallets": [
+        "0x07003d24d866a705af126a23d4ea4ac4ed85e02f",
+        "0x99c39d665c353920ada681b306a927d14978a345",
+        "0xee9345326f336b86c8d0529b8a1b874041f81877"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0x12437ab88b35d8b402a64b4aa60cd2039306135a",
+      "exchange": "Upbit",
+      "rank": 97,
+      "depositAmountQuid": "40000",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:48:11Z",
+      "lastDepositAt": "2026-08-04T13:48:11Z",
+      "targetHotWallets": [
+        "0x99c39d665c353920ada681b306a927d14978a345"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0xe8fac943663b1ac02537040111c430b179c5d928",
+      "exchange": "Upbit",
+      "rank": 98,
+      "depositAmountQuid": "40000",
+      "depositTransferCount": 2,
+      "firstDepositAt": "2026-08-04T13:30:51Z",
+      "lastDepositAt": "2026-08-04T13:40:43Z",
+      "targetHotWallets": [
+        "0x07003d24d866a705af126a23d4ea4ac4ed85e02f",
+        "0xee9345326f336b86c8d0529b8a1b874041f81877"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0x412f1212b75ffa0ee2e01c14fa693dffec00de69",
+      "exchange": "Upbit",
+      "rank": 99,
+      "depositAmountQuid": "39309.824415",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T14:06:41Z",
+      "lastDepositAt": "2026-08-04T14:06:41Z",
+      "targetHotWallets": [
+        "0x07003d24d866a705af126a23d4ea4ac4ed85e02f"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0xbf2aae8f45355d78719f0b8df70430722b85888c",
+      "exchange": "Upbit",
+      "rank": 100,
+      "depositAmountQuid": "38888.888888888888888888",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:20:31Z",
+      "lastDepositAt": "2026-08-04T13:20:31Z",
+      "targetHotWallets": [
+        "0x07003d24d866a705af126a23d4ea4ac4ed85e02f"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0xc5529788a27ba60d4a6277ba086b8dedaa7b06f7",
+      "exchange": "Upbit",
+      "rank": 101,
+      "depositAmountQuid": "38577.881609193208466684",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:50:59Z",
+      "lastDepositAt": "2026-08-04T13:50:59Z",
+      "targetHotWallets": [
+        "0xee9345326f336b86c8d0529b8a1b874041f81877"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0xd48dffdcdce670e7cddaf91ee95bc6c23e26b477",
+      "exchange": "Upbit",
+      "rank": 102,
+      "depositAmountQuid": "37000",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:51:07Z",
+      "lastDepositAt": "2026-08-04T13:51:07Z",
+      "targetHotWallets": [
+        "0xee9345326f336b86c8d0529b8a1b874041f81877"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0x7357b139e17c12942e6217214762b23d523e55b9",
+      "exchange": "Upbit",
+      "rank": 103,
+      "depositAmountQuid": "36862.119128342863946025",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:48:31Z",
+      "lastDepositAt": "2026-08-04T13:48:31Z",
+      "targetHotWallets": [
+        "0x99c39d665c353920ada681b306a927d14978a345"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0x253c3a9cbb5cb7e8a65671861563c172da17e17d",
+      "exchange": "Upbit",
+      "rank": 104,
+      "depositAmountQuid": "35680.102165704162330987",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:51:15Z",
+      "lastDepositAt": "2026-08-04T13:51:15Z",
+      "targetHotWallets": [
+        "0xee9345326f336b86c8d0529b8a1b874041f81877"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0xa6e50edac35a0cfb73464256ffb943fa93925090",
+      "exchange": "Upbit",
+      "rank": 105,
+      "depositAmountQuid": "33893.013463077716818247",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:51:25Z",
+      "lastDepositAt": "2026-08-04T13:51:25Z",
+      "targetHotWallets": [
+        "0xee9345326f336b86c8d0529b8a1b874041f81877"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0xfaf0b0b0a1c39b6199a1110b6d83b2fdf2576908",
+      "exchange": "Upbit",
+      "rank": 106,
+      "depositAmountQuid": "31874.492086700623835215",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:40:51Z",
+      "lastDepositAt": "2026-08-04T13:40:51Z",
+      "targetHotWallets": [
+        "0x07003d24d866a705af126a23d4ea4ac4ed85e02f"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0x9a791fcfb2f13a0f7a5a38bb9a64609f47d2143d",
+      "exchange": "Upbit",
+      "rank": 107,
+      "depositAmountQuid": "31568.319693308314059641",
+      "depositTransferCount": 2,
+      "firstDepositAt": "2026-08-04T13:48:37Z",
+      "lastDepositAt": "2026-08-04T13:51:17Z",
+      "targetHotWallets": [
+        "0x99c39d665c353920ada681b306a927d14978a345",
+        "0xee9345326f336b86c8d0529b8a1b874041f81877"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0x8e333b9b25fd3585fcb5512c631e839ae3935af9",
+      "exchange": "Upbit",
+      "rank": 108,
+      "depositAmountQuid": "31271.247898727930772162",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:48:35Z",
+      "lastDepositAt": "2026-08-04T13:48:35Z",
+      "targetHotWallets": [
+        "0x99c39d665c353920ada681b306a927d14978a345"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0xd970b48d987347b2b6a656901ecba3a0bce0afde",
+      "exchange": "Upbit",
+      "rank": 109,
+      "depositAmountQuid": "31199.16022983825518293",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:51:09Z",
+      "lastDepositAt": "2026-08-04T13:51:09Z",
+      "targetHotWallets": [
+        "0xee9345326f336b86c8d0529b8a1b874041f81877"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0x6635bac378b130203d5298dbf563e6a75d4ad421",
+      "exchange": "Upbit",
+      "rank": 110,
+      "depositAmountQuid": "30555.555555555555555555",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:35:43Z",
+      "lastDepositAt": "2026-08-04T13:35:43Z",
+      "targetHotWallets": [
+        "0x07003d24d866a705af126a23d4ea4ac4ed85e02f"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0x621de5279b480cd1be06a08780b16f73f7069cc1",
+      "exchange": "Upbit",
+      "rank": 111,
+      "depositAmountQuid": "30331",
+      "depositTransferCount": 2,
+      "firstDepositAt": "2026-08-04T13:40:51Z",
+      "lastDepositAt": "2026-08-04T13:48:31Z",
+      "targetHotWallets": [
+        "0x07003d24d866a705af126a23d4ea4ac4ed85e02f",
+        "0x99c39d665c353920ada681b306a927d14978a345"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0x29e5876da4f97ae6271907dd65218ded83462f41",
+      "exchange": "Upbit",
+      "rank": 112,
+      "depositAmountQuid": "30000",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:40:55Z",
+      "lastDepositAt": "2026-08-04T13:40:55Z",
+      "targetHotWallets": [
+        "0x07003d24d866a705af126a23d4ea4ac4ed85e02f"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0x4438632d982a69dce802a27be579eedd503f07e3",
+      "exchange": "Upbit",
+      "rank": 113,
+      "depositAmountQuid": "30000",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:48:25Z",
+      "lastDepositAt": "2026-08-04T13:48:25Z",
+      "targetHotWallets": [
+        "0x99c39d665c353920ada681b306a927d14978a345"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0xc1e92e7167135e9760ae967be423fe983e919343",
+      "exchange": "Upbit",
+      "rank": 114,
+      "depositAmountQuid": "26041.160935597704785621",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:50:57Z",
+      "lastDepositAt": "2026-08-04T13:50:57Z",
+      "targetHotWallets": [
+        "0xee9345326f336b86c8d0529b8a1b874041f81877"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0x9c307f615997dd0b52302078192c5dba2cac6bdc",
+      "exchange": "Upbit",
+      "rank": 115,
+      "depositAmountQuid": "24842",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:40:39Z",
+      "lastDepositAt": "2026-08-04T13:40:39Z",
+      "targetHotWallets": [
+        "0x07003d24d866a705af126a23d4ea4ac4ed85e02f"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0x0ffd80f171eef787e021408d0d34ad95cffadaef",
+      "exchange": "Upbit",
+      "rank": 116,
+      "depositAmountQuid": "24297.9371402477318326",
+      "depositTransferCount": 2,
+      "firstDepositAt": "2026-08-04T13:48:01Z",
+      "lastDepositAt": "2026-08-04T13:50:59Z",
+      "targetHotWallets": [
+        "0x99c39d665c353920ada681b306a927d14978a345",
+        "0xee9345326f336b86c8d0529b8a1b874041f81877"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0x96e1efa22c080ddb9b03788e774c148efaa0436d",
+      "exchange": "Upbit",
+      "rank": 117,
+      "depositAmountQuid": "24006.588313246665495897",
+      "depositTransferCount": 2,
+      "firstDepositAt": "2026-08-04T13:47:59Z",
+      "lastDepositAt": "2026-08-04T13:50:53Z",
+      "targetHotWallets": [
+        "0x99c39d665c353920ada681b306a927d14978a345",
+        "0xee9345326f336b86c8d0529b8a1b874041f81877"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0x135c0ed04f655ee4d78cd0cf00f7752747fb80d9",
+      "exchange": "Upbit",
+      "rank": 118,
+      "depositAmountQuid": "23584.68941288062760508",
+      "depositTransferCount": 2,
+      "firstDepositAt": "2026-08-04T13:48:01Z",
+      "lastDepositAt": "2026-08-04T13:51:13Z",
+      "targetHotWallets": [
+        "0x99c39d665c353920ada681b306a927d14978a345",
+        "0xee9345326f336b86c8d0529b8a1b874041f81877"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0xc740b50819fdaae9647b367119518f5f69f5976c",
+      "exchange": "Upbit",
+      "rank": 119,
+      "depositAmountQuid": "23432.40024740046850019",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:51:01Z",
+      "lastDepositAt": "2026-08-04T13:51:01Z",
+      "targetHotWallets": [
+        "0xee9345326f336b86c8d0529b8a1b874041f81877"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0x40b266e573c96b4bfec009cf2a6c967c169bc664",
+      "exchange": "Upbit",
+      "rank": 120,
+      "depositAmountQuid": "23408.262169300262263331",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:25:51Z",
+      "lastDepositAt": "2026-08-04T13:25:51Z",
+      "targetHotWallets": [
+        "0x99c39d665c353920ada681b306a927d14978a345"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0x3aa1b446a65d24b41646f68c23ef59c2c8d68185",
+      "exchange": "Upbit",
+      "rank": 121,
+      "depositAmountQuid": "23000",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:40:57Z",
+      "lastDepositAt": "2026-08-04T13:40:57Z",
+      "targetHotWallets": [
+        "0x07003d24d866a705af126a23d4ea4ac4ed85e02f"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0xba7ddfb864d7f0f63a803bf7a0808902c0ce445e",
+      "exchange": "Upbit",
+      "rank": 122,
+      "depositAmountQuid": "22879.819552143277581384",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:35:39Z",
+      "lastDepositAt": "2026-08-04T13:35:39Z",
+      "targetHotWallets": [
+        "0x07003d24d866a705af126a23d4ea4ac4ed85e02f"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0x67af8baf008e3dd26d08fdf90b608cd6e7f7a333",
+      "exchange": "Upbit",
+      "rank": 123,
+      "depositAmountQuid": "22715.496260375077067422",
+      "depositTransferCount": 2,
+      "firstDepositAt": "2026-08-04T13:47:59Z",
+      "lastDepositAt": "2026-08-04T13:50:55Z",
+      "targetHotWallets": [
+        "0x99c39d665c353920ada681b306a927d14978a345",
+        "0xee9345326f336b86c8d0529b8a1b874041f81877"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0x33bb1a6f80cb94852c6a6aa7de50dbf19e841ba0",
+      "exchange": "Upbit",
+      "rank": 124,
+      "depositAmountQuid": "22223",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:48:21Z",
+      "lastDepositAt": "2026-08-04T13:48:21Z",
+      "targetHotWallets": [
+        "0x99c39d665c353920ada681b306a927d14978a345"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0xa1e02a70fad04578f3ef4dfdcf69dcffb51d1cc9",
+      "exchange": "Upbit",
+      "rank": 125,
+      "depositAmountQuid": "22222.222224444444444444",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:40:51Z",
+      "lastDepositAt": "2026-08-04T13:40:51Z",
+      "targetHotWallets": [
+        "0x07003d24d866a705af126a23d4ea4ac4ed85e02f"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0x4481770d1c8d4b9cad3835b8c506df234e537a0c",
+      "exchange": "Upbit",
+      "rank": 126,
+      "depositAmountQuid": "22222.222222222222222222",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:30:59Z",
+      "lastDepositAt": "2026-08-04T13:30:59Z",
+      "targetHotWallets": [
+        "0xee9345326f336b86c8d0529b8a1b874041f81877"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0x7602bec8bcde3f9f14eae675aed83ff80ef47c87",
+      "exchange": "Upbit",
+      "rank": 127,
+      "depositAmountQuid": "22222.222222222222222222",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:31:01Z",
+      "lastDepositAt": "2026-08-04T13:31:01Z",
+      "targetHotWallets": [
+        "0xee9345326f336b86c8d0529b8a1b874041f81877"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0x78927c0a5c63af14a70af54b630b354a8a598f28",
+      "exchange": "Upbit",
+      "rank": 128,
+      "depositAmountQuid": "22222.222222222222222222",
+      "depositTransferCount": 2,
+      "firstDepositAt": "2026-08-04T13:40:59Z",
+      "lastDepositAt": "2026-08-04T13:47:55Z",
+      "targetHotWallets": [
+        "0x07003d24d866a705af126a23d4ea4ac4ed85e02f",
+        "0x99c39d665c353920ada681b306a927d14978a345"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0xc63f4e662b022ea644913a8df03fac3fdf049371",
+      "exchange": "Upbit",
+      "rank": 129,
+      "depositAmountQuid": "22222.222222222222222222",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:25:45Z",
+      "lastDepositAt": "2026-08-04T13:25:45Z",
+      "targetHotWallets": [
+        "0x99c39d665c353920ada681b306a927d14978a345"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0x6cc7a484def3272506e11f97d26e9e834c0b9e7b",
+      "exchange": "Upbit",
+      "rank": 130,
+      "depositAmountQuid": "22216.610935383840252401",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:48:31Z",
+      "lastDepositAt": "2026-08-04T13:48:31Z",
+      "targetHotWallets": [
+        "0x99c39d665c353920ada681b306a927d14978a345"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0x873c96075ba7dc8e7c49e353e8163d70554cd52a",
+      "exchange": "Upbit",
+      "rank": 131,
+      "depositAmountQuid": "21955.064338794561486031",
+      "depositTransferCount": 3,
+      "firstDepositAt": "2026-08-04T13:31:01Z",
+      "lastDepositAt": "2026-08-04T14:06:29Z",
+      "targetHotWallets": [
+        "0x07003d24d866a705af126a23d4ea4ac4ed85e02f",
+        "0xee9345326f336b86c8d0529b8a1b874041f81877"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0x89163568eeaa81131b10f346b07f0a887790a847",
+      "exchange": "Upbit",
+      "rank": 132,
+      "depositAmountQuid": "21142",
+      "depositTransferCount": 2,
+      "firstDepositAt": "2026-08-04T13:41:01Z",
+      "lastDepositAt": "2026-08-04T13:47:57Z",
+      "targetHotWallets": [
+        "0x07003d24d866a705af126a23d4ea4ac4ed85e02f",
+        "0x99c39d665c353920ada681b306a927d14978a345"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0x01e44e461b721c2cb3f9239362b27963980ca9ca",
+      "exchange": "Upbit",
+      "rank": 133,
+      "depositAmountQuid": "21125.194222184827638591",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:40:57Z",
+      "lastDepositAt": "2026-08-04T13:40:57Z",
+      "targetHotWallets": [
+        "0x07003d24d866a705af126a23d4ea4ac4ed85e02f"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0x5188931b25b82787d8e33c9a1eeff93b50a2c7f8",
+      "exchange": "Upbit",
+      "rank": 134,
+      "depositAmountQuid": "20988.511604366044618829",
+      "depositTransferCount": 2,
+      "firstDepositAt": "2026-08-04T13:25:17Z",
+      "lastDepositAt": "2026-08-04T13:25:49Z",
+      "targetHotWallets": [
+        "0x07003d24d866a705af126a23d4ea4ac4ed85e02f",
+        "0x99c39d665c353920ada681b306a927d14978a345"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0x146fe55dfa2530bed676856dcb3d67a197372020",
+      "exchange": "Upbit",
+      "rank": 135,
+      "depositAmountQuid": "20522",
+      "depositTransferCount": 2,
+      "firstDepositAt": "2026-08-04T13:30:55Z",
+      "lastDepositAt": "2026-08-04T13:40:51Z",
+      "targetHotWallets": [
+        "0x07003d24d866a705af126a23d4ea4ac4ed85e02f",
+        "0xee9345326f336b86c8d0529b8a1b874041f81877"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0x5951f3f3691b17aa5f8329fb696bd5a44875c2b6",
+      "exchange": "Upbit",
+      "rank": 136,
+      "depositAmountQuid": "19635.731889287218429917",
+      "depositTransferCount": 2,
+      "firstDepositAt": "2026-08-04T13:35:45Z",
+      "lastDepositAt": "2026-08-04T13:48:27Z",
+      "targetHotWallets": [
+        "0x07003d24d866a705af126a23d4ea4ac4ed85e02f",
+        "0x99c39d665c353920ada681b306a927d14978a345"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0xe394e50f2f1f511c013adde9e9568e8de5d9de59",
+      "exchange": "Upbit",
+      "rank": 137,
+      "depositAmountQuid": "18536.97221",
+      "depositTransferCount": 2,
+      "firstDepositAt": "2026-08-04T13:40:45Z",
+      "lastDepositAt": "2026-08-04T13:48:09Z",
+      "targetHotWallets": [
+        "0x07003d24d866a705af126a23d4ea4ac4ed85e02f",
+        "0x99c39d665c353920ada681b306a927d14978a345"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0xbaa7b56d13d75ff2d686031e0961c00495551ce3",
+      "exchange": "Upbit",
+      "rank": 138,
+      "depositAmountQuid": "18333.333333333330666666",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:51:21Z",
+      "lastDepositAt": "2026-08-04T13:51:21Z",
+      "targetHotWallets": [
+        "0xee9345326f336b86c8d0529b8a1b874041f81877"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0xa457f943449463e0fb2945ea8f7aa5a5f195133f",
+      "exchange": "Upbit",
+      "rank": 139,
+      "depositAmountQuid": "18000",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:35:39Z",
+      "lastDepositAt": "2026-08-04T13:35:39Z",
+      "targetHotWallets": [
+        "0x07003d24d866a705af126a23d4ea4ac4ed85e02f"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0x6ecb08e553cf63b40675351163aab0b5439d8619",
+      "exchange": "Upbit",
+      "rank": 140,
+      "depositAmountQuid": "17777.777777777777777778",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T14:06:39Z",
+      "lastDepositAt": "2026-08-04T14:06:39Z",
+      "targetHotWallets": [
+        "0x07003d24d866a705af126a23d4ea4ac4ed85e02f"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0xf0ea0c0eecacf85287409b6b998ce8ac53003f6b",
+      "exchange": "Upbit",
+      "rank": 141,
+      "depositAmountQuid": "17651.975135809488475463",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:47:55Z",
+      "lastDepositAt": "2026-08-04T13:47:55Z",
+      "targetHotWallets": [
+        "0x99c39d665c353920ada681b306a927d14978a345"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0xa0e1c3c8e23a557c80ca825f1a81e2c437bc0c16",
+      "exchange": "Upbit",
+      "rank": 142,
+      "depositAmountQuid": "17627.688504722594577518",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:51:17Z",
+      "lastDepositAt": "2026-08-04T13:51:17Z",
+      "targetHotWallets": [
+        "0xee9345326f336b86c8d0529b8a1b874041f81877"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0x6f8903c7bae8fd4435a36ce3d48bcbb7937982e6",
+      "exchange": "Upbit",
+      "rank": 143,
+      "depositAmountQuid": "17201.854077756271369448",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T14:06:39Z",
+      "lastDepositAt": "2026-08-04T14:06:39Z",
+      "targetHotWallets": [
+        "0x07003d24d866a705af126a23d4ea4ac4ed85e02f"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0x389a468631fcd98e7648ca703f4ef9e1de382f41",
+      "exchange": "Upbit",
+      "rank": 144,
+      "depositAmountQuid": "16741.906744028190544056",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:35:47Z",
+      "lastDepositAt": "2026-08-04T13:35:47Z",
+      "targetHotWallets": [
+        "0x07003d24d866a705af126a23d4ea4ac4ed85e02f"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0xca8ef37dbefcc7513b099a12eabcbe49770af6f8",
+      "exchange": "Upbit",
+      "rank": 145,
+      "depositAmountQuid": "16668.666666666666666666",
+      "depositTransferCount": 2,
+      "firstDepositAt": "2026-08-04T13:25:45Z",
+      "lastDepositAt": "2026-08-04T13:30:45Z",
+      "targetHotWallets": [
+        "0x99c39d665c353920ada681b306a927d14978a345",
+        "0xee9345326f336b86c8d0529b8a1b874041f81877"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0xfe87909462d1f5cf9d91375aa52b6e3151aec311",
+      "exchange": "Upbit",
+      "rank": 146,
+      "depositAmountQuid": "16597.726036862454660266",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:30:51Z",
+      "lastDepositAt": "2026-08-04T13:30:51Z",
+      "targetHotWallets": [
+        "0xee9345326f336b86c8d0529b8a1b874041f81877"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0xac89f085bea00ae58e5ebef988e3c2addefc6b4a",
+      "exchange": "Upbit",
+      "rank": 147,
+      "depositAmountQuid": "16496.31431587124973971",
+      "depositTransferCount": 2,
+      "firstDepositAt": "2026-08-04T13:20:31Z",
+      "lastDepositAt": "2026-08-04T13:30:45Z",
+      "targetHotWallets": [
+        "0x07003d24d866a705af126a23d4ea4ac4ed85e02f",
+        "0xee9345326f336b86c8d0529b8a1b874041f81877"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0xd8fb7e0f47d893bb4d672a8fdb8832473fc32728",
+      "exchange": "Upbit",
+      "rank": 148,
+      "depositAmountQuid": "16465.896112497231776442",
+      "depositTransferCount": 3,
+      "firstDepositAt": "2026-08-04T13:30:33Z",
+      "lastDepositAt": "2026-08-04T13:51:09Z",
+      "targetHotWallets": [
+        "0x07003d24d866a705af126a23d4ea4ac4ed85e02f",
+        "0xee9345326f336b86c8d0529b8a1b874041f81877"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0x8cab2920effdce53c9c7a703bb6f8108b8181ff7",
+      "exchange": "Upbit",
+      "rank": 149,
+      "depositAmountQuid": "16196.229800489691425571",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T14:06:31Z",
+      "lastDepositAt": "2026-08-04T14:06:31Z",
+      "targetHotWallets": [
+        "0x07003d24d866a705af126a23d4ea4ac4ed85e02f"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0xc9cee0adc1996948060917fc2d5d1c9c3d7df23d",
+      "exchange": "Upbit",
+      "rank": 150,
+      "depositAmountQuid": "16001.680825095697817768",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:40:43Z",
+      "lastDepositAt": "2026-08-04T13:40:43Z",
+      "targetHotWallets": [
+        "0x07003d24d866a705af126a23d4ea4ac4ed85e02f"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0xea2e802471174689477f18b9dcfafdab7cb8c752",
+      "exchange": "Upbit",
+      "rank": 151,
+      "depositAmountQuid": "16000",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T14:06:35Z",
+      "lastDepositAt": "2026-08-04T14:06:35Z",
+      "targetHotWallets": [
+        "0x07003d24d866a705af126a23d4ea4ac4ed85e02f"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0xa0ee697892516bd006f86cb16e2da4bb519723b1",
+      "exchange": "Upbit",
+      "rank": 152,
+      "depositAmountQuid": "15632.289172106826748849",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:51:23Z",
+      "lastDepositAt": "2026-08-04T13:51:23Z",
+      "targetHotWallets": [
+        "0xee9345326f336b86c8d0529b8a1b874041f81877"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0x361a3fdf6692626fc7fd4d04acfbcc719a9d2827",
+      "exchange": "Upbit",
+      "rank": 153,
+      "depositAmountQuid": "15000",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:25:51Z",
+      "lastDepositAt": "2026-08-04T13:25:51Z",
+      "targetHotWallets": [
+        "0x99c39d665c353920ada681b306a927d14978a345"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0x82a0fd331c531288b0169465af8029fd84ddc0d8",
+      "exchange": "Upbit",
+      "rank": 154,
+      "depositAmountQuid": "15000",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:51:23Z",
+      "lastDepositAt": "2026-08-04T13:51:23Z",
+      "targetHotWallets": [
+        "0xee9345326f336b86c8d0529b8a1b874041f81877"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0x19a79dff9452047898f914b6bb9da7e4873b9214",
+      "exchange": "Upbit",
+      "rank": 155,
+      "depositAmountQuid": "14503.930695285582509719",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:48:13Z",
+      "lastDepositAt": "2026-08-04T13:48:13Z",
+      "targetHotWallets": [
+        "0x99c39d665c353920ada681b306a927d14978a345"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0x0fd6b49d6956f5be4f51666a96e9379fe02762a5",
+      "exchange": "Upbit",
+      "rank": 156,
+      "depositAmountQuid": "14295.699754055077322183",
+      "depositTransferCount": 2,
+      "firstDepositAt": "2026-08-04T13:30:31Z",
+      "lastDepositAt": "2026-08-04T13:48:11Z",
+      "targetHotWallets": [
+        "0x99c39d665c353920ada681b306a927d14978a345",
+        "0xee9345326f336b86c8d0529b8a1b874041f81877"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0x4f34c4d12a6232823bd9f42a4cb98844fbe99952",
+      "exchange": "Upbit",
+      "rank": 157,
+      "depositAmountQuid": "13742.801937328554779371",
+      "depositTransferCount": 2,
+      "firstDepositAt": "2026-08-04T13:35:45Z",
+      "lastDepositAt": "2026-08-04T13:47:59Z",
+      "targetHotWallets": [
+        "0x07003d24d866a705af126a23d4ea4ac4ed85e02f",
+        "0x99c39d665c353920ada681b306a927d14978a345"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0x36e9b0d632daf55405fbd3c9cfe4b8bb495940d0",
+      "exchange": "Upbit",
+      "rank": 158,
+      "depositAmountQuid": "13683.235321112541183914",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:48:23Z",
+      "lastDepositAt": "2026-08-04T13:48:23Z",
+      "targetHotWallets": [
+        "0x99c39d665c353920ada681b306a927d14978a345"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0x231a82f14f5627ebd738768c86bb37cc57d794f9",
+      "exchange": "Upbit",
+      "rank": 159,
+      "depositAmountQuid": "13644.790802336653799254",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:48:19Z",
+      "lastDepositAt": "2026-08-04T13:48:19Z",
+      "targetHotWallets": [
+        "0x99c39d665c353920ada681b306a927d14978a345"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0x1ed98214ec268c0e23fc335947527e76b392539f",
+      "exchange": "Upbit",
+      "rank": 160,
+      "depositAmountQuid": "12618.169035788851858425",
+      "depositTransferCount": 2,
+      "firstDepositAt": "2026-08-04T13:25:53Z",
+      "lastDepositAt": "2026-08-04T13:30:57Z",
+      "targetHotWallets": [
+        "0x99c39d665c353920ada681b306a927d14978a345",
+        "0xee9345326f336b86c8d0529b8a1b874041f81877"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0xb54eef0162e741e6e3fab23369ceb3688b77ed00",
+      "exchange": "Upbit",
+      "rank": 161,
+      "depositAmountQuid": "12222.222222222222222222",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:25:45Z",
+      "lastDepositAt": "2026-08-04T13:25:45Z",
+      "targetHotWallets": [
+        "0x99c39d665c353920ada681b306a927d14978a345"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0x179359ba664ab9f2a996693b80bd6ca5361445ef",
+      "exchange": "Upbit",
+      "rank": 162,
+      "depositAmountQuid": "12100",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:48:01Z",
+      "lastDepositAt": "2026-08-04T13:48:01Z",
+      "targetHotWallets": [
+        "0x99c39d665c353920ada681b306a927d14978a345"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0x76f4d594e5633c1d804c424794988147c7782306",
+      "exchange": "Upbit",
+      "rank": 163,
+      "depositAmountQuid": "12005.535872596307670442",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:48:31Z",
+      "lastDepositAt": "2026-08-04T13:48:31Z",
+      "targetHotWallets": [
+        "0x99c39d665c353920ada681b306a927d14978a345"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0x6210591be8f97f6af22aafcd8bfb52d8ad195144",
+      "exchange": "Upbit",
+      "rank": 164,
+      "depositAmountQuid": "11666.666666666666666666",
+      "depositTransferCount": 2,
+      "firstDepositAt": "2026-08-04T13:30:59Z",
+      "lastDepositAt": "2026-08-04T13:48:29Z",
+      "targetHotWallets": [
+        "0x99c39d665c353920ada681b306a927d14978a345",
+        "0xee9345326f336b86c8d0529b8a1b874041f81877"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0xf22867aeadd7a784f359d8b12d63e8b5ecb9e46a",
+      "exchange": "Upbit",
+      "rank": 165,
+      "depositAmountQuid": "11111.222222222222222222",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:40:51Z",
+      "lastDepositAt": "2026-08-04T13:40:51Z",
+      "targetHotWallets": [
+        "0x07003d24d866a705af126a23d4ea4ac4ed85e02f"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0x7160f398844f89415bca81aa78a2734b777eba9d",
+      "exchange": "Upbit",
+      "rank": 166,
+      "depositAmountQuid": "11111.111122222222222222",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:51:21Z",
+      "lastDepositAt": "2026-08-04T13:51:21Z",
+      "targetHotWallets": [
+        "0xee9345326f336b86c8d0529b8a1b874041f81877"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0x0f17041204652736f3ad1ac15bf92fd6a303e1b5",
+      "exchange": "Upbit",
+      "rank": 167,
+      "depositAmountQuid": "11111.111111111111111111",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:48:11Z",
+      "lastDepositAt": "2026-08-04T13:48:11Z",
+      "targetHotWallets": [
+        "0x99c39d665c353920ada681b306a927d14978a345"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0x1506d1dd5046b8db4007c1ffb2b98e120d94a8fb",
+      "exchange": "Upbit",
+      "rank": 168,
+      "depositAmountQuid": "11111.111111111111111111",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:25:53Z",
+      "lastDepositAt": "2026-08-04T13:25:53Z",
+      "targetHotWallets": [
+        "0x99c39d665c353920ada681b306a927d14978a345"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0x78b41aeda79019cd13c1926ed1e5fa53dd01c938",
+      "exchange": "Upbit",
+      "rank": 169,
+      "depositAmountQuid": "11111.111111111111111111",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:25:47Z",
+      "lastDepositAt": "2026-08-04T13:25:47Z",
+      "targetHotWallets": [
+        "0x99c39d665c353920ada681b306a927d14978a345"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0x83dccf3f2c2dbb33d68b7640a1fe91101ff9ddb0",
+      "exchange": "Upbit",
+      "rank": 170,
+      "depositAmountQuid": "11111.111111111111111111",
+      "depositTransferCount": 2,
+      "firstDepositAt": "2026-08-04T13:47:59Z",
+      "lastDepositAt": "2026-08-04T13:51:17Z",
+      "targetHotWallets": [
+        "0x99c39d665c353920ada681b306a927d14978a345",
+        "0xee9345326f336b86c8d0529b8a1b874041f81877"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0x9aff3867d5c0576c4f87f25532b33a08b147c752",
+      "exchange": "Upbit",
+      "rank": 171,
+      "depositAmountQuid": "11111.111111111111111111",
+      "depositTransferCount": 2,
+      "firstDepositAt": "2026-08-04T13:40:47Z",
+      "lastDepositAt": "2026-08-04T13:48:37Z",
+      "targetHotWallets": [
+        "0x07003d24d866a705af126a23d4ea4ac4ed85e02f",
+        "0x99c39d665c353920ada681b306a927d14978a345"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0x176f0d7bb22907dd86edc16fc65c9e6ceb248f6e",
+      "exchange": "Upbit",
+      "rank": 172,
+      "depositAmountQuid": "11111.11",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:48:11Z",
+      "lastDepositAt": "2026-08-04T13:48:11Z",
+      "targetHotWallets": [
+        "0x99c39d665c353920ada681b306a927d14978a345"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0x7e486f91fc2444ab5641272a0155069c6e98380f",
+      "exchange": "Upbit",
+      "rank": 173,
+      "depositAmountQuid": "11111.11",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:41:01Z",
+      "lastDepositAt": "2026-08-04T13:41:01Z",
+      "targetHotWallets": [
+        "0x07003d24d866a705af126a23d4ea4ac4ed85e02f"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0x012385a8fb4157cca2c84a62efc0537e98ba481e",
+      "exchange": "Upbit",
+      "rank": 174,
+      "depositAmountQuid": "11111",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:30:55Z",
+      "lastDepositAt": "2026-08-04T13:30:55Z",
+      "targetHotWallets": [
+        "0xee9345326f336b86c8d0529b8a1b874041f81877"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0x1def50bc35799b1fd8f2a27587aabce63a91577c",
+      "exchange": "Upbit",
+      "rank": 175,
+      "depositAmountQuid": "11111",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:30:57Z",
+      "lastDepositAt": "2026-08-04T13:30:57Z",
+      "targetHotWallets": [
+        "0xee9345326f336b86c8d0529b8a1b874041f81877"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0x6133b75e0037bc47692b54d01b0cf8caea484adc",
+      "exchange": "Upbit",
+      "rank": 176,
+      "depositAmountQuid": "10888.888888888888888888",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:25:39Z",
+      "lastDepositAt": "2026-08-04T13:25:39Z",
+      "targetHotWallets": [
+        "0x99c39d665c353920ada681b306a927d14978a345"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0x6ef2abe5ef9b5dbd49cf1d7233eb0f1bbccdadf8",
+      "exchange": "Upbit",
+      "rank": 177,
+      "depositAmountQuid": "10583.863367521562232869",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:31:01Z",
+      "lastDepositAt": "2026-08-04T13:31:01Z",
+      "targetHotWallets": [
+        "0xee9345326f336b86c8d0529b8a1b874041f81877"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0xaa6dadff165ba01dfe04201cd9f067d389d7b7ba",
+      "exchange": "Upbit",
+      "rank": 178,
+      "depositAmountQuid": "10217.908929014933073443",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T14:06:31Z",
+      "lastDepositAt": "2026-08-04T14:06:31Z",
+      "targetHotWallets": [
+        "0x07003d24d866a705af126a23d4ea4ac4ed85e02f"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0x5becf4bfc32da5fbd04a6ab097a958deb32b71ff",
+      "exchange": "Upbit",
+      "rank": 179,
+      "depositAmountQuid": "10000",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:50:55Z",
+      "lastDepositAt": "2026-08-04T13:50:55Z",
+      "targetHotWallets": [
+        "0xee9345326f336b86c8d0529b8a1b874041f81877"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0xa15c476630a95a7b99258e30995fd9b6781704f0",
+      "exchange": "Upbit",
+      "rank": 180,
+      "depositAmountQuid": "10000",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:51:23Z",
+      "lastDepositAt": "2026-08-04T13:51:23Z",
+      "targetHotWallets": [
+        "0xee9345326f336b86c8d0529b8a1b874041f81877"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0x2d73ae541411a129b78672322caeb42bcef2ddef",
+      "exchange": "Upbit",
+      "rank": 181,
+      "depositAmountQuid": "9848.329006746181504673",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:48:19Z",
+      "lastDepositAt": "2026-08-04T13:48:19Z",
+      "targetHotWallets": [
+        "0x99c39d665c353920ada681b306a927d14978a345"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0x30a8271a479b7fcd8c495efccd08a9fdcc871bb5",
+      "exchange": "Upbit",
+      "rank": 182,
+      "depositAmountQuid": "9100",
+      "depositTransferCount": 2,
+      "firstDepositAt": "2026-08-04T13:30:57Z",
+      "lastDepositAt": "2026-08-04T13:40:57Z",
+      "targetHotWallets": [
+        "0x07003d24d866a705af126a23d4ea4ac4ed85e02f",
+        "0xee9345326f336b86c8d0529b8a1b874041f81877"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0xb2a94abfa7669ce2517976487c5e063e25998338",
+      "exchange": "Upbit",
+      "rank": 183,
+      "depositAmountQuid": "9000",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:40:41Z",
+      "lastDepositAt": "2026-08-04T13:40:41Z",
+      "targetHotWallets": [
+        "0x07003d24d866a705af126a23d4ea4ac4ed85e02f"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0x998fda746121096b1eee48b5b6ef45cf9602a9db",
+      "exchange": "Upbit",
+      "rank": 184,
+      "depositAmountQuid": "8995.193894637682410201",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:48:35Z",
+      "lastDepositAt": "2026-08-04T13:48:35Z",
+      "targetHotWallets": [
+        "0x99c39d665c353920ada681b306a927d14978a345"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0xaad9f4f42277f35179de5e727060e362bf4e70ad",
+      "exchange": "Upbit",
+      "rank": 185,
+      "depositAmountQuid": "8714.604121225453093755",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:50:57Z",
+      "lastDepositAt": "2026-08-04T13:50:57Z",
+      "targetHotWallets": [
+        "0xee9345326f336b86c8d0529b8a1b874041f81877"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0xe6bec275a81b6a6c1df5447a01999513f3746d63",
+      "exchange": "Upbit",
+      "rank": 186,
+      "depositAmountQuid": "8628.225668432555878556",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:30:49Z",
+      "lastDepositAt": "2026-08-04T13:30:49Z",
+      "targetHotWallets": [
+        "0xee9345326f336b86c8d0529b8a1b874041f81877"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0x3bf38ad99f6f1122bed591f38f737c562451f3f2",
+      "exchange": "Upbit",
+      "rank": 187,
+      "depositAmountQuid": "8400",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:48:23Z",
+      "lastDepositAt": "2026-08-04T13:48:23Z",
+      "targetHotWallets": [
+        "0x99c39d665c353920ada681b306a927d14978a345"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0x5f16890e4b88db504a71b77a5f8efea6fe9e0eeb",
+      "exchange": "Upbit",
+      "rank": 188,
+      "depositAmountQuid": "8395.2",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:25:41Z",
+      "lastDepositAt": "2026-08-04T13:25:41Z",
+      "targetHotWallets": [
+        "0x99c39d665c353920ada681b306a927d14978a345"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0x5f8cb7e4b9f7ff29f57d88cf350286169d4a7c05",
+      "exchange": "Upbit",
+      "rank": 189,
+      "depositAmountQuid": "8000",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:47:59Z",
+      "lastDepositAt": "2026-08-04T13:47:59Z",
+      "targetHotWallets": [
+        "0x99c39d665c353920ada681b306a927d14978a345"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0x2da027d5c66d1219f4f158fdd33148a1d4fa1cdc",
+      "exchange": "Upbit",
+      "rank": 190,
+      "depositAmountQuid": "7794.615248331536456981",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:48:21Z",
+      "lastDepositAt": "2026-08-04T13:48:21Z",
+      "targetHotWallets": [
+        "0x99c39d665c353920ada681b306a927d14978a345"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0xfbcf8ff01ad1bb4f099fd9bea3ce6113dd81d8ef",
+      "exchange": "Upbit",
+      "rank": 191,
+      "depositAmountQuid": "7636",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:50:59Z",
+      "lastDepositAt": "2026-08-04T13:50:59Z",
+      "targetHotWallets": [
+        "0xee9345326f336b86c8d0529b8a1b874041f81877"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0x4e71ba0945b49bf158fd32713a5777d37a74ee79",
+      "exchange": "Upbit",
+      "rank": 192,
+      "depositAmountQuid": "7279.237741553438725393",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:40:57Z",
+      "lastDepositAt": "2026-08-04T13:40:57Z",
+      "targetHotWallets": [
+        "0x07003d24d866a705af126a23d4ea4ac4ed85e02f"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0x0f347c6f1afda96a7ef8d39e857f9ac83ec4dd9a",
+      "exchange": "Upbit",
+      "rank": 193,
+      "depositAmountQuid": "7000",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:20:15Z",
+      "lastDepositAt": "2026-08-04T13:20:15Z",
+      "targetHotWallets": [
+        "0x07003d24d866a705af126a23d4ea4ac4ed85e02f"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0x78cac4285dc77bfd30055e48674ab8989b41a86d",
+      "exchange": "Upbit",
+      "rank": 194,
+      "depositAmountQuid": "7000",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:48:05Z",
+      "lastDepositAt": "2026-08-04T13:48:05Z",
+      "targetHotWallets": [
+        "0x99c39d665c353920ada681b306a927d14978a345"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0x07dcd4148c0762cd2e0f82125a8f10fcbc32de1f",
+      "exchange": "Upbit",
+      "rank": 195,
+      "depositAmountQuid": "6993.876015610622415042",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:47:55Z",
+      "lastDepositAt": "2026-08-04T13:47:55Z",
+      "targetHotWallets": [
+        "0x99c39d665c353920ada681b306a927d14978a345"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0x98b71a667092c3119e52847f700208cf67d28eed",
+      "exchange": "Upbit",
+      "rank": 196,
+      "depositAmountQuid": "6766",
+      "depositTransferCount": 2,
+      "firstDepositAt": "2026-08-04T13:30:43Z",
+      "lastDepositAt": "2026-08-04T13:35:33Z",
+      "targetHotWallets": [
+        "0x07003d24d866a705af126a23d4ea4ac4ed85e02f",
+        "0xee9345326f336b86c8d0529b8a1b874041f81877"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0x55bd493cb4b6969c8dc40ce76d2a897466484af9",
+      "exchange": "Upbit",
+      "rank": 197,
+      "depositAmountQuid": "6666.666666666666666666",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:25:49Z",
+      "lastDepositAt": "2026-08-04T13:25:49Z",
+      "targetHotWallets": [
+        "0x99c39d665c353920ada681b306a927d14978a345"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0xe434231f1226212e284dafa825bb431136683fd5",
+      "exchange": "Upbit",
+      "rank": 198,
+      "depositAmountQuid": "6602.432879957587520595",
+      "depositTransferCount": 3,
+      "firstDepositAt": "2026-08-04T13:25:47Z",
+      "lastDepositAt": "2026-08-04T13:40:45Z",
+      "targetHotWallets": [
+        "0x07003d24d866a705af126a23d4ea4ac4ed85e02f",
+        "0x99c39d665c353920ada681b306a927d14978a345",
+        "0xee9345326f336b86c8d0529b8a1b874041f81877"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0x2423bd768f257e76209db5095a551672857f7a7d",
+      "exchange": "Upbit",
+      "rank": 199,
+      "depositAmountQuid": "6500",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:25:53Z",
+      "lastDepositAt": "2026-08-04T13:25:53Z",
+      "targetHotWallets": [
+        "0x99c39d665c353920ada681b306a927d14978a345"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0x2795ff1287795828aaaf9ea4aee5dde716243627",
+      "exchange": "Upbit",
+      "rank": 200,
+      "depositAmountQuid": "6500",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:40:55Z",
+      "lastDepositAt": "2026-08-04T13:40:55Z",
+      "targetHotWallets": [
+        "0x07003d24d866a705af126a23d4ea4ac4ed85e02f"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0x6688ca6795417282099528e8500580fa690fbf0c",
+      "exchange": "Upbit",
+      "rank": 201,
+      "depositAmountQuid": "6311.111111111111111111",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:48:03Z",
+      "lastDepositAt": "2026-08-04T13:48:03Z",
+      "targetHotWallets": [
+        "0x99c39d665c353920ada681b306a927d14978a345"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0x397d557eca2192bcd66918f5c72d1fff4f496580",
+      "exchange": "Upbit",
+      "rank": 202,
+      "depositAmountQuid": "6250.000000000000000001",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T14:06:41Z",
+      "lastDepositAt": "2026-08-04T14:06:41Z",
+      "targetHotWallets": [
+        "0x07003d24d866a705af126a23d4ea4ac4ed85e02f"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0x1773643a20ff3e456f3c1019c9cef8d6662b04f8",
+      "exchange": "Upbit",
+      "rank": 203,
+      "depositAmountQuid": "6111.11",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T14:06:43Z",
+      "lastDepositAt": "2026-08-04T14:06:43Z",
+      "targetHotWallets": [
+        "0x07003d24d866a705af126a23d4ea4ac4ed85e02f"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0xe5d91216c46ef1e8e055a95550672597a712ca24",
+      "exchange": "Upbit",
+      "rank": 204,
+      "depositAmountQuid": "5944",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:35:29Z",
+      "lastDepositAt": "2026-08-04T13:35:29Z",
+      "targetHotWallets": [
+        "0x07003d24d866a705af126a23d4ea4ac4ed85e02f"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0xcd4b2263a82ee4c11faa19b53d1b37fc552ee674",
+      "exchange": "Upbit",
+      "rank": 205,
+      "depositAmountQuid": "5611.111111111111111111",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:35:41Z",
+      "lastDepositAt": "2026-08-04T13:35:41Z",
+      "targetHotWallets": [
+        "0x07003d24d866a705af126a23d4ea4ac4ed85e02f"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0x468b7eca38bc85b0574638a41a7b5e17f9d9dbbb",
+      "exchange": "Upbit",
+      "rank": 206,
+      "depositAmountQuid": "5555.555555555555555555",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:25:51Z",
+      "lastDepositAt": "2026-08-04T13:25:51Z",
+      "targetHotWallets": [
+        "0x99c39d665c353920ada681b306a927d14978a345"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0x9110d3c4e1b89d60bc7c3927b79f73d333dc4eb8",
+      "exchange": "Upbit",
+      "rank": 207,
+      "depositAmountQuid": "5555.555555555555555555",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:25:43Z",
+      "lastDepositAt": "2026-08-04T13:25:43Z",
+      "targetHotWallets": [
+        "0x99c39d665c353920ada681b306a927d14978a345"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0x72bd96d248cab0f15497430ee16760ae8cef8262",
+      "exchange": "Upbit",
+      "rank": 208,
+      "depositAmountQuid": "5555.5",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:25:45Z",
+      "lastDepositAt": "2026-08-04T13:25:45Z",
+      "targetHotWallets": [
+        "0x99c39d665c353920ada681b306a927d14978a345"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0x0a6a323474585f7ae8cdc30f7b68440fa6dd194b",
+      "exchange": "Upbit",
+      "rank": 209,
+      "depositAmountQuid": "5528.972808060843467577",
+      "depositTransferCount": 2,
+      "firstDepositAt": "2026-08-04T13:30:53Z",
+      "lastDepositAt": "2026-08-04T13:48:09Z",
+      "targetHotWallets": [
+        "0x99c39d665c353920ada681b306a927d14978a345",
+        "0xee9345326f336b86c8d0529b8a1b874041f81877"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0xca62ea8a1f2ea7b325db61b19e7f6955306c7a28",
+      "exchange": "Upbit",
+      "rank": 210,
+      "depositAmountQuid": "5050",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T14:06:31Z",
+      "lastDepositAt": "2026-08-04T14:06:31Z",
+      "targetHotWallets": [
+        "0x07003d24d866a705af126a23d4ea4ac4ed85e02f"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0xc394d79307dba69db858d45714be366af8d28567",
+      "exchange": "Upbit",
+      "rank": 211,
+      "depositAmountQuid": "5000",
+      "depositTransferCount": 2,
+      "firstDepositAt": "2026-08-04T13:40:47Z",
+      "lastDepositAt": "2026-08-04T13:48:07Z",
+      "targetHotWallets": [
+        "0x07003d24d866a705af126a23d4ea4ac4ed85e02f",
+        "0x99c39d665c353920ada681b306a927d14978a345"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0xf85b2ed25a977587100529b0e3fe6291a2e0c5b4",
+      "exchange": "Upbit",
+      "rank": 212,
+      "depositAmountQuid": "4761.01778",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:35:41Z",
+      "lastDepositAt": "2026-08-04T13:35:41Z",
+      "targetHotWallets": [
+        "0x07003d24d866a705af126a23d4ea4ac4ed85e02f"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0x9056e3f4d64f4937beb266eec14059db662290c3",
+      "exchange": "Upbit",
+      "rank": 213,
+      "depositAmountQuid": "4666",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:48:35Z",
+      "lastDepositAt": "2026-08-04T13:48:35Z",
+      "targetHotWallets": [
+        "0x99c39d665c353920ada681b306a927d14978a345"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0x8b16518537a2416fa9efedeb94f4cea838debc29",
+      "exchange": "Upbit",
+      "rank": 214,
+      "depositAmountQuid": "4601.072259847458433669",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:20:29Z",
+      "lastDepositAt": "2026-08-04T13:20:29Z",
+      "targetHotWallets": [
+        "0x07003d24d866a705af126a23d4ea4ac4ed85e02f"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0x2da65df7e8ab19621c275a11040d903bafbe5a90",
+      "exchange": "Upbit",
+      "rank": 215,
+      "depositAmountQuid": "4582.934525769556105587",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:48:21Z",
+      "lastDepositAt": "2026-08-04T13:48:21Z",
+      "targetHotWallets": [
+        "0x99c39d665c353920ada681b306a927d14978a345"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0xead5f052b46c36d3b5bc28e546d60b266fb8947e",
+      "exchange": "Upbit",
+      "rank": 216,
+      "depositAmountQuid": "4444.444444444444444444",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:20:31Z",
+      "lastDepositAt": "2026-08-04T13:20:31Z",
+      "targetHotWallets": [
+        "0x07003d24d866a705af126a23d4ea4ac4ed85e02f"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0xf38615452ae83bdb24f78115f4fd88a7aa8616da",
+      "exchange": "Upbit",
+      "rank": 217,
+      "depositAmountQuid": "4444.444444444444444444",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:35:43Z",
+      "lastDepositAt": "2026-08-04T13:35:43Z",
+      "targetHotWallets": [
+        "0x07003d24d866a705af126a23d4ea4ac4ed85e02f"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0xb99f97cfe898bf837ea78be4ee7fde6773aabbfb",
+      "exchange": "Upbit",
+      "rank": 218,
+      "depositAmountQuid": "4427.487211304369246744",
+      "depositTransferCount": 2,
+      "firstDepositAt": "2026-08-04T13:40:49Z",
+      "lastDepositAt": "2026-08-04T13:48:07Z",
+      "targetHotWallets": [
+        "0x07003d24d866a705af126a23d4ea4ac4ed85e02f",
+        "0x99c39d665c353920ada681b306a927d14978a345"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0x7b84289fa2b71979808e53bb4577ab0174e6b19a",
+      "exchange": "Upbit",
+      "rank": 219,
+      "depositAmountQuid": "4403.949868193375572312",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:48:33Z",
+      "lastDepositAt": "2026-08-04T13:48:33Z",
+      "targetHotWallets": [
+        "0x99c39d665c353920ada681b306a927d14978a345"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0xf1472682619c69f51346e5f48786fb04f8b0a327",
+      "exchange": "Upbit",
+      "rank": 220,
+      "depositAmountQuid": "4238.838850760460769443",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:40:49Z",
+      "lastDepositAt": "2026-08-04T13:40:49Z",
+      "targetHotWallets": [
+        "0x07003d24d866a705af126a23d4ea4ac4ed85e02f"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0xda3be7fa05b4acad5be726ea6a4918e955886b19",
+      "exchange": "Upbit",
+      "rank": 221,
+      "depositAmountQuid": "4086.56",
+      "depositTransferCount": 3,
+      "firstDepositAt": "2026-08-04T13:30:47Z",
+      "lastDepositAt": "2026-08-04T13:51:09Z",
+      "targetHotWallets": [
+        "0x07003d24d866a705af126a23d4ea4ac4ed85e02f",
+        "0xee9345326f336b86c8d0529b8a1b874041f81877"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0xde4efeda92e18a2c996c3851c78ce32395731735",
+      "exchange": "Upbit",
+      "rank": 222,
+      "depositAmountQuid": "4024.680068668650548599",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:48:07Z",
+      "lastDepositAt": "2026-08-04T13:48:07Z",
+      "targetHotWallets": [
+        "0x99c39d665c353920ada681b306a927d14978a345"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0xd83b526645dbacc16ad815ac8c77bd281304a8c4",
+      "exchange": "Upbit",
+      "rank": 223,
+      "depositAmountQuid": "4000",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:40:39Z",
+      "lastDepositAt": "2026-08-04T13:40:39Z",
+      "targetHotWallets": [
+        "0x07003d24d866a705af126a23d4ea4ac4ed85e02f"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0x7591e86a970618192198f01e15c25f1484c2f651",
+      "exchange": "Upbit",
+      "rank": 224,
+      "depositAmountQuid": "3928.15519056355124584",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T14:06:33Z",
+      "lastDepositAt": "2026-08-04T14:06:33Z",
+      "targetHotWallets": [
+        "0x07003d24d866a705af126a23d4ea4ac4ed85e02f"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0xa9eb910e363c2669e240bf0d4b1f2431b0e3b363",
+      "exchange": "Upbit",
+      "rank": 225,
+      "depositAmountQuid": "3861.66803599496217533",
+      "depositTransferCount": 2,
+      "firstDepositAt": "2026-08-04T13:25:45Z",
+      "lastDepositAt": "2026-08-04T13:30:43Z",
+      "targetHotWallets": [
+        "0x99c39d665c353920ada681b306a927d14978a345",
+        "0xee9345326f336b86c8d0529b8a1b874041f81877"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0xdd14b63581f275d16ef224d1513110f33be6e30f",
+      "exchange": "Upbit",
+      "rank": 226,
+      "depositAmountQuid": "3832.643203296800608048",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:40:43Z",
+      "lastDepositAt": "2026-08-04T13:40:43Z",
+      "targetHotWallets": [
+        "0x07003d24d866a705af126a23d4ea4ac4ed85e02f"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0xb51dcb63d747a2b365346bccad156696ca213f2a",
+      "exchange": "Upbit",
+      "rank": 227,
+      "depositAmountQuid": "3742.6660353468716769",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:40:49Z",
+      "lastDepositAt": "2026-08-04T13:40:49Z",
+      "targetHotWallets": [
+        "0x07003d24d866a705af126a23d4ea4ac4ed85e02f"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0x6f661bb1b6b4e1f182fd664b3a0042b227a9df03",
+      "exchange": "Upbit",
+      "rank": 228,
+      "depositAmountQuid": "3400.91164010319461901",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:48:03Z",
+      "lastDepositAt": "2026-08-04T13:48:03Z",
+      "targetHotWallets": [
+        "0x99c39d665c353920ada681b306a927d14978a345"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0xbb803efd20022aa2d46f4f5fcbaed3ee48b4acea",
+      "exchange": "Upbit",
+      "rank": 229,
+      "depositAmountQuid": "3300",
+      "depositTransferCount": 2,
+      "firstDepositAt": "2026-08-04T13:30:45Z",
+      "lastDepositAt": "2026-08-04T13:51:03Z",
+      "targetHotWallets": [
+        "0xee9345326f336b86c8d0529b8a1b874041f81877"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0x55cd8b77be016c919adb1264dc94c0ec9fb1b2fa",
+      "exchange": "Upbit",
+      "rank": 230,
+      "depositAmountQuid": "3247.030426541402390646",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:48:27Z",
+      "lastDepositAt": "2026-08-04T13:48:27Z",
+      "targetHotWallets": [
+        "0x99c39d665c353920ada681b306a927d14978a345"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0x0baa7bf96d680d10a5babf3ae7642ef5c8e94d2b",
+      "exchange": "Upbit",
+      "rank": 231,
+      "depositAmountQuid": "2777.777777777777777777",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:30:53Z",
+      "lastDepositAt": "2026-08-04T13:30:53Z",
+      "targetHotWallets": [
+        "0xee9345326f336b86c8d0529b8a1b874041f81877"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0xf782e6e0e2f1504a77afdbe40aaf4c9ca5ae850b",
+      "exchange": "Upbit",
+      "rank": 232,
+      "depositAmountQuid": "2773.239201255231189713",
+      "depositTransferCount": 2,
+      "firstDepositAt": "2026-08-04T13:51:05Z",
+      "lastDepositAt": "2026-08-04T14:06:37Z",
+      "targetHotWallets": [
+        "0x07003d24d866a705af126a23d4ea4ac4ed85e02f",
+        "0xee9345326f336b86c8d0529b8a1b874041f81877"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0x9a700dc872c3f0cc6d2f0543fb0edc47aa3d9bf7",
+      "exchange": "Upbit",
+      "rank": 233,
+      "depositAmountQuid": "2555.555555555555555556",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:41:01Z",
+      "lastDepositAt": "2026-08-04T13:41:01Z",
+      "targetHotWallets": [
+        "0x07003d24d866a705af126a23d4ea4ac4ed85e02f"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0xa836256cbb8acfe066fb0a0efc77d9f64d031db9",
+      "exchange": "Upbit",
+      "rank": 234,
+      "depositAmountQuid": "2441.441958266184270623",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:40:41Z",
+      "lastDepositAt": "2026-08-04T13:40:41Z",
+      "targetHotWallets": [
+        "0x07003d24d866a705af126a23d4ea4ac4ed85e02f"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0x2fc1a2e1bd791888718fb9fec05218ecfd4aa273",
+      "exchange": "Upbit",
+      "rank": 235,
+      "depositAmountQuid": "2222.222222222222222222",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:20:17Z",
+      "lastDepositAt": "2026-08-04T13:20:17Z",
+      "targetHotWallets": [
+        "0x07003d24d866a705af126a23d4ea4ac4ed85e02f"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0x328bc9849dafff70331ff37b7cb45ac1dd7dbafd",
+      "exchange": "Upbit",
+      "rank": 236,
+      "depositAmountQuid": "2222.222222222222222222",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:35:47Z",
+      "lastDepositAt": "2026-08-04T13:35:47Z",
+      "targetHotWallets": [
+        "0x07003d24d866a705af126a23d4ea4ac4ed85e02f"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0x344f7f0a42bd136123b591c663c0847c7247c57b",
+      "exchange": "Upbit",
+      "rank": 237,
+      "depositAmountQuid": "2222.222222222222222222",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:25:51Z",
+      "lastDepositAt": "2026-08-04T13:25:51Z",
+      "targetHotWallets": [
+        "0x99c39d665c353920ada681b306a927d14978a345"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0x3602b12e72322d16a585ea020c4d9069502a59ef",
+      "exchange": "Upbit",
+      "rank": 238,
+      "depositAmountQuid": "2222.222222222222222222",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:30:59Z",
+      "lastDepositAt": "2026-08-04T13:30:59Z",
+      "targetHotWallets": [
+        "0xee9345326f336b86c8d0529b8a1b874041f81877"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0x6e00ccf1265d65b6e62124b77febcd95c2992653",
+      "exchange": "Upbit",
+      "rank": 239,
+      "depositAmountQuid": "2222.222222222222222222",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:35:43Z",
+      "lastDepositAt": "2026-08-04T13:35:43Z",
+      "targetHotWallets": [
+        "0x07003d24d866a705af126a23d4ea4ac4ed85e02f"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0xa3fddbd4e56e198b91a2ed0ce8052533bd2559a8",
+      "exchange": "Upbit",
+      "rank": 240,
+      "depositAmountQuid": "2222.222222222222222222",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:51:23Z",
+      "lastDepositAt": "2026-08-04T13:51:23Z",
+      "targetHotWallets": [
+        "0xee9345326f336b86c8d0529b8a1b874041f81877"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0xab6641ec3d7e10954ae094822c37d480819cb145",
+      "exchange": "Upbit",
+      "rank": 241,
+      "depositAmountQuid": "2222.222222222222222222",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:51:25Z",
+      "lastDepositAt": "2026-08-04T13:51:25Z",
+      "targetHotWallets": [
+        "0xee9345326f336b86c8d0529b8a1b874041f81877"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0xc21b54b51ed8ca9aba4d47e7998efe8743552689",
+      "exchange": "Upbit",
+      "rank": 242,
+      "depositAmountQuid": "2222.222222222222222222",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:25:43Z",
+      "lastDepositAt": "2026-08-04T13:25:43Z",
+      "targetHotWallets": [
+        "0x99c39d665c353920ada681b306a927d14978a345"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0x881c5864e3f522800f8ddcdaefad9ffb0375d725",
+      "exchange": "Upbit",
+      "rank": 243,
+      "depositAmountQuid": "2222.22",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:30:33Z",
+      "lastDepositAt": "2026-08-04T13:30:33Z",
+      "targetHotWallets": [
+        "0xee9345326f336b86c8d0529b8a1b874041f81877"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0x738bc1a29852920d0a04c6d40eb9d1dc7d695535",
+      "exchange": "Upbit",
+      "rank": 244,
+      "depositAmountQuid": "1500.222222222222222222",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:25:47Z",
+      "lastDepositAt": "2026-08-04T13:25:47Z",
+      "targetHotWallets": [
+        "0x99c39d665c353920ada681b306a927d14978a345"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0x60f0bd534ab2d50d183fbe9fcb78abbea43edda6",
+      "exchange": "Upbit",
+      "rank": 245,
+      "depositAmountQuid": "1222.222222222222222222",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:25:49Z",
+      "lastDepositAt": "2026-08-04T13:25:49Z",
+      "targetHotWallets": [
+        "0x99c39d665c353920ada681b306a927d14978a345"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0x17d79cc768392dab7186b4325ac8b690064a21c9",
+      "exchange": "Upbit",
+      "rank": 246,
+      "depositAmountQuid": "1111.111111111111111111",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:48:13Z",
+      "lastDepositAt": "2026-08-04T13:48:13Z",
+      "targetHotWallets": [
+        "0x99c39d665c353920ada681b306a927d14978a345"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0x1f9cbe2741852f3c4c8b7f9dc614f4aabb9708cb",
+      "exchange": "Upbit",
+      "rank": 247,
+      "depositAmountQuid": "1000",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:48:15Z",
+      "lastDepositAt": "2026-08-04T13:48:15Z",
+      "targetHotWallets": [
+        "0x99c39d665c353920ada681b306a927d14978a345"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0xe11726859f501dab5c2a95fa9ee2cdfa5f3f9961",
+      "exchange": "Upbit",
+      "rank": 248,
+      "depositAmountQuid": "849.998323889420667876",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:20:31Z",
+      "lastDepositAt": "2026-08-04T13:20:31Z",
+      "targetHotWallets": [
+        "0x07003d24d866a705af126a23d4ea4ac4ed85e02f"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0xe50734bb43aa376bace391d43344b51d1ec5f8b0",
+      "exchange": "Upbit",
+      "rank": 249,
+      "depositAmountQuid": "829.905307241060827203",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:35:43Z",
+      "lastDepositAt": "2026-08-04T13:35:43Z",
+      "targetHotWallets": [
+        "0x07003d24d866a705af126a23d4ea4ac4ed85e02f"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0x6da63a9dfc600d23a228da67afc5df1c26846729",
+      "exchange": "Upbit",
+      "rank": 250,
+      "depositAmountQuid": "704.491616115539141134",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:40:59Z",
+      "lastDepositAt": "2026-08-04T13:40:59Z",
+      "targetHotWallets": [
+        "0x07003d24d866a705af126a23d4ea4ac4ed85e02f"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0xd868553d5352671c60099e0dc53a391f1408bf57",
+      "exchange": "Upbit",
+      "rank": 251,
+      "depositAmountQuid": "703.33175835024321261",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:51:09Z",
+      "lastDepositAt": "2026-08-04T13:51:09Z",
+      "targetHotWallets": [
+        "0xee9345326f336b86c8d0529b8a1b874041f81877"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0x708e0f9a7321007b5a59925e673d36531f6630d4",
+      "exchange": "Upbit",
+      "rank": 252,
+      "depositAmountQuid": "684.932933869367500994",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:40:59Z",
+      "lastDepositAt": "2026-08-04T13:40:59Z",
+      "targetHotWallets": [
+        "0x07003d24d866a705af126a23d4ea4ac4ed85e02f"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0xfeb30a6cc94f1a6fecd4e3ad2b70ed966b4ead69",
+      "exchange": "Upbit",
+      "rank": 253,
+      "depositAmountQuid": "679.755936837980878859",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:48:09Z",
+      "lastDepositAt": "2026-08-04T13:48:09Z",
+      "targetHotWallets": [
+        "0x99c39d665c353920ada681b306a927d14978a345"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0xead3cd2a4c9f9a6dbe92bcfd881d6d5484dbca65",
+      "exchange": "Upbit",
+      "rank": 254,
+      "depositAmountQuid": "613.284518063283447445",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:25:47Z",
+      "lastDepositAt": "2026-08-04T13:25:47Z",
+      "targetHotWallets": [
+        "0x99c39d665c353920ada681b306a927d14978a345"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0x21ebf94f17e93820ccfc00a46bafc4c7457e92f4",
+      "exchange": "Upbit",
+      "rank": 255,
+      "depositAmountQuid": "548.64",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:48:17Z",
+      "lastDepositAt": "2026-08-04T13:48:17Z",
+      "targetHotWallets": [
+        "0x99c39d665c353920ada681b306a927d14978a345"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0x1a18d6c221460e003de0b38967349f41438a14c3",
+      "exchange": "Upbit",
+      "rank": 256,
+      "depositAmountQuid": "540.19",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:48:13Z",
+      "lastDepositAt": "2026-08-04T13:48:13Z",
+      "targetHotWallets": [
+        "0x99c39d665c353920ada681b306a927d14978a345"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0xeb27ef13b0064044df518d9b4e033d6314544576",
+      "exchange": "Upbit",
+      "rank": 257,
+      "depositAmountQuid": "500",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:51:03Z",
+      "lastDepositAt": "2026-08-04T13:51:03Z",
+      "targetHotWallets": [
+        "0xee9345326f336b86c8d0529b8a1b874041f81877"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0xe920332010046097f7fe7ff106963ed6b975aa31",
+      "exchange": "Upbit",
+      "rank": 258,
+      "depositAmountQuid": "142.140294780814613089",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:51:11Z",
+      "lastDepositAt": "2026-08-04T13:51:11Z",
+      "targetHotWallets": [
+        "0xee9345326f336b86c8d0529b8a1b874041f81877"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0xb56b4e70ab1f943fa8ea8a76460efd39bdb78449",
+      "exchange": "Upbit",
+      "rank": 259,
+      "depositAmountQuid": "100",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:40:49Z",
+      "lastDepositAt": "2026-08-04T13:40:49Z",
+      "targetHotWallets": [
+        "0x07003d24d866a705af126a23d4ea4ac4ed85e02f"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0xb83630849c8a2bcb3a04062fedd015d7d67febde",
+      "exchange": "Upbit",
+      "rank": 260,
+      "depositAmountQuid": "100",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:51:27Z",
+      "lastDepositAt": "2026-08-04T13:51:27Z",
+      "targetHotWallets": [
+        "0xee9345326f336b86c8d0529b8a1b874041f81877"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0xbd43eb2d7aa337c4d6d703452e954e03f44c925f",
+      "exchange": "Upbit",
+      "rank": 261,
+      "depositAmountQuid": "100",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:35:31Z",
+      "lastDepositAt": "2026-08-04T13:35:31Z",
+      "targetHotWallets": [
+        "0x07003d24d866a705af126a23d4ea4ac4ed85e02f"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0xf4bc166b0153d5c29b9c62cbf11617eb146cc833",
+      "exchange": "Upbit",
+      "rank": 262,
+      "depositAmountQuid": "100",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:51:13Z",
+      "lastDepositAt": "2026-08-04T13:51:13Z",
+      "targetHotWallets": [
+        "0xee9345326f336b86c8d0529b8a1b874041f81877"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0x00d988a1cf2b9935d33ba0a324f09fb42fa08448",
+      "exchange": "Upbit",
+      "rank": 263,
+      "depositAmountQuid": "50",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:51:25Z",
+      "lastDepositAt": "2026-08-04T13:51:25Z",
+      "targetHotWallets": [
+        "0xee9345326f336b86c8d0529b8a1b874041f81877"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0xaf1c4557405c83fff49da6f8c632d74600b9a26d",
+      "exchange": "Upbit",
+      "rank": 264,
+      "depositAmountQuid": "20.718826727261175808",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:51:25Z",
+      "lastDepositAt": "2026-08-04T13:51:25Z",
+      "targetHotWallets": [
+        "0xee9345326f336b86c8d0529b8a1b874041f81877"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0x1f84ff6573c525dd74105cb68ff7e9050305a80c",
+      "exchange": "Upbit",
+      "rank": 265,
+      "depositAmountQuid": "15",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:48:15Z",
+      "lastDepositAt": "2026-08-04T13:48:15Z",
+      "targetHotWallets": [
+        "0x99c39d665c353920ada681b306a927d14978a345"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0xa9c84e922472640b0119ff99671485b44f5a32b3",
+      "exchange": "Upbit",
+      "rank": 266,
+      "depositAmountQuid": "15",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T11:55:51Z",
+      "lastDepositAt": "2026-08-04T11:55:51Z",
+      "targetHotWallets": [
+        "0x07003d24d866a705af126a23d4ea4ac4ed85e02f"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0xec9a0307876c0e5eeafc8e03d12f442bfdf89685",
+      "exchange": "Upbit",
+      "rank": 267,
+      "depositAmountQuid": "12",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:51:11Z",
+      "lastDepositAt": "2026-08-04T13:51:11Z",
+      "targetHotWallets": [
+        "0xee9345326f336b86c8d0529b8a1b874041f81877"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0xdb79ae287fd6145a7690410d189221fb96ce327a",
+      "exchange": "Bithumb",
+      "rank": 1,
+      "depositAmountQuid": "300002",
+      "depositTransferCount": 2,
+      "firstDepositAt": "2026-08-04T13:04:59Z",
+      "lastDepositAt": "2026-08-04T13:05:51Z",
+      "targetHotWallets": [
+        "0x65513d9cd1927054f68eb55d93f1dfc67bc4c24d"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0x65a10da344d650cab78209830b655ae57458efe0",
+      "exchange": "Bithumb",
+      "rank": 2,
+      "depositAmountQuid": "208626.013432335457955025",
+      "depositTransferCount": 2,
+      "firstDepositAt": "2026-08-04T13:49:43Z",
+      "lastDepositAt": "2026-08-04T13:51:45Z",
+      "targetHotWallets": [
+        "0x0f5d1d63647342ff0fbe2f1ee879786c48f143ad"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0x65e5cae76de279cd4f26cc115146285ee9c9f875",
+      "exchange": "Bithumb",
+      "rank": 3,
+      "depositAmountQuid": "177777.777777777777777777",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:14:17Z",
+      "lastDepositAt": "2026-08-04T13:14:17Z",
+      "targetHotWallets": [
+        "0x65513d9cd1927054f68eb55d93f1dfc67bc4c24d"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0x5e16b8a64a0d0215a34f0a45511ba063319bfb7a",
+      "exchange": "Bithumb",
+      "rank": 4,
+      "depositAmountQuid": "163918.668253187591988341",
+      "depositTransferCount": 3,
+      "firstDepositAt": "2026-08-04T13:35:49Z",
+      "lastDepositAt": "2026-08-04T13:55:49Z",
+      "targetHotWallets": [
+        "0x0f5d1d63647342ff0fbe2f1ee879786c48f143ad"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0xb4669b10d923c2d141f2eccf382bbe06ceedf82b",
+      "exchange": "Bithumb",
+      "rank": 5,
+      "depositAmountQuid": "150099.999999999987417088",
+      "depositTransferCount": 4,
+      "firstDepositAt": "2026-08-04T13:48:05Z",
+      "lastDepositAt": "2026-08-04T13:59:03Z",
+      "targetHotWallets": [
+        "0x0f5d1d63647342ff0fbe2f1ee879786c48f143ad"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0x4d06dd9a091e260c04a2a9ca1289f56fab4e9c80",
+      "exchange": "Bithumb",
+      "rank": 6,
+      "depositAmountQuid": "150000",
+      "depositTransferCount": 2,
+      "firstDepositAt": "2026-08-04T13:27:07Z",
+      "lastDepositAt": "2026-08-04T13:41:53Z",
+      "targetHotWallets": [
+        "0x0f5d1d63647342ff0fbe2f1ee879786c48f143ad"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0xc889000d2a88a662024c27f12400a56876124b31",
+      "exchange": "Bithumb",
+      "rank": 7,
+      "depositAmountQuid": "150000",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:47:39Z",
+      "lastDepositAt": "2026-08-04T13:47:39Z",
+      "targetHotWallets": [
+        "0x0f5d1d63647342ff0fbe2f1ee879786c48f143ad"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0x126db930c9a18484387c7b2ee58905ec087bfbd9",
+      "exchange": "Bithumb",
+      "rank": 8,
+      "depositAmountQuid": "139338.134437983866262672",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T14:04:07Z",
+      "lastDepositAt": "2026-08-04T14:04:07Z",
+      "targetHotWallets": [
+        "0x0f5d1d63647342ff0fbe2f1ee879786c48f143ad"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0x3d6745d7d6ee3bc7c4db04e1fe81015dcb783563",
+      "exchange": "Bithumb",
+      "rank": 9,
+      "depositAmountQuid": "118167.10639",
+      "depositTransferCount": 2,
+      "firstDepositAt": "2026-08-04T13:10:47Z",
+      "lastDepositAt": "2026-08-04T13:58:11Z",
+      "targetHotWallets": [
+        "0x0f5d1d63647342ff0fbe2f1ee879786c48f143ad",
+        "0x65513d9cd1927054f68eb55d93f1dfc67bc4c24d"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0x1841d59746e3c61d0fc30952aa8100169e41dff6",
+      "exchange": "Bithumb",
+      "rank": 10,
+      "depositAmountQuid": "109343",
+      "depositTransferCount": 2,
+      "firstDepositAt": "2026-08-04T13:06:43Z",
+      "lastDepositAt": "2026-08-04T13:10:17Z",
+      "targetHotWallets": [
+        "0x65513d9cd1927054f68eb55d93f1dfc67bc4c24d"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0xf71cbfde2c4553361dded8efd245400002692fc2",
+      "exchange": "Bithumb",
+      "rank": 11,
+      "depositAmountQuid": "81062.951968225572125869",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:28:53Z",
+      "lastDepositAt": "2026-08-04T13:28:53Z",
+      "targetHotWallets": [
+        "0x0f5d1d63647342ff0fbe2f1ee879786c48f143ad"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0x9066ea0a1a2559031af52119ea357fc3bc72d454",
+      "exchange": "Bithumb",
+      "rank": 12,
+      "depositAmountQuid": "72004.539964702782309536",
+      "depositTransferCount": 5,
+      "firstDepositAt": "2026-08-04T13:05:47Z",
+      "lastDepositAt": "2026-08-04T13:48:31Z",
+      "targetHotWallets": [
+        "0x0f5d1d63647342ff0fbe2f1ee879786c48f143ad",
+        "0x65513d9cd1927054f68eb55d93f1dfc67bc4c24d"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0xe915d3af307787f2007ad4323668ed48ae4acee3",
+      "exchange": "Bithumb",
+      "rank": 13,
+      "depositAmountQuid": "71750.837664696099431177",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:53:39Z",
+      "lastDepositAt": "2026-08-04T13:53:39Z",
+      "targetHotWallets": [
+        "0x0f5d1d63647342ff0fbe2f1ee879786c48f143ad"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0x65ece494461bd85c18817d5b96b3b81d578e0d86",
+      "exchange": "Bithumb",
+      "rank": 14,
+      "depositAmountQuid": "70039.713443440194578878",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T14:00:09Z",
+      "lastDepositAt": "2026-08-04T14:00:09Z",
+      "targetHotWallets": [
+        "0x0f5d1d63647342ff0fbe2f1ee879786c48f143ad"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0xf7518e5291486b816f6e9c5a2f60ca8a21105767",
+      "exchange": "Bithumb",
+      "rank": 15,
+      "depositAmountQuid": "69208",
+      "depositTransferCount": 2,
+      "firstDepositAt": "2026-08-04T13:30:05Z",
+      "lastDepositAt": "2026-08-04T13:57:35Z",
+      "targetHotWallets": [
+        "0x0f5d1d63647342ff0fbe2f1ee879786c48f143ad"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0x8b9af99b63980ccfac8a1dc1b09e5c3dfabde734",
+      "exchange": "Bithumb",
+      "rank": 16,
+      "depositAmountQuid": "68990",
+      "depositTransferCount": 6,
+      "firstDepositAt": "2026-08-04T13:27:09Z",
+      "lastDepositAt": "2026-08-04T13:52:01Z",
+      "targetHotWallets": [
+        "0x0f5d1d63647342ff0fbe2f1ee879786c48f143ad"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0xe66ae6ad5176ada659cbb3c88174ee02346a8c64",
+      "exchange": "Bithumb",
+      "rank": 17,
+      "depositAmountQuid": "66666.666666666666666666",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:25:57Z",
+      "lastDepositAt": "2026-08-04T13:25:57Z",
+      "targetHotWallets": [
+        "0x0f5d1d63647342ff0fbe2f1ee879786c48f143ad"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0xf078acec79886ca46a3f2879e894ab36c05a2653",
+      "exchange": "Bithumb",
+      "rank": 18,
+      "depositAmountQuid": "64111.111111111111111111",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:10:43Z",
+      "lastDepositAt": "2026-08-04T13:10:43Z",
+      "targetHotWallets": [
+        "0x65513d9cd1927054f68eb55d93f1dfc67bc4c24d"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0x604223932e57281eb22651a8c2a34c9b56a0e3b6",
+      "exchange": "Bithumb",
+      "rank": 19,
+      "depositAmountQuid": "58000",
+      "depositTransferCount": 4,
+      "firstDepositAt": "2026-08-04T13:32:23Z",
+      "lastDepositAt": "2026-08-04T13:45:47Z",
+      "targetHotWallets": [
+        "0x0f5d1d63647342ff0fbe2f1ee879786c48f143ad"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0x77d3758d77134f344c9b5daa09b96c244be200d8",
+      "exchange": "Bithumb",
+      "rank": 20,
+      "depositAmountQuid": "57630.51855777668089646",
+      "depositTransferCount": 3,
+      "firstDepositAt": "2026-08-04T13:31:01Z",
+      "lastDepositAt": "2026-08-04T13:53:47Z",
+      "targetHotWallets": [
+        "0x0f5d1d63647342ff0fbe2f1ee879786c48f143ad"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0x9cb237fe2595aba7f907a24d40c868d291a7cbec",
+      "exchange": "Bithumb",
+      "rank": 21,
+      "depositAmountQuid": "55556.111111111111111111",
+      "depositTransferCount": 2,
+      "firstDepositAt": "2026-08-04T13:11:23Z",
+      "lastDepositAt": "2026-08-04T13:15:43Z",
+      "targetHotWallets": [
+        "0x65513d9cd1927054f68eb55d93f1dfc67bc4c24d"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0x7c17ab123e19766a4dedd1dfd5aa8839edc2a66a",
+      "exchange": "Bithumb",
+      "rank": 22,
+      "depositAmountQuid": "55550.056111111111111111",
+      "depositTransferCount": 2,
+      "firstDepositAt": "2026-08-04T13:05:47Z",
+      "lastDepositAt": "2026-08-04T13:17:45Z",
+      "targetHotWallets": [
+        "0x65513d9cd1927054f68eb55d93f1dfc67bc4c24d"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0xc3fd2f1ee390a9487370977524842ecf2077697a",
+      "exchange": "Bithumb",
+      "rank": 23,
+      "depositAmountQuid": "51627.272801933843288518",
+      "depositTransferCount": 2,
+      "firstDepositAt": "2026-08-04T13:42:39Z",
+      "lastDepositAt": "2026-08-04T13:54:37Z",
+      "targetHotWallets": [
+        "0x0f5d1d63647342ff0fbe2f1ee879786c48f143ad"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0xf7969dd10715e94c60e4c34c3fa46dee2fadc62b",
+      "exchange": "Bithumb",
+      "rank": 24,
+      "depositAmountQuid": "50393.001907329314062336",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:54:17Z",
+      "lastDepositAt": "2026-08-04T13:54:17Z",
+      "targetHotWallets": [
+        "0x0f5d1d63647342ff0fbe2f1ee879786c48f143ad"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0x47243ae2e72b0911a1f2f6549351b5d4fc7787ec",
+      "exchange": "Bithumb",
+      "rank": 25,
+      "depositAmountQuid": "50000",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:42:03Z",
+      "lastDepositAt": "2026-08-04T13:42:03Z",
+      "targetHotWallets": [
+        "0x0f5d1d63647342ff0fbe2f1ee879786c48f143ad"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0x92634f581e76782a5e06c3ae20623a7619261ff5",
+      "exchange": "Bithumb",
+      "rank": 26,
+      "depositAmountQuid": "48877.888888888888888888",
+      "depositTransferCount": 6,
+      "firstDepositAt": "2026-08-04T13:27:31Z",
+      "lastDepositAt": "2026-08-04T13:45:37Z",
+      "targetHotWallets": [
+        "0x0f5d1d63647342ff0fbe2f1ee879786c48f143ad"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0xac28644ed8281132a80e76941f2d8d244a773177",
+      "exchange": "Bithumb",
+      "rank": 27,
+      "depositAmountQuid": "44445.777777777777777777",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:41:29Z",
+      "lastDepositAt": "2026-08-04T13:41:29Z",
+      "targetHotWallets": [
+        "0x0f5d1d63647342ff0fbe2f1ee879786c48f143ad"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0x1c5e4b8647d27436f66cd473c31796b73e7ed820",
+      "exchange": "Bithumb",
+      "rank": 28,
+      "depositAmountQuid": "44248.193961468034958988",
+      "depositTransferCount": 4,
+      "firstDepositAt": "2026-08-04T13:48:09Z",
+      "lastDepositAt": "2026-08-04T14:02:51Z",
+      "targetHotWallets": [
+        "0x0f5d1d63647342ff0fbe2f1ee879786c48f143ad"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0x88fbfa1aa92fece0d50b791e840f549cde324c5a",
+      "exchange": "Bithumb",
+      "rank": 29,
+      "depositAmountQuid": "39698.076904600938937776",
+      "depositTransferCount": 2,
+      "firstDepositAt": "2026-08-04T13:40:19Z",
+      "lastDepositAt": "2026-08-04T13:53:27Z",
+      "targetHotWallets": [
+        "0x0f5d1d63647342ff0fbe2f1ee879786c48f143ad"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0x5e0777f4407f91459feadba33bfcec681b6af8b2",
+      "exchange": "Bithumb",
+      "rank": 30,
+      "depositAmountQuid": "39180.484726459378979599",
+      "depositTransferCount": 2,
+      "firstDepositAt": "2026-08-04T13:41:43Z",
+      "lastDepositAt": "2026-08-04T13:47:39Z",
+      "targetHotWallets": [
+        "0x0f5d1d63647342ff0fbe2f1ee879786c48f143ad"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0x0ed6588f2ee26dfd785522c4616b75a753e14c61",
+      "exchange": "Bithumb",
+      "rank": 31,
+      "depositAmountQuid": "38781.787789236257940924",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:29:03Z",
+      "lastDepositAt": "2026-08-04T13:29:03Z",
+      "targetHotWallets": [
+        "0x0f5d1d63647342ff0fbe2f1ee879786c48f143ad"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0xf6cb19f388a53db5f7e61bcae80b31b19bca727a",
+      "exchange": "Bithumb",
+      "rank": 32,
+      "depositAmountQuid": "36000",
+      "depositTransferCount": 5,
+      "firstDepositAt": "2026-08-04T13:24:27Z",
+      "lastDepositAt": "2026-08-04T13:30:25Z",
+      "targetHotWallets": [
+        "0x0f5d1d63647342ff0fbe2f1ee879786c48f143ad"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0x74f47a9f93f86ebbab94d758a63c43d55ae73f52",
+      "exchange": "Bithumb",
+      "rank": 33,
+      "depositAmountQuid": "35137.498722598650380288",
+      "depositTransferCount": 2,
+      "firstDepositAt": "2026-08-04T13:14:37Z",
+      "lastDepositAt": "2026-08-04T13:29:13Z",
+      "targetHotWallets": [
+        "0x0f5d1d63647342ff0fbe2f1ee879786c48f143ad",
+        "0x65513d9cd1927054f68eb55d93f1dfc67bc4c24d"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0xcdfb0cfa19d7b3558dc4e22b4d74e7f4509b1502",
+      "exchange": "Bithumb",
+      "rank": 34,
+      "depositAmountQuid": "34852.774006809486340553",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:51:55Z",
+      "lastDepositAt": "2026-08-04T13:51:55Z",
+      "targetHotWallets": [
+        "0x0f5d1d63647342ff0fbe2f1ee879786c48f143ad"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0x06331e0362a0446623348031ecde94624bec8f13",
+      "exchange": "Bithumb",
+      "rank": 35,
+      "depositAmountQuid": "34679",
+      "depositTransferCount": 3,
+      "firstDepositAt": "2026-08-04T13:55:39Z",
+      "lastDepositAt": "2026-08-04T14:00:51Z",
+      "targetHotWallets": [
+        "0x0f5d1d63647342ff0fbe2f1ee879786c48f143ad"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0x64911c8a1593182520dd804fee1892e28568e556",
+      "exchange": "Bithumb",
+      "rank": 36,
+      "depositAmountQuid": "34514.114863630909",
+      "depositTransferCount": 4,
+      "firstDepositAt": "2026-08-04T13:38:03Z",
+      "lastDepositAt": "2026-08-04T13:44:57Z",
+      "targetHotWallets": [
+        "0x0f5d1d63647342ff0fbe2f1ee879786c48f143ad"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0xaf384017a01a85ffbe32cd56d9e3eaa7ec72e8b2",
+      "exchange": "Bithumb",
+      "rank": 37,
+      "depositAmountQuid": "33157.359037215205396713",
+      "depositTransferCount": 2,
+      "firstDepositAt": "2026-08-04T13:30:23Z",
+      "lastDepositAt": "2026-08-04T13:45:11Z",
+      "targetHotWallets": [
+        "0x0f5d1d63647342ff0fbe2f1ee879786c48f143ad"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0x1033266455fabdc4c9f9ed4d4c708b977371342d",
+      "exchange": "Bithumb",
+      "rank": 38,
+      "depositAmountQuid": "31111.1111111111",
+      "depositTransferCount": 2,
+      "firstDepositAt": "2026-08-04T13:18:57Z",
+      "lastDepositAt": "2026-08-04T13:35:23Z",
+      "targetHotWallets": [
+        "0x0f5d1d63647342ff0fbe2f1ee879786c48f143ad",
+        "0x65513d9cd1927054f68eb55d93f1dfc67bc4c24d"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0x3ec6cc2bf6ca2afb7b7dd0af01af738040746db3",
+      "exchange": "Bithumb",
+      "rank": 39,
+      "depositAmountQuid": "30252.556586297893511948",
+      "depositTransferCount": 4,
+      "firstDepositAt": "2026-08-04T13:05:07Z",
+      "lastDepositAt": "2026-08-04T13:40:15Z",
+      "targetHotWallets": [
+        "0x0f5d1d63647342ff0fbe2f1ee879786c48f143ad",
+        "0x65513d9cd1927054f68eb55d93f1dfc67bc4c24d"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0x14ccb2e795c1b25a946b281e0901d752cfbf69bd",
+      "exchange": "Bithumb",
+      "rank": 40,
+      "depositAmountQuid": "30000",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:50:33Z",
+      "lastDepositAt": "2026-08-04T13:50:33Z",
+      "targetHotWallets": [
+        "0x0f5d1d63647342ff0fbe2f1ee879786c48f143ad"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0x9fd11daab9ae80f38c4ce1ce3966958ee833fc76",
+      "exchange": "Bithumb",
+      "rank": 41,
+      "depositAmountQuid": "29501.841454914163776332",
+      "depositTransferCount": 2,
+      "firstDepositAt": "2026-08-04T13:20:43Z",
+      "lastDepositAt": "2026-08-04T13:22:41Z",
+      "targetHotWallets": [
+        "0x0f5d1d63647342ff0fbe2f1ee879786c48f143ad",
+        "0x65513d9cd1927054f68eb55d93f1dfc67bc4c24d"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0x8184418e7fff539907c4797d3d8f27f48e6759ee",
+      "exchange": "Bithumb",
+      "rank": 42,
+      "depositAmountQuid": "26168",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T14:07:55Z",
+      "lastDepositAt": "2026-08-04T14:07:55Z",
+      "targetHotWallets": [
+        "0x0f5d1d63647342ff0fbe2f1ee879786c48f143ad"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0x1c00800cba172f3b36442e13d4c8b77336b41d32",
+      "exchange": "Bithumb",
+      "rank": 43,
+      "depositAmountQuid": "25000",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:17:33Z",
+      "lastDepositAt": "2026-08-04T13:17:33Z",
+      "targetHotWallets": [
+        "0x65513d9cd1927054f68eb55d93f1dfc67bc4c24d"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0x34cadf1c104b87416b7f690585cd8d0ddac192fa",
+      "exchange": "Bithumb",
+      "rank": 44,
+      "depositAmountQuid": "24368.391001777228911475",
+      "depositTransferCount": 4,
+      "firstDepositAt": "2026-08-04T13:13:21Z",
+      "lastDepositAt": "2026-08-04T14:03:45Z",
+      "targetHotWallets": [
+        "0x0f5d1d63647342ff0fbe2f1ee879786c48f143ad",
+        "0x65513d9cd1927054f68eb55d93f1dfc67bc4c24d"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0x5d5c73214cc6aed8b0a73ea7d9bf4d1a62bfd053",
+      "exchange": "Bithumb",
+      "rank": 45,
+      "depositAmountQuid": "22972.640332109109526528",
+      "depositTransferCount": 2,
+      "firstDepositAt": "2026-08-04T14:07:21Z",
+      "lastDepositAt": "2026-08-04T14:08:17Z",
+      "targetHotWallets": [
+        "0x0f5d1d63647342ff0fbe2f1ee879786c48f143ad"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0x40037dc7665fafc6ba4bd3735317c289ca7e35c9",
+      "exchange": "Bithumb",
+      "rank": 46,
+      "depositAmountQuid": "22222.222222222222222222",
+      "depositTransferCount": 2,
+      "firstDepositAt": "2026-08-04T13:49:17Z",
+      "lastDepositAt": "2026-08-04T13:52:35Z",
+      "targetHotWallets": [
+        "0x0f5d1d63647342ff0fbe2f1ee879786c48f143ad"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0x403c955d2be6941104ed11f5f86ff15678991bbe",
+      "exchange": "Bithumb",
+      "rank": 47,
+      "depositAmountQuid": "22222.22222",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:21:39Z",
+      "lastDepositAt": "2026-08-04T13:21:39Z",
+      "targetHotWallets": [
+        "0x0f5d1d63647342ff0fbe2f1ee879786c48f143ad"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0xbf43667f18c1011947e47201ed9d96c34cb2d5df",
+      "exchange": "Bithumb",
+      "rank": 48,
+      "depositAmountQuid": "22222.22222",
+      "depositTransferCount": 2,
+      "firstDepositAt": "2026-08-04T13:09:47Z",
+      "lastDepositAt": "2026-08-04T13:12:39Z",
+      "targetHotWallets": [
+        "0x65513d9cd1927054f68eb55d93f1dfc67bc4c24d"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0x0fe37bcc399fab3e0c9b6f2a67f4b1f5451bfa2c",
+      "exchange": "Bithumb",
+      "rank": 49,
+      "depositAmountQuid": "22222.22",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:50:43Z",
+      "lastDepositAt": "2026-08-04T13:50:43Z",
+      "targetHotWallets": [
+        "0x0f5d1d63647342ff0fbe2f1ee879786c48f143ad"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0x67b9b3bb402c417bf17a7e335cc4c0e7b377d63f",
+      "exchange": "Bithumb",
+      "rank": 50,
+      "depositAmountQuid": "22221.444444444444444444",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:43:27Z",
+      "lastDepositAt": "2026-08-04T13:43:27Z",
+      "targetHotWallets": [
+        "0x0f5d1d63647342ff0fbe2f1ee879786c48f143ad"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0x5a18e5db1649765ec8266ba3b102280a89c9062b",
+      "exchange": "Bithumb",
+      "rank": 51,
+      "depositAmountQuid": "22128.092994260488650804",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:13:03Z",
+      "lastDepositAt": "2026-08-04T13:13:03Z",
+      "targetHotWallets": [
+        "0x65513d9cd1927054f68eb55d93f1dfc67bc4c24d"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0x5b6523234b5e27a003285b36e8706b573af10e72",
+      "exchange": "Bithumb",
+      "rank": 52,
+      "depositAmountQuid": "22000",
+      "depositTransferCount": 4,
+      "firstDepositAt": "2026-08-04T13:20:59Z",
+      "lastDepositAt": "2026-08-04T13:25:19Z",
+      "targetHotWallets": [
+        "0x0f5d1d63647342ff0fbe2f1ee879786c48f143ad",
+        "0x65513d9cd1927054f68eb55d93f1dfc67bc4c24d"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0xf73acb4c189a49523855ecabcca4a08b12cf002e",
+      "exchange": "Bithumb",
+      "rank": 53,
+      "depositAmountQuid": "21444.444444444444444444",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:22:07Z",
+      "lastDepositAt": "2026-08-04T13:22:07Z",
+      "targetHotWallets": [
+        "0x0f5d1d63647342ff0fbe2f1ee879786c48f143ad"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0x7eafb6d8bde8ab8744ab7f263d289e4ec290cc46",
+      "exchange": "Bithumb",
+      "rank": 54,
+      "depositAmountQuid": "21222",
+      "depositTransferCount": 3,
+      "firstDepositAt": "2026-08-04T13:14:53Z",
+      "lastDepositAt": "2026-08-04T13:38:23Z",
+      "targetHotWallets": [
+        "0x0f5d1d63647342ff0fbe2f1ee879786c48f143ad",
+        "0x65513d9cd1927054f68eb55d93f1dfc67bc4c24d"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0x1945db89eeb4e47e94cc805731a5efd12278aae9",
+      "exchange": "Bithumb",
+      "rank": 55,
+      "depositAmountQuid": "20000",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:49:23Z",
+      "lastDepositAt": "2026-08-04T13:49:23Z",
+      "targetHotWallets": [
+        "0x0f5d1d63647342ff0fbe2f1ee879786c48f143ad"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0x6b6af4fd0542e92ba9914aa74d1ee4aec3a5a0a0",
+      "exchange": "Bithumb",
+      "rank": 56,
+      "depositAmountQuid": "20000",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:59:33Z",
+      "lastDepositAt": "2026-08-04T13:59:33Z",
+      "targetHotWallets": [
+        "0x0f5d1d63647342ff0fbe2f1ee879786c48f143ad"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0xae0eaa673a289671c3eccfa5419f5dd9bd787a54",
+      "exchange": "Bithumb",
+      "rank": 57,
+      "depositAmountQuid": "19333.130383399050785984",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:46:49Z",
+      "lastDepositAt": "2026-08-04T13:46:49Z",
+      "targetHotWallets": [
+        "0x0f5d1d63647342ff0fbe2f1ee879786c48f143ad"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0x7a76f8325dcb3c32d206a02f0fed4b0aceac00cb",
+      "exchange": "Bithumb",
+      "rank": 58,
+      "depositAmountQuid": "18888.888888888888888888",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:04:37Z",
+      "lastDepositAt": "2026-08-04T13:04:37Z",
+      "targetHotWallets": [
+        "0x65513d9cd1927054f68eb55d93f1dfc67bc4c24d"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0x3a71a40c92c689f9c756eb388f0672bda6fb03a1",
+      "exchange": "Bithumb",
+      "rank": 59,
+      "depositAmountQuid": "18111.11111111111",
+      "depositTransferCount": 2,
+      "firstDepositAt": "2026-08-04T13:50:39Z",
+      "lastDepositAt": "2026-08-04T13:51:35Z",
+      "targetHotWallets": [
+        "0x0f5d1d63647342ff0fbe2f1ee879786c48f143ad"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0xfcf4d66e2f827a364bf128ba102fbcec237d8003",
+      "exchange": "Bithumb",
+      "rank": 60,
+      "depositAmountQuid": "16144.893917619831218143",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:53:11Z",
+      "lastDepositAt": "2026-08-04T13:53:11Z",
+      "targetHotWallets": [
+        "0x0f5d1d63647342ff0fbe2f1ee879786c48f143ad"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0x128c3a46fdb71d2a44f63b14bec42af3b6b89e2d",
+      "exchange": "Bithumb",
+      "rank": 61,
+      "depositAmountQuid": "16000",
+      "depositTransferCount": 2,
+      "firstDepositAt": "2026-08-04T13:57:29Z",
+      "lastDepositAt": "2026-08-04T13:57:51Z",
+      "targetHotWallets": [
+        "0x0f5d1d63647342ff0fbe2f1ee879786c48f143ad"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0x6f99a1c28c4543d3b424fec5e264c509daf4c776",
+      "exchange": "Bithumb",
+      "rank": 62,
+      "depositAmountQuid": "15645.18658829355319296",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:44:41Z",
+      "lastDepositAt": "2026-08-04T13:44:41Z",
+      "targetHotWallets": [
+        "0x0f5d1d63647342ff0fbe2f1ee879786c48f143ad"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0x57c06c27f97dfcc11651e30cbdf80d07d1688b2e",
+      "exchange": "Bithumb",
+      "rank": 63,
+      "depositAmountQuid": "15633.1282531300464186",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:16:23Z",
+      "lastDepositAt": "2026-08-04T13:16:23Z",
+      "targetHotWallets": [
+        "0x65513d9cd1927054f68eb55d93f1dfc67bc4c24d"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0x3b0813b40f63fcf45c441aaa793c68f31b3bfe22",
+      "exchange": "Bithumb",
+      "rank": 64,
+      "depositAmountQuid": "15555.555555555555555555",
+      "depositTransferCount": 2,
+      "firstDepositAt": "2026-08-04T13:19:47Z",
+      "lastDepositAt": "2026-08-04T13:24:39Z",
+      "targetHotWallets": [
+        "0x0f5d1d63647342ff0fbe2f1ee879786c48f143ad",
+        "0x65513d9cd1927054f68eb55d93f1dfc67bc4c24d"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0x6dd5937104bdcbc5c0a02bac8a3e68d4ce24d7de",
+      "exchange": "Bithumb",
+      "rank": 65,
+      "depositAmountQuid": "15555.555555555555555555",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:33:37Z",
+      "lastDepositAt": "2026-08-04T13:33:37Z",
+      "targetHotWallets": [
+        "0x0f5d1d63647342ff0fbe2f1ee879786c48f143ad"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0x1ff78ce13afeb4d04eb4cb0fc211ef6facc8c357",
+      "exchange": "Bithumb",
+      "rank": 66,
+      "depositAmountQuid": "14295.455833433534472162",
+      "depositTransferCount": 3,
+      "firstDepositAt": "2026-08-04T13:12:17Z",
+      "lastDepositAt": "2026-08-04T13:31:55Z",
+      "targetHotWallets": [
+        "0x0f5d1d63647342ff0fbe2f1ee879786c48f143ad",
+        "0x65513d9cd1927054f68eb55d93f1dfc67bc4c24d"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0x5dda066f2556043e4ab5b9dbe6da457fdc7c04af",
+      "exchange": "Bithumb",
+      "rank": 67,
+      "depositAmountQuid": "13607.565242906712355145",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:48:55Z",
+      "lastDepositAt": "2026-08-04T13:48:55Z",
+      "targetHotWallets": [
+        "0x0f5d1d63647342ff0fbe2f1ee879786c48f143ad"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0x1d0b88ab201701690780c5ed7494aff261fe88f8",
+      "exchange": "Bithumb",
+      "rank": 68,
+      "depositAmountQuid": "13500",
+      "depositTransferCount": 3,
+      "firstDepositAt": "2026-08-04T13:24:49Z",
+      "lastDepositAt": "2026-08-04T13:30:05Z",
+      "targetHotWallets": [
+        "0x0f5d1d63647342ff0fbe2f1ee879786c48f143ad"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0xda0097ea75f26e5b6977d6ae894a1f021d098189",
+      "exchange": "Bithumb",
+      "rank": 69,
+      "depositAmountQuid": "12777.777777777777777777",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:11:53Z",
+      "lastDepositAt": "2026-08-04T13:11:53Z",
+      "targetHotWallets": [
+        "0x65513d9cd1927054f68eb55d93f1dfc67bc4c24d"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0x3e11994d4569286dc544fa6d9b0babe6ac687c41",
+      "exchange": "Bithumb",
+      "rank": 70,
+      "depositAmountQuid": "12622.222222222222222222",
+      "depositTransferCount": 2,
+      "firstDepositAt": "2026-08-04T13:03:13Z",
+      "lastDepositAt": "2026-08-04T13:06:07Z",
+      "targetHotWallets": [
+        "0x65513d9cd1927054f68eb55d93f1dfc67bc4c24d"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0xb3a80eea3586ab57c411afb7551117d166d82554",
+      "exchange": "Bithumb",
+      "rank": 71,
+      "depositAmountQuid": "12276.52500075655275149",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:33:17Z",
+      "lastDepositAt": "2026-08-04T13:33:17Z",
+      "targetHotWallets": [
+        "0x0f5d1d63647342ff0fbe2f1ee879786c48f143ad"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0x209de607d6c990cf32ab541cede7d7c8d0a40f5b",
+      "exchange": "Bithumb",
+      "rank": 72,
+      "depositAmountQuid": "12089.121874399424512059",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:47:39Z",
+      "lastDepositAt": "2026-08-04T13:47:39Z",
+      "targetHotWallets": [
+        "0x0f5d1d63647342ff0fbe2f1ee879786c48f143ad"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0x6ee96b8a638b4362b3287459a1851b3084b50585",
+      "exchange": "Bithumb",
+      "rank": 73,
+      "depositAmountQuid": "11122.222222222222222222",
+      "depositTransferCount": 2,
+      "firstDepositAt": "2026-08-04T13:49:53Z",
+      "lastDepositAt": "2026-08-04T13:50:43Z",
+      "targetHotWallets": [
+        "0x0f5d1d63647342ff0fbe2f1ee879786c48f143ad"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0x61b0f9f4aeb02c0b054661690d736c47be9fb439",
+      "exchange": "Bithumb",
+      "rank": 74,
+      "depositAmountQuid": "11111.112222222222222222",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:41:29Z",
+      "lastDepositAt": "2026-08-04T13:41:29Z",
+      "targetHotWallets": [
+        "0x0f5d1d63647342ff0fbe2f1ee879786c48f143ad"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0x703fdb3878fe6e89066b183ad78d5855aca1c1cc",
+      "exchange": "Bithumb",
+      "rank": 75,
+      "depositAmountQuid": "11111.111111111111111111",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:35:37Z",
+      "lastDepositAt": "2026-08-04T13:35:37Z",
+      "targetHotWallets": [
+        "0x0f5d1d63647342ff0fbe2f1ee879786c48f143ad"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0x98203bc3be5795bb9266b91561031219a50738ba",
+      "exchange": "Bithumb",
+      "rank": 76,
+      "depositAmountQuid": "11111",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:04:23Z",
+      "lastDepositAt": "2026-08-04T13:04:23Z",
+      "targetHotWallets": [
+        "0x65513d9cd1927054f68eb55d93f1dfc67bc4c24d"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0x22bdd9b44e73d5f01676150d840dadd8a898af3e",
+      "exchange": "Bithumb",
+      "rank": 77,
+      "depositAmountQuid": "10511.157323345913864621",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:21:51Z",
+      "lastDepositAt": "2026-08-04T13:21:51Z",
+      "targetHotWallets": [
+        "0x0f5d1d63647342ff0fbe2f1ee879786c48f143ad"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0xa253dab3ec876ea5b06694969d2b0cdd9e3f42dc",
+      "exchange": "Bithumb",
+      "rank": 78,
+      "depositAmountQuid": "10500",
+      "depositTransferCount": 2,
+      "firstDepositAt": "2026-08-04T13:37:53Z",
+      "lastDepositAt": "2026-08-04T13:48:01Z",
+      "targetHotWallets": [
+        "0x0f5d1d63647342ff0fbe2f1ee879786c48f143ad"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0x4136e5a4ffb95bbf9b2d80f568d513a5cec2c75a",
+      "exchange": "Bithumb",
+      "rank": 79,
+      "depositAmountQuid": "10070.919309705501001803",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:31:13Z",
+      "lastDepositAt": "2026-08-04T13:31:13Z",
+      "targetHotWallets": [
+        "0x0f5d1d63647342ff0fbe2f1ee879786c48f143ad"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0x0cebc6ef2c32d1049d3e7da2121465dd305eef9b",
+      "exchange": "Bithumb",
+      "rank": 80,
+      "depositAmountQuid": "10000.405432424887917721",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:30:23Z",
+      "lastDepositAt": "2026-08-04T13:30:23Z",
+      "targetHotWallets": [
+        "0x0f5d1d63647342ff0fbe2f1ee879786c48f143ad"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0x573ca8e4cdce552adef1261b89a46e998a510ee9",
+      "exchange": "Bithumb",
+      "rank": 81,
+      "depositAmountQuid": "10000",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:09:35Z",
+      "lastDepositAt": "2026-08-04T13:09:35Z",
+      "targetHotWallets": [
+        "0x65513d9cd1927054f68eb55d93f1dfc67bc4c24d"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0x8bb7369f98ab7293fbfad3938be95886512ab4d9",
+      "exchange": "Bithumb",
+      "rank": 82,
+      "depositAmountQuid": "10000",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:47:49Z",
+      "lastDepositAt": "2026-08-04T13:47:49Z",
+      "targetHotWallets": [
+        "0x0f5d1d63647342ff0fbe2f1ee879786c48f143ad"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0x5f3d6c835e36544f0fda51e87e6da1d851ca9c6d",
+      "exchange": "Bithumb",
+      "rank": 83,
+      "depositAmountQuid": "9941.830365214375167204",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:55:07Z",
+      "lastDepositAt": "2026-08-04T13:55:07Z",
+      "targetHotWallets": [
+        "0x0f5d1d63647342ff0fbe2f1ee879786c48f143ad"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0x843c8b6320e5762898bf35d11bcbe489a99451e4",
+      "exchange": "Bithumb",
+      "rank": 84,
+      "depositAmountQuid": "9404.528817720402184977",
+      "depositTransferCount": 3,
+      "firstDepositAt": "2026-08-04T13:18:17Z",
+      "lastDepositAt": "2026-08-04T13:49:57Z",
+      "targetHotWallets": [
+        "0x0f5d1d63647342ff0fbe2f1ee879786c48f143ad",
+        "0x65513d9cd1927054f68eb55d93f1dfc67bc4c24d"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0xdd992e6045b277366dcc5abc4875f07dd3593e80",
+      "exchange": "Bithumb",
+      "rank": 85,
+      "depositAmountQuid": "9100",
+      "depositTransferCount": 2,
+      "firstDepositAt": "2026-08-04T13:22:13Z",
+      "lastDepositAt": "2026-08-04T13:25:29Z",
+      "targetHotWallets": [
+        "0x0f5d1d63647342ff0fbe2f1ee879786c48f143ad"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0x639a8ccc54758eeaf10d7b2133e9cfb44ff52d0b",
+      "exchange": "Bithumb",
+      "rank": 86,
+      "depositAmountQuid": "8632.725959160541875543",
+      "depositTransferCount": 2,
+      "firstDepositAt": "2026-08-04T13:05:11Z",
+      "lastDepositAt": "2026-08-04T13:48:01Z",
+      "targetHotWallets": [
+        "0x0f5d1d63647342ff0fbe2f1ee879786c48f143ad",
+        "0x65513d9cd1927054f68eb55d93f1dfc67bc4c24d"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0x04a6a082cfc338fbcfbbe1623522dc638a7894d6",
+      "exchange": "Bithumb",
+      "rank": 87,
+      "depositAmountQuid": "8200.00000000000033704",
+      "depositTransferCount": 3,
+      "firstDepositAt": "2026-08-04T13:08:59Z",
+      "lastDepositAt": "2026-08-04T13:17:35Z",
+      "targetHotWallets": [
+        "0x65513d9cd1927054f68eb55d93f1dfc67bc4c24d"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0x064558803333810986763d53577d8047560ea9cc",
+      "exchange": "Bithumb",
+      "rank": 88,
+      "depositAmountQuid": "7770.115585458289170859",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:30:35Z",
+      "lastDepositAt": "2026-08-04T13:30:35Z",
+      "targetHotWallets": [
+        "0x0f5d1d63647342ff0fbe2f1ee879786c48f143ad"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0xdb95d4080f7df01d1331857a734041e17b18e4ac",
+      "exchange": "Bithumb",
+      "rank": 89,
+      "depositAmountQuid": "7566",
+      "depositTransferCount": 3,
+      "firstDepositAt": "2026-08-04T13:25:43Z",
+      "lastDepositAt": "2026-08-04T13:26:51Z",
+      "targetHotWallets": [
+        "0x0f5d1d63647342ff0fbe2f1ee879786c48f143ad"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0xf62564ec2f0058f56a8b43bfd59eae1675d9d2bd",
+      "exchange": "Bithumb",
+      "rank": 90,
+      "depositAmountQuid": "7556",
+      "depositTransferCount": 3,
+      "firstDepositAt": "2026-08-04T13:32:03Z",
+      "lastDepositAt": "2026-08-04T13:43:35Z",
+      "targetHotWallets": [
+        "0x0f5d1d63647342ff0fbe2f1ee879786c48f143ad"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0x1a18056eb47ca192e4a277dcb259c8aad3413326",
+      "exchange": "Bithumb",
+      "rank": 91,
+      "depositAmountQuid": "7422.04417443871326208",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T14:07:11Z",
+      "lastDepositAt": "2026-08-04T14:07:11Z",
+      "targetHotWallets": [
+        "0x0f5d1d63647342ff0fbe2f1ee879786c48f143ad"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0x0011728deb7fb92567ba97c54427019d0bacea83",
+      "exchange": "Bithumb",
+      "rank": 92,
+      "depositAmountQuid": "7394.969231743646973208",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:26:05Z",
+      "lastDepositAt": "2026-08-04T13:26:05Z",
+      "targetHotWallets": [
+        "0x0f5d1d63647342ff0fbe2f1ee879786c48f143ad"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0x9928204f3b0ec24d767c581195b676ff3cf7c871",
+      "exchange": "Bithumb",
+      "rank": 93,
+      "depositAmountQuid": "7349",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:57:05Z",
+      "lastDepositAt": "2026-08-04T13:57:05Z",
+      "targetHotWallets": [
+        "0x0f5d1d63647342ff0fbe2f1ee879786c48f143ad"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0x3909604a8cb633c9262e97c5fa0043af40b1abc3",
+      "exchange": "Bithumb",
+      "rank": 94,
+      "depositAmountQuid": "7222",
+      "depositTransferCount": 3,
+      "firstDepositAt": "2026-08-04T13:20:13Z",
+      "lastDepositAt": "2026-08-04T13:38:13Z",
+      "targetHotWallets": [
+        "0x0f5d1d63647342ff0fbe2f1ee879786c48f143ad",
+        "0x65513d9cd1927054f68eb55d93f1dfc67bc4c24d"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0x6a5cd502947b7bbca002137048b2946bb8241181",
+      "exchange": "Bithumb",
+      "rank": 95,
+      "depositAmountQuid": "6666.666666666666666666",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:12:43Z",
+      "lastDepositAt": "2026-08-04T13:12:43Z",
+      "targetHotWallets": [
+        "0x65513d9cd1927054f68eb55d93f1dfc67bc4c24d"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0x144844f00b6886b13d229457da34eb3c0e3caa1c",
+      "exchange": "Bithumb",
+      "rank": 96,
+      "depositAmountQuid": "6666",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:19:13Z",
+      "lastDepositAt": "2026-08-04T13:19:13Z",
+      "targetHotWallets": [
+        "0x65513d9cd1927054f68eb55d93f1dfc67bc4c24d"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0x6801c704ed82326646c51b6eb1e9873d863542b3",
+      "exchange": "Bithumb",
+      "rank": 97,
+      "depositAmountQuid": "6611.111111111111111111",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:07:33Z",
+      "lastDepositAt": "2026-08-04T13:07:33Z",
+      "targetHotWallets": [
+        "0x65513d9cd1927054f68eb55d93f1dfc67bc4c24d"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0x8d401fef9f2250424b76ececd9a857227b58df8e",
+      "exchange": "Bithumb",
+      "rank": 98,
+      "depositAmountQuid": "6563.412320877637589534",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:23:03Z",
+      "lastDepositAt": "2026-08-04T13:23:03Z",
+      "targetHotWallets": [
+        "0x0f5d1d63647342ff0fbe2f1ee879786c48f143ad"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0xa8b0be11d567e128981793deb549333aa8440390",
+      "exchange": "Bithumb",
+      "rank": 99,
+      "depositAmountQuid": "6500.204013888976740543",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T14:01:29Z",
+      "lastDepositAt": "2026-08-04T14:01:29Z",
+      "targetHotWallets": [
+        "0x0f5d1d63647342ff0fbe2f1ee879786c48f143ad"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0xf748aa5944508044329f10e3d23ccf0dfd2ae496",
+      "exchange": "Bithumb",
+      "rank": 100,
+      "depositAmountQuid": "6036.758068726864228986",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:42:19Z",
+      "lastDepositAt": "2026-08-04T13:42:19Z",
+      "targetHotWallets": [
+        "0x0f5d1d63647342ff0fbe2f1ee879786c48f143ad"
+      ],
+      "inTop100": true
+    },
+    {
+      "address": "0xde03db9bc55050f2bc5e0c773163f5b3c243d3f1",
+      "exchange": "Bithumb",
+      "rank": 101,
+      "depositAmountQuid": "6000",
+      "depositTransferCount": 2,
+      "firstDepositAt": "2026-08-04T13:38:13Z",
+      "lastDepositAt": "2026-08-04T13:46:27Z",
+      "targetHotWallets": [
+        "0x0f5d1d63647342ff0fbe2f1ee879786c48f143ad"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0x89d6926493352dc97a15786c5e356f55c376c436",
+      "exchange": "Bithumb",
+      "rank": 102,
+      "depositAmountQuid": "5555.611111111111111111",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:06:57Z",
+      "lastDepositAt": "2026-08-04T13:06:57Z",
+      "targetHotWallets": [
+        "0x65513d9cd1927054f68eb55d93f1dfc67bc4c24d"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0x112e643057201e738b7eca66de342dbeacb821e0",
+      "exchange": "Bithumb",
+      "rank": 103,
+      "depositAmountQuid": "5500",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:40:33Z",
+      "lastDepositAt": "2026-08-04T13:40:33Z",
+      "targetHotWallets": [
+        "0x0f5d1d63647342ff0fbe2f1ee879786c48f143ad"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0x2b1883cfe9020e95feb6189ed35399a35e7ccc1a",
+      "exchange": "Bithumb",
+      "rank": 104,
+      "depositAmountQuid": "5500",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:16:37Z",
+      "lastDepositAt": "2026-08-04T13:16:37Z",
+      "targetHotWallets": [
+        "0x65513d9cd1927054f68eb55d93f1dfc67bc4c24d"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0xc3710a7622251939fbaf5c7e9caddeedba997928",
+      "exchange": "Bithumb",
+      "rank": 105,
+      "depositAmountQuid": "5000",
+      "depositTransferCount": 3,
+      "firstDepositAt": "2026-08-04T13:22:43Z",
+      "lastDepositAt": "2026-08-04T13:30:13Z",
+      "targetHotWallets": [
+        "0x0f5d1d63647342ff0fbe2f1ee879786c48f143ad"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0xdd949c159a6d8494d4dadfc709e1424ee06d8241",
+      "exchange": "Bithumb",
+      "rank": 106,
+      "depositAmountQuid": "5000",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:48:53Z",
+      "lastDepositAt": "2026-08-04T13:48:53Z",
+      "targetHotWallets": [
+        "0x0f5d1d63647342ff0fbe2f1ee879786c48f143ad"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0x2f5f8e0468f2a5cce210bfa0bdbb514698fa624d",
+      "exchange": "Bithumb",
+      "rank": 107,
+      "depositAmountQuid": "4800",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:41:09Z",
+      "lastDepositAt": "2026-08-04T13:41:09Z",
+      "targetHotWallets": [
+        "0x0f5d1d63647342ff0fbe2f1ee879786c48f143ad"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0x346d0c024e3cf1f8b3f04194a8a4bb18b5074212",
+      "exchange": "Bithumb",
+      "rank": 108,
+      "depositAmountQuid": "4652.586519161360963913",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:47:39Z",
+      "lastDepositAt": "2026-08-04T13:47:39Z",
+      "targetHotWallets": [
+        "0x0f5d1d63647342ff0fbe2f1ee879786c48f143ad"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0x9be6b1b7d183fc48888311d9f7d91870fdf734b2",
+      "exchange": "Bithumb",
+      "rank": 109,
+      "depositAmountQuid": "4111.111111111111111111",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:31:53Z",
+      "lastDepositAt": "2026-08-04T13:31:53Z",
+      "targetHotWallets": [
+        "0x0f5d1d63647342ff0fbe2f1ee879786c48f143ad"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0x07e08967dca8501b1b0a02433127ea4f197b1689",
+      "exchange": "Bithumb",
+      "rank": 110,
+      "depositAmountQuid": "4000",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:51:39Z",
+      "lastDepositAt": "2026-08-04T13:51:39Z",
+      "targetHotWallets": [
+        "0x0f5d1d63647342ff0fbe2f1ee879786c48f143ad"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0x62a9460a689e01314f60eea02011dced1293d2d7",
+      "exchange": "Bithumb",
+      "rank": 111,
+      "depositAmountQuid": "3985.576646933323566383",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:47:49Z",
+      "lastDepositAt": "2026-08-04T13:47:49Z",
+      "targetHotWallets": [
+        "0x0f5d1d63647342ff0fbe2f1ee879786c48f143ad"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0x731599bc7ebcc1475d6d9b3fe27a668441166dae",
+      "exchange": "Bithumb",
+      "rank": 112,
+      "depositAmountQuid": "3930.994476514115442758",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:46:43Z",
+      "lastDepositAt": "2026-08-04T13:46:43Z",
+      "targetHotWallets": [
+        "0x0f5d1d63647342ff0fbe2f1ee879786c48f143ad"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0x3a2397860c9225cc22cf66256d1825d10cecf729",
+      "exchange": "Bithumb",
+      "rank": 113,
+      "depositAmountQuid": "3893.270408364327037112",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:13:27Z",
+      "lastDepositAt": "2026-08-04T13:13:27Z",
+      "targetHotWallets": [
+        "0x65513d9cd1927054f68eb55d93f1dfc67bc4c24d"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0x3a91a8ebded5979330fda2324f66afeacd16f6fe",
+      "exchange": "Bithumb",
+      "rank": 114,
+      "depositAmountQuid": "3876.431707786437440686",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:44:03Z",
+      "lastDepositAt": "2026-08-04T13:44:03Z",
+      "targetHotWallets": [
+        "0x0f5d1d63647342ff0fbe2f1ee879786c48f143ad"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0xd21e15a4273bf8857c8c7cc559e57cebd6780c7f",
+      "exchange": "Bithumb",
+      "rank": 115,
+      "depositAmountQuid": "3847.973882935385491929",
+      "depositTransferCount": 2,
+      "firstDepositAt": "2026-08-04T13:08:23Z",
+      "lastDepositAt": "2026-08-04T13:49:07Z",
+      "targetHotWallets": [
+        "0x0f5d1d63647342ff0fbe2f1ee879786c48f143ad",
+        "0x65513d9cd1927054f68eb55d93f1dfc67bc4c24d"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0x3208c71ae37c51378593cf38256f5ed2b6b8d543",
+      "exchange": "Bithumb",
+      "rank": 116,
+      "depositAmountQuid": "3742",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:21:23Z",
+      "lastDepositAt": "2026-08-04T13:21:23Z",
+      "targetHotWallets": [
+        "0x0f5d1d63647342ff0fbe2f1ee879786c48f143ad"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0x669985b539433fffc8a875a0eeb528ed13ee12f8",
+      "exchange": "Bithumb",
+      "rank": 117,
+      "depositAmountQuid": "3722",
+      "depositTransferCount": 2,
+      "firstDepositAt": "2026-08-04T13:13:41Z",
+      "lastDepositAt": "2026-08-04T13:14:37Z",
+      "targetHotWallets": [
+        "0x65513d9cd1927054f68eb55d93f1dfc67bc4c24d"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0xe0f908411ef8b16081dd613e99a687b5502c0827",
+      "exchange": "Bithumb",
+      "rank": 118,
+      "depositAmountQuid": "3000",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:19:27Z",
+      "lastDepositAt": "2026-08-04T13:19:27Z",
+      "targetHotWallets": [
+        "0x65513d9cd1927054f68eb55d93f1dfc67bc4c24d"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0xca327cc13e0f71b21f27d2345a5861135bc1bb75",
+      "exchange": "Bithumb",
+      "rank": 119,
+      "depositAmountQuid": "2918.099353197307594424",
+      "depositTransferCount": 2,
+      "firstDepositAt": "2026-08-04T13:20:57Z",
+      "lastDepositAt": "2026-08-04T13:21:51Z",
+      "targetHotWallets": [
+        "0x0f5d1d63647342ff0fbe2f1ee879786c48f143ad",
+        "0x65513d9cd1927054f68eb55d93f1dfc67bc4c24d"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0x7f2cf5963137633edad7f5c818103540e4d6b76e",
+      "exchange": "Bithumb",
+      "rank": 120,
+      "depositAmountQuid": "2570.2",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:09:47Z",
+      "lastDepositAt": "2026-08-04T13:09:47Z",
+      "targetHotWallets": [
+        "0x65513d9cd1927054f68eb55d93f1dfc67bc4c24d"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0x87171ff2fd6d6ff65ec9fafb245f59c8954f19e7",
+      "exchange": "Bithumb",
+      "rank": 121,
+      "depositAmountQuid": "2212.416330221504391688",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:38:33Z",
+      "lastDepositAt": "2026-08-04T13:38:33Z",
+      "targetHotWallets": [
+        "0x0f5d1d63647342ff0fbe2f1ee879786c48f143ad"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0x8922dc0db9f9f9c1b2b8630048bcac78c27dff68",
+      "exchange": "Bithumb",
+      "rank": 122,
+      "depositAmountQuid": "2000.666666666666666666",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:31:13Z",
+      "lastDepositAt": "2026-08-04T13:31:13Z",
+      "targetHotWallets": [
+        "0x0f5d1d63647342ff0fbe2f1ee879786c48f143ad"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0x22605a901a3f0333e0decc5618f48e3c25141dbd",
+      "exchange": "Bithumb",
+      "rank": 123,
+      "depositAmountQuid": "2000",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:45:47Z",
+      "lastDepositAt": "2026-08-04T13:45:47Z",
+      "targetHotWallets": [
+        "0x0f5d1d63647342ff0fbe2f1ee879786c48f143ad"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0xd02b8a966ff5d3d0c43ff47d44e5d1c928d7b6f3",
+      "exchange": "Bithumb",
+      "rank": 124,
+      "depositAmountQuid": "1977.539062500000000001",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:31:49Z",
+      "lastDepositAt": "2026-08-04T13:31:49Z",
+      "targetHotWallets": [
+        "0x0f5d1d63647342ff0fbe2f1ee879786c48f143ad"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0xa42571e3bbef471227431cf222bff75325041c58",
+      "exchange": "Bithumb",
+      "rank": 125,
+      "depositAmountQuid": "1767.101063241195343615",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:25:03Z",
+      "lastDepositAt": "2026-08-04T13:25:03Z",
+      "targetHotWallets": [
+        "0x0f5d1d63647342ff0fbe2f1ee879786c48f143ad"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0x3676358dfdf7186da2a6d0aba9e8947381fce112",
+      "exchange": "Bithumb",
+      "rank": 126,
+      "depositAmountQuid": "1600",
+      "depositTransferCount": 2,
+      "firstDepositAt": "2026-08-04T13:19:13Z",
+      "lastDepositAt": "2026-08-04T13:29:33Z",
+      "targetHotWallets": [
+        "0x0f5d1d63647342ff0fbe2f1ee879786c48f143ad",
+        "0x65513d9cd1927054f68eb55d93f1dfc67bc4c24d"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0xea6f346d862f564ea01f6cc93eee81bed80398a9",
+      "exchange": "Bithumb",
+      "rank": 127,
+      "depositAmountQuid": "1582.787524831735658974",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:01:27Z",
+      "lastDepositAt": "2026-08-04T13:01:27Z",
+      "targetHotWallets": [
+        "0x65513d9cd1927054f68eb55d93f1dfc67bc4c24d"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0xa736e0ee2da08c6bde87dc87b221418252a5e50f",
+      "exchange": "Bithumb",
+      "rank": 128,
+      "depositAmountQuid": "1344",
+      "depositTransferCount": 2,
+      "firstDepositAt": "2026-08-04T13:51:29Z",
+      "lastDepositAt": "2026-08-04T14:03:51Z",
+      "targetHotWallets": [
+        "0x0f5d1d63647342ff0fbe2f1ee879786c48f143ad"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0x25fdcdd069ea241a85e7b26dc93c2f37913b0503",
+      "exchange": "Bithumb",
+      "rank": 129,
+      "depositAmountQuid": "1111",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:17:13Z",
+      "lastDepositAt": "2026-08-04T13:17:13Z",
+      "targetHotWallets": [
+        "0x65513d9cd1927054f68eb55d93f1dfc67bc4c24d"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0x441321a7c6ddd86db90604de18a827e4c3d1e8ff",
+      "exchange": "Bithumb",
+      "rank": 130,
+      "depositAmountQuid": "1100",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T14:01:33Z",
+      "lastDepositAt": "2026-08-04T14:01:33Z",
+      "targetHotWallets": [
+        "0x0f5d1d63647342ff0fbe2f1ee879786c48f143ad"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0x2394101ea8ddeb89aecf123fd6aa65782b577f7f",
+      "exchange": "Bithumb",
+      "rank": 131,
+      "depositAmountQuid": "1000.222222222222222222",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:22:15Z",
+      "lastDepositAt": "2026-08-04T13:22:15Z",
+      "targetHotWallets": [
+        "0x0f5d1d63647342ff0fbe2f1ee879786c48f143ad"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0x22f406bb55117d5f88b578bfa4a9bc4c262d00b4",
+      "exchange": "Bithumb",
+      "rank": 132,
+      "depositAmountQuid": "938.71879874159739218",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T12:59:17Z",
+      "lastDepositAt": "2026-08-04T12:59:17Z",
+      "targetHotWallets": [
+        "0x65513d9cd1927054f68eb55d93f1dfc67bc4c24d"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0x8898f68fe197ed8a19c3ac2a58881fd3d20009ae",
+      "exchange": "Bithumb",
+      "rank": 133,
+      "depositAmountQuid": "722",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:06:07Z",
+      "lastDepositAt": "2026-08-04T13:06:07Z",
+      "targetHotWallets": [
+        "0x65513d9cd1927054f68eb55d93f1dfc67bc4c24d"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0xa59215147b8304c61e761d50b01c6c5ab3fb8d3a",
+      "exchange": "Bithumb",
+      "rank": 134,
+      "depositAmountQuid": "721.22222",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:37:17Z",
+      "lastDepositAt": "2026-08-04T13:37:17Z",
+      "targetHotWallets": [
+        "0x0f5d1d63647342ff0fbe2f1ee879786c48f143ad"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0x328e2974a10325ff5f0396bb8093be31a1eeadb7",
+      "exchange": "Bithumb",
+      "rank": 135,
+      "depositAmountQuid": "636.662880791822126302",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T14:05:37Z",
+      "lastDepositAt": "2026-08-04T14:05:37Z",
+      "targetHotWallets": [
+        "0x0f5d1d63647342ff0fbe2f1ee879786c48f143ad"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0x000740ac584ab396b0159a7d74bdab0a7877334b",
+      "exchange": "Bithumb",
+      "rank": 136,
+      "depositAmountQuid": "583.30834175",
+      "depositTransferCount": 2,
+      "firstDepositAt": "2026-08-04T13:25:39Z",
+      "lastDepositAt": "2026-08-04T13:54:37Z",
+      "targetHotWallets": [
+        "0x0f5d1d63647342ff0fbe2f1ee879786c48f143ad"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0x8f4224c3ed3a245eb2a675b2f6799b290942b72b",
+      "exchange": "Bithumb",
+      "rank": 137,
+      "depositAmountQuid": "273.68",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T14:04:13Z",
+      "lastDepositAt": "2026-08-04T14:04:13Z",
+      "targetHotWallets": [
+        "0x0f5d1d63647342ff0fbe2f1ee879786c48f143ad"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0xbf3f052129f3c2235bd19abecb8f41fc595fb4b6",
+      "exchange": "Bithumb",
+      "rank": 138,
+      "depositAmountQuid": "39",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:13:03Z",
+      "lastDepositAt": "2026-08-04T13:13:03Z",
+      "targetHotWallets": [
+        "0x65513d9cd1927054f68eb55d93f1dfc67bc4c24d"
+      ],
+      "inTop100": false
+    },
+    {
+      "address": "0xe7884ee779a07f7d9f444b43bcd70ff4f54df67d",
+      "exchange": "Bithumb",
+      "rank": 139,
+      "depositAmountQuid": "16.742835",
+      "depositTransferCount": 1,
+      "firstDepositAt": "2026-08-04T13:56:03Z",
+      "lastDepositAt": "2026-08-04T13:56:03Z",
+      "targetHotWallets": [
+        "0x0f5d1d63647342ff0fbe2f1ee879786c48f143ad"
+      ],
+      "inTop100": false
+    }
+  ]
+}

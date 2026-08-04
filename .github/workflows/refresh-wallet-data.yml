@@ -1,0 +1,204 @@
+name: Refresh wallet intelligence
+
+on:
+  schedule:
+    - cron: "17 */4 * * *"
+    - cron: "41 18 * * *"
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: "Collection depth"
+        required: true
+        default: incremental
+        type: choice
+        options:
+          - incremental
+          - reconcile
+          - bootstrap
+
+concurrency:
+  group: wallet-data-refresh
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 55
+    permissions:
+      contents: read
+    env:
+      BLOCKSCOUT_API_BASE: ${{ secrets.BLOCKSCOUT_API_BASE }}
+      BLOCKSCOUT_API_KEY: ${{ secrets.BLOCKSCOUT_API_KEY }}
+      TRACKING_WINDOW_DAYS: "30"
+      REQUEST_INTERVAL_MS: "230"
+      COLLECTOR_WORKERS: "10"
+      INCREMENTAL_MAX_PAGES: "500"
+      RECONCILE_MAX_PAGES: "500"
+      MAX_API_REQUESTS_PER_RUN: "4500"
+      REQUIRE_TRACKER_STATE: "true"
+      MAX_FAILED_WALLETS: "406"
+      MAX_COLLECTION_WARNINGS: "31"
+      DASHBOARD_PASSWORD: "build-only-placeholder"
+      SESSION_SECRET: "build-only-placeholder-with-32-characters"
+    steps:
+      - name: Check out private repository
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+
+      - name: Set up Node.js
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Restore durable tracker checkpoint
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          mkdir -p .checkpoint
+          if gh api "repos/${GITHUB_REPOSITORY}/releases/tags/tracker-state" > .checkpoint/release.json 2> .checkpoint/release-error.txt; then
+            jq -r '.assets | map(select(.name | startswith("tracker-state-") and endswith(".tgz"))) | sort_by(.created_at) | reverse | .[].name' .checkpoint/release.json > .checkpoint/assets.txt
+            restored=false
+            while IFS= read -r asset; do
+              [ -n "$asset" ] || continue
+              rm -rf .checkpoint/candidate
+              mkdir -p .checkpoint/candidate
+              if gh release download tracker-state --pattern "$asset" --dir .checkpoint/candidate && tar -xzf ".checkpoint/candidate/$asset" -C .checkpoint/candidate && node scripts/checkpoint-bundle.mjs verify .checkpoint/candidate; then
+                mv .checkpoint/candidate/tracker-state.json data/tracker-state.json
+                restored=true
+                echo "Restored verified checkpoint: $asset"
+                break
+              fi
+            done < .checkpoint/assets.txt
+            if [ "$restored" != "true" ]; then
+              echo "The checkpoint release exists, but no valid checkpoint could be restored." >&2
+              exit 1
+            fi
+          elif grep -q "HTTP 404" .checkpoint/release-error.txt; then
+            echo "No checkpoint release exists; collector will bootstrap the tracking window."
+          else
+            cat .checkpoint/release-error.txt >&2
+            exit 1
+          fi
+
+      - name: Install locked dependencies
+        run: npm ci
+
+      - name: Collect current activity
+        env:
+          REQUESTED_MODE: ${{ github.event.inputs.mode }}
+          SCHEDULE_EXPRESSION: ${{ github.event.schedule }}
+        run: |
+          if [ "$REQUESTED_MODE" = "bootstrap" ]; then
+            npm run collect:bootstrap
+          elif [ "$REQUESTED_MODE" = "reconcile" ] || [ "$SCHEDULE_EXPRESSION" = "41 18 * * *" ]; then
+            npm run collect:reconcile
+          else
+            npm run collect
+          fi
+
+      - name: Verify classifier, data, and production build
+        run: |
+          npm run lint
+          npm run typecheck
+          npm test
+          npm run validate:data
+          npm run build
+
+      - name: Prepare validated private payload
+        run: |
+          mkdir -p release-payload/data release-payload/checkpoint
+          cp data/snapshot.json release-payload/data/snapshot.json
+          cp data/snapshot.json release-payload/checkpoint/snapshot.json
+          cp data/tracker-state.json release-payload/checkpoint/tracker-state.json
+          node scripts/checkpoint-bundle.mjs create release-payload/checkpoint
+          tar -C release-payload/checkpoint -czf "release-payload/tracker-state-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}.tgz" .
+          rm -rf release-payload/checkpoint
+
+      - name: Upload payload for narrow publisher job
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: validated-wallet-payload
+          path: release-payload
+          if-no-files-found: error
+          retention-days: 2
+
+  publish:
+    needs: collect
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write
+    steps:
+      - name: Check out private repository without persisted credentials
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+
+      - name: Download validated payload
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
+        with:
+          name: validated-wallet-payload
+          path: release-payload
+
+      - name: Publish versioned durable checkpoint
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          checkpoint_path=$(find release-payload -maxdepth 1 -name 'tracker-state-*.tgz' -print -quit)
+          [ -n "$checkpoint_path" ] || { echo "Checkpoint bundle missing." >&2; exit 1; }
+          checkpoint_name=$(basename "$checkpoint_path")
+          if gh api "repos/${GITHUB_REPOSITORY}/releases/tags/tracker-state" >/dev/null 2>release-error.txt; then
+            true
+          elif grep -q "HTTP 404" release-error.txt; then
+            gh release create tracker-state --title "Tracker state checkpoint" --notes "Private rolling checkpoints for scheduled wallet collection." --latest=false
+          else
+            cat release-error.txt >&2
+            exit 1
+          fi
+          gh release upload tracker-state "$checkpoint_path"
+          mkdir -p checkpoint-verify
+          gh release download tracker-state --pattern "$checkpoint_name" --dir checkpoint-verify
+          test "$(sha256sum "$checkpoint_path" | cut -d ' ' -f 1)" = "$(sha256sum "checkpoint-verify/$checkpoint_name" | cut -d ' ' -f 1)"
+
+      - name: Commit matching dashboard snapshot
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh auth setup-git
+          git pull --rebase origin main
+          cp release-payload/data/snapshot.json data/snapshot.json
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/snapshot.json
+          if ! git diff --cached --quiet; then
+            git commit -m "data: refresh wallet activity snapshot"
+            git push origin HEAD:main
+          else
+            echo "No snapshot changes to commit."
+          fi
+
+      - name: Retain the three newest checkpoints
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh api "repos/${GITHUB_REPOSITORY}/releases/tags/tracker-state" --jq '.assets | map(select(.name | startswith("tracker-state-") and endswith(".tgz"))) | sort_by(.created_at) | reverse | .[3:] | .[].id' > old-assets.txt
+          while IFS= read -r asset_id; do
+            [ -n "$asset_id" ] || continue
+            gh api --method DELETE "repos/${GITHUB_REPOSITORY}/releases/assets/${asset_id}" || echo "Could not remove old checkpoint asset ${asset_id}."
+          done < old-assets.txt
+
+      - name: Trigger private deployment rebuild
+        env:
+          DEPLOY_HOOK_URL: ${{ secrets.DEPLOY_HOOK_URL }}
+        run: |
+          if [ -n "$DEPLOY_HOOK_URL" ]; then
+            curl --fail --silent --show-error --retry 3 --request POST "$DEPLOY_HOOK_URL" >/dev/null
+          else
+            echo "DEPLOY_HOOK_URL is not configured; snapshot was published without an automatic redeploy."
+          fi

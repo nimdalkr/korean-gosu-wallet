@@ -1,0 +1,135 @@
+.page {
+  min-height: 100svh;
+  display: grid;
+  place-items: center;
+  padding: 32px 20px;
+  background-color: #0d0f11;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+.shell {
+  width: min(100%, 430px);
+  border: 1px solid #32363b;
+  background: #131619;
+  padding: 40px;
+  box-shadow: 10px 10px 0 #08090a;
+}
+
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #8ea9cb;
+  font: 600 11px/1 var(--font-geist-mono), monospace;
+  letter-spacing: 0.14em;
+}
+
+.brandMark {
+  width: 58px;
+  height: 58px;
+  margin: 42px 0 22px;
+  display: grid;
+  place-items: center;
+  border: 1px solid #5c7fa8;
+  color: #d7e6f6;
+  font: 600 14px/1 var(--font-geist-mono), monospace;
+  letter-spacing: 0.09em;
+}
+
+.shell h1 {
+  color: #f1f2ef;
+  font-size: clamp(28px, 7vw, 42px);
+  line-height: 1;
+  letter-spacing: -0.055em;
+}
+
+.description {
+  margin-top: 16px;
+  color: #9ca1a7;
+  line-height: 1.65;
+  word-break: keep-all;
+}
+
+.form {
+  margin-top: 36px;
+}
+
+.form label {
+  display: block;
+  margin-bottom: 9px;
+  color: #747b83;
+  font: 600 10px/1 var(--font-geist-mono), monospace;
+  letter-spacing: 0.14em;
+}
+
+.inputWrap {
+  height: 50px;
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  padding: 0 15px;
+  border: 1px solid #3a3f45;
+  background: #0e1012;
+  color: #7d8792;
+}
+
+.inputWrap:focus-within {
+  border-color: #6e98c5;
+  box-shadow: 0 0 0 3px rgba(110, 152, 197, 0.12);
+}
+
+.inputWrap input {
+  width: 100%;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: #f1f2ef;
+  font: 500 16px/1 var(--font-geist-mono), monospace;
+  letter-spacing: 0.08em;
+}
+
+.form button {
+  width: 100%;
+  height: 50px;
+  margin-top: 12px;
+  border: 1px solid #86a8ca;
+  background: #dce9f5;
+  color: #111820;
+  font-weight: 750;
+  cursor: pointer;
+}
+
+.form button:hover {
+  background: #f1f6fb;
+}
+
+.form button:focus-visible,
+.inputWrap input:focus-visible {
+  outline: 2px solid #f2b870;
+  outline-offset: 3px;
+}
+
+.error {
+  margin-top: 10px;
+  color: #ee9f9f;
+  font-size: 13px;
+}
+
+.note {
+  margin-top: 26px;
+  padding-top: 18px;
+  border-top: 1px solid #292d31;
+  color: #686e74;
+  font-size: 12px;
+  line-height: 1.55;
+}
+
+@media (max-width: 520px) {
+  .shell {
+    padding: 30px 24px;
+    box-shadow: 6px 6px 0 #08090a;
+  }
+}

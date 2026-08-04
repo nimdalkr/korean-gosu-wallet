@@ -1,0 +1,46 @@
+{
+  "name": "korean-gosu-wallet",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "node .next/standalone/server.js",
+    "postbuild": "node scripts/prepare-standalone.mjs",
+    "lint": "eslint",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "seed:import": "node scripts/import-quid-seed.mjs",
+    "export:wallets": "node scripts/export-wallet-lists.mjs",
+    "collect": "tsx scripts/collect-activities.ts",
+    "collect:bootstrap": "tsx scripts/collect-activities.ts --bootstrap",
+    "collect:reconcile": "tsx scripts/collect-activities.ts --reconcile",
+    "snapshot:rebuild": "tsx scripts/collect-activities.ts --derive-only",
+    "validate:data": "tsx scripts/validate-data.ts",
+    "check": "npm run lint && npm run typecheck && npm run test && npm run validate:data && npm run build"
+  },
+  "dependencies": {
+    "@next/env": "^16.3.0",
+    "jose": "^6.2.8",
+    "lucide-react": "^1.28.0",
+    "next": "16.3.0",
+    "react": "19.2.8",
+    "react-dom": "19.2.8",
+    "recharts": "^3.10.1",
+    "server-only": "^0.0.1",
+    "viem": "^2.55.10",
+    "zod": "^4.4.3"
+  },
+  "devDependencies": {
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "@vitest/coverage-v8": "^4.1.10",
+    "eslint": "^9",
+    "eslint-config-next": "16.3.0",
+    "tsx": "^4.23.5",
+    "typescript": "^5",
+    "vitest": "^4.1.10"
+  }
+}

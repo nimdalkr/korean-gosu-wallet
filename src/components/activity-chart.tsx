@@ -10,15 +10,14 @@ import {
   YAxis,
 } from "recharts";
 
-export interface ActivityChartPoint {
+export interface SignalChartPoint {
   date: string;
-  token: number;
-  nft: number;
-  defi: number;
-  other: number;
+  alpha: number;
+  anomaly: number;
+  noise: number;
 }
 
-export function ActivityChart({ data }: { data: ActivityChartPoint[] }) {
+export function SignalChart({ data }: { data: SignalChartPoint[] }) {
   return (
     <ResponsiveContainer width="100%" height="100%" minWidth={0} minHeight={240}>
       <BarChart data={data} margin={{ top: 16, right: 4, left: -24, bottom: 0 }}>
@@ -44,10 +43,9 @@ export function ActivityChart({ data }: { data: ActivityChartPoint[] }) {
           }}
           cursor={{ fill: "rgba(255,255,255,0.035)" }}
         />
-        <Bar dataKey="token" name="토큰" stackId="activity" fill="#6d9dcd" />
-        <Bar dataKey="nft" name="NFT" stackId="activity" fill="#cf9a55" />
-        <Bar dataKey="defi" name="DeFi" stackId="activity" fill="#879a67" />
-        <Bar dataKey="other" name="기타" stackId="activity" fill="#82718b" />
+        <Bar dataKey="alpha" name="알파" stackId="signal" fill="#42d6a4" />
+        <Bar dataKey="anomaly" name="이상 행동" stackId="signal" fill="#f0b65a" />
+        <Bar dataKey="noise" name="노이즈" stackId="signal" fill="#687078" />
       </BarChart>
     </ResponsiveContainer>
   );

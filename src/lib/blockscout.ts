@@ -27,6 +27,10 @@ export interface BlockscoutTokenTransfer {
     symbol?: string | null;
     type?: string | null;
     reputation?: string | null;
+    exchange_rate?: string | number | null;
+    holders_count?: string | number | null;
+    circulating_market_cap?: string | number | null;
+    total_supply?: string | number | null;
   };
   token_type?: string | null;
   total?: {
@@ -146,6 +150,20 @@ export function normalizeBlockscoutTransfer(
     type: tokenType,
     iconUrl: item.token?.icon_url ?? null,
     reputation: item.token?.reputation ?? null,
+    exchangeRateUsd:
+      item.token?.exchange_rate === null || item.token?.exchange_rate === undefined
+        ? null
+        : String(item.token.exchange_rate),
+    holdersCount: numberOrNull(item.token?.holders_count),
+    circulatingMarketCapUsd:
+      item.token?.circulating_market_cap === null ||
+      item.token?.circulating_market_cap === undefined
+        ? null
+        : String(item.token.circulating_market_cap),
+    totalSupply:
+      item.token?.total_supply === null || item.token?.total_supply === undefined
+        ? null
+        : String(item.token.total_supply),
   };
 
   return {
@@ -209,6 +227,7 @@ export function normalizeBlockscoutTransaction(
     status,
     source: "normal",
     toName: item.to?.name ?? null,
+    toIsContract: item.to?.is_contract ?? null,
     transactionTypes: item.transaction_types ?? [],
   };
 }
@@ -247,6 +266,7 @@ export function normalizeBlockscoutInternalTransaction(
     status,
     source: "internal",
     toName: item.to?.name ?? null,
+    toIsContract: item.to?.is_contract ?? null,
     transactionTypes: ["internal_transaction"],
   };
 }

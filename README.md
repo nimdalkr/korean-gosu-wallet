@@ -1,6 +1,6 @@
 # Korean Gosu Wallet
 
-업비트·빗썸의 Base 메인넷 QUID 입금 주소군을 추적하는 비공개 온체인 인텔리전스 대시보드입니다. 주소별 토큰·NFT·컨트랙트 활동을 주기적으로 수집하고, 확인된 사실과 패턴 기반 추정을 구분해 보여줍니다.
+업비트·빗썸의 Base 메인넷 QUID 입금 주소군을 추적하는 비공개 온체인 알파 레이더입니다. 주소별 토큰·NFT·컨트랙트 활동을 주기적으로 수집하고, 다지갑 동시 행동·순유입·신규 컨트랙트 접근·이례적 유출을 점수화해 원문 노이즈보다 먼저 보여줍니다.
 
 ## 현재 코호트
 
@@ -29,15 +29,22 @@
 
 ## 대시보드가 보여주는 것
 
+- 24시간 70점 이상 유의미 신호, 7일 집중 관찰 자산, 고위험 이상 행동
+- 여러 지갑의 동일 토큰·NFT 매수/민팅, 순유입 유지, 동일 컨트랙트 호출
+- 평소 대비 행동 급증, 다지갑 동시 유출과 알려진 거래소 핫월렛 목적지
+- 동일 발신자·동일 수량의 수동 대량 살포와 스팸성 토큰을 별도 노이즈로 격리
+- 각 신호의 0~100점, 가점·감점 이유, 참여 지갑, 거래소 교차 여부, BaseScan 근거
 - 406개 외부 지갑과 거래소별 입금 순위·QUID 입금량
 - 24시간·7일·30일 활동량과 마지막 활동 시각
 - ERC-20, ERC-721, ERC-1155 수신·전송
 - NFT 민팅, NFT 매수·매도 추정, 특정 컬렉션 활동
 - 토큰 매수·매도 추정, 에어드롭, 브리지, 스테이킹, 유동성, 승인, 컨트랙트 호출
 - 활동별 판정 신뢰도, 근거, BaseScan 원문 링크
-- 거래소·기간·활동 유형·Top 100·주소/토큰 검색 필터
+- 거래소·기간·신호 분류·최소 점수·Top 100·주소/자산/컨트랙트 검색 필터
 
 “매수”는 단순 토큰 유입으로 판정하지 않습니다. 같은 트랜잭션에서 USDC·WETH·ETH 등 결제자산 유출과 비결제 토큰 또는 NFT 유입이 함께 확인될 때만 “매수 추정”으로 표시합니다. 최초 스냅샷에서는 이 조건을 만족하는 매수 추정이 0건이며, 이를 그대로 보여줍니다.
+
+신호 점수는 가격 상승 확률이 아니라 조사 우선순위입니다. 점수 구성, 노이즈 방어와 각 신호의 정확한 의미는 [`docs/signal-model.md`](docs/signal-model.md)에 정리했습니다.
 
 ## 실행
 
@@ -76,7 +83,8 @@ Blockscout PRO를 쓰려면 `BLOCKSCOUT_API_BASE=https://api.blockscout.com/8453
 
 `.github/workflows/refresh-wallet-data.yml`은 다음 정책으로 동작합니다.
 
-- UTC 기준 4시간마다 17분에 토큰·NFT 이동을 전체 주소에서 증분 조회합니다.
+- 4시간 전수 수집 사이에는 매시간 거래소별 Top 100, 총 200개 지갑을 빠르게 증분 조회합니다.
+- UTC 00·04·08·12·16·20시에는 406개 전체 지갑을 증분 조회합니다.
 - 증분 구간에 자산 이동이 포착된 지갑만 일반 트랜잭션을 추가 조회합니다.
 - 매일 18:41 UTC, 한국시간 03:41에 406개 주소의 일반 트랜잭션을 재대조합니다.
 - 10분 겹침 구간과 이벤트 ID 중복 제거로 지연 인덱싱과 중복 실행을 흡수합니다.
@@ -84,8 +92,22 @@ Blockscout PRO를 쓰려면 `BLOCKSCOUT_API_BASE=https://api.blockscout.com/8453
 - 린트, 타입 검사, 분류기 테스트, 데이터 무결성 검사, 프로덕션 빌드가 모두 통과해야 스냅샷을 갱신합니다.
 - 수집·검증 job은 저장소 읽기 권한만 사용하고, 검증된 산출물을 받는 별도 게시 job에만 쓰기 권한을 줍니다.
 - `DEPLOY_HOOK_URL` secret이 있으면 스냅샷 커밋 뒤 비공개 배포를 다시 빌드합니다. Docker 이미지는 JSON을 포함하므로 이 hook 또는 동등한 재배포가 필요합니다.
+- `ALERT_WEBHOOK_URL` secret이 있으면 70점 이상 새 Alpha·Anomaly를 일반 JSON 또는 Discord webhook으로 전송합니다. 같은 High 신호는 한 번만 보내고 Critical 격상 시 다시 알립니다.
 
 GitHub 저장소의 Actions secrets에 `BLOCKSCOUT_API_KEY`를 추가하는 구성을 권장합니다. Blockscout 무료 PRO 티어는 호출 수가 아닌 credits 기준이므로, 406개 주소의 일반 트랜잭션까지 짧은 간격으로 전수 조회하지 않도록 수집을 분리했습니다. 15분 이하 지연이 필요하면 managed Base RPC의 `eth_getLogs` 또는 전용 인덱서를 연결하는 것이 적합합니다.
+
+선택적 알림 설정:
+
+```dotenv
+ALERT_WEBHOOK_URL=https://your-private-webhook.example/path
+ALERT_WEBHOOK_FORMAT=generic # or discord
+ALERT_MIN_SCORE=70
+ALERT_LOOKBACK_HOURS=6
+ALERT_MAX_SIGNALS=10
+DASHBOARD_URL=https://your-private-dashboard.example
+```
+
+GitHub Actions에서는 URL을 repository secret으로, 나머지 값은 Actions variable로 설정합니다. webhook 페이로드에는 지갑 주소와 트랜잭션 근거가 포함되므로 신뢰하는 비공개 수신처만 사용하세요.
 
 ## 비공개 배포
 

@@ -32,6 +32,10 @@ describe("Blockscout normalization", () => {
           decimals: "6",
           name: "USD Coin",
           symbol: "USDC",
+          exchange_rate: "1.001",
+          holders_count: "12345",
+          circulating_market_cap: "5000000",
+          total_supply: "10000000",
         },
         total: { value: "2500000", decimals: "6" },
       },
@@ -40,6 +44,9 @@ describe("Blockscout normalization", () => {
     expect(result?.direction).toBe("in");
     expect(result?.amount).toBe("2.5");
     expect(result?.token.symbol).toBe("USDC");
+    expect(result?.token.exchangeRateUsd).toBe("1.001");
+    expect(result?.token.holdersCount).toBe(12345);
+    expect(result?.token.circulatingMarketCapUsd).toBe("5000000");
     expect(result?.id).toBe(result ? normalizedTransferId(result) : "");
   });
 
@@ -48,7 +55,7 @@ describe("Blockscout normalization", () => {
       {
         block_number: 123,
         from: { hash: wallet },
-        to: { hash: other },
+        to: { hash: other, is_contract: true },
         hash,
         timestamp: "2026-08-04T12:00:00Z",
         method: "swap",
@@ -60,6 +67,7 @@ describe("Blockscout normalization", () => {
     expect(result?.direction).toBe("out");
     expect(result?.valueEth).toBe("1");
     expect(result?.status).toBe("ok");
+    expect(result?.toIsContract).toBe(true);
   });
 
   it("keeps ERC-1155 batch items distinct", () => {

@@ -26,8 +26,14 @@ async function readInputs() {
   ]);
   const state = JSON.parse(stateBytes.toString("utf8"));
   const snapshot = JSON.parse(snapshotBytes.toString("utf8"));
-  if (state.schemaVersion !== 2) throw new Error("Checkpoint requires tracker schema v2.");
-  if (snapshot.schemaVersion !== 1) throw new Error("Checkpoint requires snapshot schema v1.");
+  const supportedSchemaPair =
+    (state.schemaVersion === 2 && snapshot.schemaVersion === 1) ||
+    (state.schemaVersion === 3 && snapshot.schemaVersion === 2);
+  if (!supportedSchemaPair) {
+    throw new Error(
+      `Unsupported checkpoint schema pair: tracker v${state.schemaVersion}, snapshot v${snapshot.schemaVersion}.`,
+    );
+  }
   if (state.updatedAt !== snapshot.generatedAt) {
     throw new Error("Tracker state and snapshot generations do not match.");
   }

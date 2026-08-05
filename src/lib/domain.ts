@@ -72,6 +72,10 @@ export interface TokenMetadata {
   type: TokenType;
   iconUrl?: string | null;
   reputation?: string | null;
+  exchangeRateUsd?: string | null;
+  holdersCount?: number | null;
+  circulatingMarketCapUsd?: string | null;
+  totalSupply?: string | null;
 }
 
 export interface NormalizedTransfer {
@@ -106,6 +110,7 @@ export interface NormalizedTransaction {
   status: "ok" | "error" | "unknown";
   source?: "normal" | "internal";
   toName?: string | null;
+  toIsContract?: boolean | null;
   transactionTypes?: string[];
 }
 
@@ -142,9 +147,87 @@ export interface WalletActivitySummary extends WalletSeed {
   eventCount24h: number;
   eventCount7d: number;
   eventCount30d: number;
+  signalCount24h: number;
+  signalCount7d: number;
+  maxSignalScore: number;
   lastActivityAt: string | null;
   topCategories: ActivityCategory[];
   topAssets: string[];
+}
+
+export type SignalClass = "alpha" | "anomaly" | "noise";
+
+export type SignalDirection = "bullish" | "bearish" | "neutral";
+
+export type SignalSeverity = "critical" | "high" | "medium" | "low";
+
+export type SignalKind =
+  | "cohort_trade"
+  | "cohort_accumulation"
+  | "coordinated_outflow"
+  | "distribution_blast"
+  | "wallet_activity_burst"
+  | "contract_convergence"
+  | "bridge_follow_through";
+
+export interface SignalReason {
+  code: string;
+  label: string;
+  points: number;
+}
+
+export interface SignalWallet {
+  address: string;
+  exchange: Exchange;
+  rank: number;
+  inTop100: boolean;
+  activityCount: number;
+}
+
+export interface IntelligenceSignal {
+  id: string;
+  kind: SignalKind;
+  signalClass: SignalClass;
+  direction: SignalDirection;
+  severity: SignalSeverity;
+  score: number;
+  confidence: Confidence;
+  occurredAt: string;
+  windowHours: number;
+  title: string;
+  summary: string;
+  asset?: ActivityAsset | null;
+  targetAddress?: string | null;
+  targetName?: string | null;
+  wallets: SignalWallet[];
+  exchangeCount: number;
+  transactionHashes: string[];
+  basescanUrls: string[];
+  evidence: string[];
+  reasons: SignalReason[];
+  noiseCandidate: boolean;
+  estimatedUsd?: number | null;
+}
+
+export interface SignalTrendPoint {
+  date: string;
+  alpha: number;
+  anomaly: number;
+  noise: number;
+}
+
+export interface AssetWatchItem {
+  address: string;
+  name: string;
+  symbol: string;
+  type: TokenType;
+  score: number;
+  direction: SignalDirection;
+  signalCount: number;
+  walletCount: number;
+  exchangeCount: number;
+  latestSignalAt: string;
+  estimatedUsd?: number | null;
 }
 
 export interface DailyActivityPoint {
@@ -166,7 +249,7 @@ export interface RankedActivityItem {
 }
 
 export interface DashboardSnapshot {
-  schemaVersion: 1;
+  schemaVersion: 2;
   generatedAt: string;
   source: {
     chain: "Base";
@@ -178,6 +261,8 @@ export interface DashboardSnapshot {
     degraded: boolean;
     warnings: string[];
     failedWallets: string[];
+    refreshScope: "all" | "top100";
+    refreshedWalletCount: number;
   };
   coverage: {
     trackedWallets: number;
@@ -200,9 +285,19 @@ export interface DashboardSnapshot {
     airdrops30d: number;
     activities30d: number;
     activityRowsIncluded: number;
+    actionableSignals24h: number;
+    alphaSignals7d: number;
+    highAnomalies24h: number;
+    noiseSignals24h: number;
+    meaningfulActivities24h: number;
+    noiseFilteredActivities24h: number;
+    signalAssets7d: number;
   };
   wallets: WalletActivitySummary[];
   activities: ActivityEvent[];
+  signals: IntelligenceSignal[];
+  signalTrend: SignalTrendPoint[];
+  assetWatchlist: AssetWatchItem[];
   dailyActivity: DailyActivityPoint[];
   topTokens: RankedActivityItem[];
   topNfts: RankedActivityItem[];
@@ -216,11 +311,12 @@ export interface WalletFeedCursor {
 }
 
 export interface TrackerState {
-  schemaVersion: 2;
+  schemaVersion: 3;
   updatedAt: string;
   lastProcessedBlock: number | null;
   transfers: NormalizedTransfer[];
   transactions: NormalizedTransaction[];
   tokenMetadata: Record<string, TokenMetadata>;
   cursors: Record<string, WalletFeedCursor>;
+  deliveredSignalIds: Record<string, string>;
 }

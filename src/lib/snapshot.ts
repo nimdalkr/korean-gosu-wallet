@@ -3,32 +3,18 @@ import type {
   ActivityEvent,
   DailyActivityPoint,
   DashboardSnapshot,
+  NormalizedTransaction,
+  NormalizedTransfer,
   RankedActivityItem,
   WalletActivitySummary,
   WalletSeed,
   WalletSeedSummary,
 } from "./domain";
+import { CATEGORY_LABELS } from "./activity-labels";
+import { buildIntelligence } from "./signal-engine";
 
 const DAY_MS = 86_400_000;
 const ACTIVITY_ROW_LIMIT = 750;
-
-const CATEGORY_LABELS: Record<ActivityCategory, string> = {
-  airdrop_received: "에어드롭 수신",
-  token_buy_candidate: "토큰 매수 추정",
-  token_sell_candidate: "토큰 매도 추정",
-  nft_purchase_candidate: "NFT 매수 추정",
-  nft_sale_candidate: "NFT 매도 추정",
-  nft_mint: "NFT 민팅",
-  token_receive: "토큰 수신",
-  token_send: "토큰 전송",
-  nft_receive: "NFT 수신",
-  nft_send: "NFT 전송",
-  bridge: "브리지",
-  staking: "스테이킹",
-  liquidity: "유동성",
-  approval: "승인",
-  contract_interaction: "컨트랙트 호출",
-};
 
 const KST_DATE_FORMATTER = new Intl.DateTimeFormat("en-CA", {
   timeZone: "Asia/Seoul",
@@ -126,6 +112,8 @@ export function buildDashboardSnapshot(input: {
   wallets: WalletSeed[];
   cohort: WalletSeedSummary;
   activities: ActivityEvent[];
+  transfers?: NormalizedTransfer[];
+  transactions?: NormalizedTransaction[];
   generatedAt: string;
   mode: DashboardSnapshot["source"]["mode"];
   fromBlock: number | null;
@@ -133,6 +121,8 @@ export function buildDashboardSnapshot(input: {
   trackingWindowDays: number;
   warnings?: string[];
   failedWallets?: string[];
+  refreshScope?: DashboardSnapshot["source"]["refreshScope"];
+  refreshedWalletCount?: number;
 }): DashboardSnapshot {
   const generatedTime = Date.parse(input.generatedAt);
   const threshold24h = generatedTime - DAY_MS;
@@ -145,6 +135,13 @@ export function buildDashboardSnapshot(input: {
     (activity) => activity.initiatedByWallet && !activity.suspectedSpam,
   );
   const activitiesByWallet = new Map<string, ActivityEvent[]>();
+  const intelligence = buildIntelligence({
+    wallets: input.wallets,
+    activities: input.activities,
+    transfers: input.transfers,
+    transactions: input.transactions,
+    generatedAt: input.generatedAt,
+  });
 
   for (const activity of activities30d) {
     const key = activity.walletAddress.toLowerCase();
@@ -155,6 +152,7 @@ export function buildDashboardSnapshot(input: {
 
   const wallets: WalletActivitySummary[] = input.wallets.map((wallet) => {
     const walletActivities = activitiesByWallet.get(wallet.address.toLowerCase()) ?? [];
+    const walletSignals = intelligence.walletSignals.get(wallet.address.toLowerCase());
     return {
       ...wallet,
       eventCount24h: walletActivities.filter((activity) =>
@@ -164,6 +162,9 @@ export function buildDashboardSnapshot(input: {
         isAfter(activity.occurredAt, threshold7d),
       ).length,
       eventCount30d: walletActivities.length,
+      signalCount24h: walletSignals?.signalCount24h ?? 0,
+      signalCount7d: walletSignals?.signalCount7d ?? 0,
+      maxSignalScore: walletSignals?.maxSignalScore ?? 0,
       lastActivityAt: walletActivities[0]?.occurredAt ?? null,
       topCategories: topKeys(
         walletActivities.map((activity) => activity.category),
@@ -194,7 +195,7 @@ export function buildDashboardSnapshot(input: {
   const activityRows = activities30d.slice(0, ACTIVITY_ROW_LIMIT);
 
   return {
-    schemaVersion: 1,
+    schemaVersion: 2,
     generatedAt: input.generatedAt,
     source: {
       chain: "Base",
@@ -206,6 +207,8 @@ export function buildDashboardSnapshot(input: {
       degraded: Boolean(input.failedWallets?.length || input.warnings?.length),
       warnings: input.warnings ?? [],
       failedWallets: input.failedWallets ?? [],
+      refreshScope: input.refreshScope ?? "all",
+      refreshedWalletCount: input.refreshedWalletCount ?? input.wallets.length,
     },
     coverage: {
       trackedWallets: wallets.length,
@@ -246,9 +249,13 @@ export function buildDashboardSnapshot(input: {
       ).length,
       activities30d: activities30d.length,
       activityRowsIncluded: activityRows.length,
+      ...intelligence.metrics,
     },
     wallets,
     activities: activityRows,
+    signals: intelligence.signals,
+    signalTrend: intelligence.signalTrend,
+    assetWatchlist: intelligence.assetWatchlist,
     dailyActivity: buildDailyActivity(activities30d, input.generatedAt, 30),
     topTokens: rankedAssets(
       activities30d,
@@ -263,5 +270,3 @@ export function buildDashboardSnapshot(input: {
     categoryBreakdown,
   };
 }
-
-export { CATEGORY_LABELS };

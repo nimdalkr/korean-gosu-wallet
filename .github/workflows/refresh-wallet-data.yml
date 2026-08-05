@@ -2,7 +2,8 @@ name: Refresh wallet intelligence
 
 on:
   schedule:
-    - cron: "17 */4 * * *"
+    - cron: "7 1-3,5-7,9-11,13-15,17,19,21-23 * * *"
+    - cron: "17 0,4,8,12,16,20 * * *"
     - cron: "41 18 * * *"
   workflow_dispatch:
     inputs:
@@ -38,9 +39,15 @@ jobs:
       INCREMENTAL_MAX_PAGES: "500"
       RECONCILE_MAX_PAGES: "500"
       MAX_API_REQUESTS_PER_RUN: "4500"
+      ALERT_WEBHOOK_URL: ${{ secrets.ALERT_WEBHOOK_URL }}
+      ALERT_WEBHOOK_FORMAT: ${{ vars.ALERT_WEBHOOK_FORMAT || 'generic' }}
+      ALERT_MIN_SCORE: ${{ vars.ALERT_MIN_SCORE || '70' }}
+      ALERT_LOOKBACK_HOURS: ${{ vars.ALERT_LOOKBACK_HOURS || '6' }}
+      ALERT_MAX_SIGNALS: ${{ vars.ALERT_MAX_SIGNALS || '10' }}
+      DASHBOARD_URL: ${{ vars.DASHBOARD_URL || 'https://korean-gosu-wallet-fiveovertwo.vercel.app' }}
       REQUIRE_TRACKER_STATE: "true"
       MAX_FAILED_WALLETS: "406"
-      MAX_COLLECTION_WARNINGS: "31"
+      MAX_COLLECTION_WARNINGS: "32"
       DASHBOARD_PASSWORD: "build-only-placeholder"
       SESSION_SECRET: "build-only-placeholder-with-32-characters"
     steps:
@@ -88,6 +95,11 @@ jobs:
       - name: Install locked dependencies
         timeout-minutes: 8
         run: npm ci --ignore-scripts --no-audit --no-fund --prefer-offline
+
+      - name: Configure fast and full collection scope
+        env:
+          SCHEDULE_EXPRESSION: ${{ github.event.schedule }}
+        run: node scripts/configure-collection-scope.mjs
 
       - name: Collect current activity
         env:

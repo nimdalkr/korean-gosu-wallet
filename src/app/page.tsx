@@ -1,5 +1,6 @@
 import { logout } from "./actions";
 import { Dashboard } from "@/components/dashboard";
+import type { DashboardData } from "@/components/dashboard";
 import { getDashboardSnapshot } from "@/lib/data";
 import { requireSession, requireUpstreamAccess } from "@/lib/session";
 
@@ -9,5 +10,15 @@ export default async function Home() {
   await requireUpstreamAccess();
   await requireSession();
   const snapshot = await getDashboardSnapshot();
-  return <Dashboard data={snapshot} logoutAction={logout} />;
+  const data: DashboardData = {
+    generatedAt: snapshot.generatedAt,
+    source: snapshot.source,
+    coverage: snapshot.coverage,
+    metrics: snapshot.metrics,
+    wallets: snapshot.wallets,
+    activities: snapshot.activities,
+    signals: snapshot.signals,
+    assetWatchlist: snapshot.assetWatchlist,
+  };
+  return <Dashboard data={data} logoutAction={logout} />;
 }

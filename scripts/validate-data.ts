@@ -12,6 +12,18 @@ import { normalizedTransferId } from "../src/lib/blockscout";
 
 const ROOT = process.cwd();
 
+type StoredDashboardSnapshot = Omit<DashboardSnapshot, "schemaVersion"> & {
+  schemaVersion: number;
+  signals?: DashboardSnapshot["signals"];
+  signalTrend?: DashboardSnapshot["signalTrend"];
+  assetWatchlist?: DashboardSnapshot["assetWatchlist"];
+};
+
+type StoredTrackerState = Omit<TrackerState, "schemaVersion" | "deliveredSignalIds"> & {
+  schemaVersion: number;
+  deliveredSignalIds?: Record<string, string>;
+};
+
 async function readJson<T>(relativePath: string): Promise<T> {
   return JSON.parse(await readFile(path.join(ROOT, relativePath), "utf8")) as T;
 }
@@ -46,8 +58,8 @@ async function readSimpleCsv(relativePath: string) {
 async function main() {
   const [seed, snapshot, state, allSenderCsv, externalCsv, hotWalletTop100Csv, upbitTop100Csv, bithumbTop100Csv] = await Promise.all([
     readJson<WalletSeedDocument>("data/wallets.seed.json"),
-    readJson<DashboardSnapshot>("data/snapshot.json"),
-    readOptionalJson<TrackerState>("data/tracker-state.json"),
+    readJson<StoredDashboardSnapshot>("data/snapshot.json"),
+    readOptionalJson<StoredTrackerState>("data/tracker-state.json"),
     readSimpleCsv("data/deposit-senders-all.csv"),
     readSimpleCsv("data/wallets-external.csv"),
     readSimpleCsv("data/hotwallet-top100.csv"),
@@ -96,7 +108,10 @@ async function main() {
     assert(ranks.every((rank, index) => rank === index + 1), `${exchange} ranks are not continuous.`);
   }
 
-  assert(snapshot.schemaVersion === 1, "Unsupported snapshot schema.");
+  assert(
+    snapshot.schemaVersion === 1 || snapshot.schemaVersion === 2,
+    "Unsupported snapshot schema.",
+  );
   assert(snapshot.wallets.length === 406, "Snapshot does not contain all tracked wallets.");
   assert(snapshot.coverage.trackedWallets === 406, "Snapshot tracked count changed.");
   assert(snapshot.coverage.depositSenderWallets === 408, "Raw deposit sender count changed.");
@@ -116,12 +131,49 @@ async function main() {
     ),
     "Snapshot degraded flag is inconsistent with collection warnings.",
   );
+  if (snapshot.schemaVersion === 2) {
+    assert(Array.isArray(snapshot.signals), "Signal payload is missing.");
+    assert(Array.isArray(snapshot.signalTrend), "Signal trend payload is missing.");
+    assert(Array.isArray(snapshot.assetWatchlist), "Asset watchlist payload is missing.");
+    assert(unique(snapshot.signals.map((signal) => signal.id)), "Signal IDs are not unique.");
+    assert(
+      snapshot.signals.every(
+        (signal) =>
+          Number.isInteger(signal.score) &&
+          signal.score >= 0 &&
+          signal.score <= 100 &&
+          signal.wallets.every((wallet) => addresses.includes(wallet.address)),
+      ),
+      "Signal score or wallet evidence is invalid.",
+    );
+    assert(snapshot.signalTrend.length === 30, "Signal trend must contain 30 KST days.");
+    assert(
+      snapshot.source.refreshScope === "all" || snapshot.source.refreshScope === "top100",
+      "Snapshot refresh scope is invalid.",
+    );
+    assert(
+      Number.isInteger(snapshot.source.refreshedWalletCount) &&
+        snapshot.source.refreshedWalletCount >= 0 &&
+        snapshot.source.refreshedWalletCount <= 406,
+      "Snapshot refreshed wallet count is invalid.",
+    );
+  }
   if (process.env.REQUIRE_TRACKER_STATE === "true") {
     assert(state, "REQUIRE_TRACKER_STATE=true but data/tracker-state.json is missing.");
   }
   if (state) {
-    assert(state.schemaVersion === 2, "Unsupported tracker-state schema.");
-    assert(state.updatedAt === snapshot.generatedAt, "State and snapshot generations differ.");
+    assert(
+      state.schemaVersion === 2 || state.schemaVersion === 3,
+      "Unsupported tracker-state schema.",
+    );
+    if (process.env.REQUIRE_TRACKER_STATE === "true") {
+      assert(state.updatedAt === snapshot.generatedAt, "State and snapshot generations differ.");
+      assert(
+        (state.schemaVersion === 2 && snapshot.schemaVersion === 1) ||
+          (state.schemaVersion === 3 && snapshot.schemaVersion === 2),
+        "State and snapshot schema generations are incompatible.",
+      );
+    }
     assert(unique(state.transfers.map((item) => item.id)), "Transfer IDs are not unique.");
     assert(unique(state.transactions.map((item) => item.id)), "Transaction IDs are not unique.");
     assert(
@@ -147,6 +199,15 @@ async function main() {
       Object.keys(state.cursors).every((address) => stateAddresses.has(address)),
       "Tracker contains a cursor for an unknown wallet.",
     );
+    if (state.schemaVersion === 3) {
+      assert(state.deliveredSignalIds, "Tracker signal-delivery ledger is missing.");
+      assert(
+        Object.values(state.deliveredSignalIds).every((value) =>
+          Number.isFinite(Date.parse(value)),
+        ),
+        "Tracker signal-delivery ledger contains an invalid timestamp.",
+      );
+    }
     const failedAddresses = new Set(snapshot.source.failedWallets);
     for (const address of addresses) {
       const cursor = state.cursors[address];
@@ -161,7 +222,7 @@ async function main() {
         values.every((value) => value === null || Number.isFinite(Date.parse(value))),
         `Invalid feed cursor for ${address}.`,
       );
-      if (!values.every(Boolean)) {
+      if (!values.every(Boolean) && state.updatedAt === snapshot.generatedAt) {
         assert(
           snapshot.source.degraded && failedAddresses.has(address),
           `Incomplete baseline for ${address} is not surfaced as degraded.`,
@@ -189,7 +250,7 @@ async function main() {
 
   process.stdout.write(
     state
-      ? `Validated 406 wallets, ${state.transfers.length} transfers, ${state.transactions.length} transactions, and ${snapshot.activities.length} published activity rows.\n`
+      ? `Validated 406 wallets, ${state.transfers.length} transfers, ${state.transactions.length} transactions, ${snapshot.activities.length} activity rows, and ${snapshot.signals?.length ?? 0} intelligence signals.\n`
       : `Validated 406 wallets and ${snapshot.activities.length} published activity rows (tracker checkpoint not present).\n`,
   );
 }

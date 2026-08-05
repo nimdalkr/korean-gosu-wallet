@@ -24,6 +24,7 @@ import type {
   WalletSeed,
   WalletSeedDocument,
 } from "../src/lib/domain";
+import { deliverSignalAlerts } from "../src/lib/signal-alerts";
 import { buildDashboardSnapshot } from "../src/lib/snapshot";
 
 const ROOT = process.cwd();
@@ -87,9 +88,17 @@ async function readJson<T>(filePath: string): Promise<T> {
 
 async function readState(): Promise<TrackerState | null> {
   try {
-    const stored = await readJson<TrackerState & { schemaVersion: number }>(STATE_PATH);
+    const stored = await readJson<
+      Omit<TrackerState, "schemaVersion" | "deliveredSignalIds"> & {
+        schemaVersion: number;
+        deliveredSignalIds?: Record<string, string>;
+      }
+    >(STATE_PATH);
+    if (stored.schemaVersion !== 2 && stored.schemaVersion !== 3) {
+      throw new Error(`Unsupported tracker-state schema v${stored.schemaVersion}.`);
+    }
     const migratedCursors: Record<string, WalletFeedCursor> = {};
-    if (stored.schemaVersion === 2 && stored.cursors) {
+    if (stored.cursors) {
       for (const [address, cursor] of Object.entries(stored.cursors)) {
         migratedCursors[address.toLowerCase()] = {
           tokenTransfersUpdatedAt: cursor.tokenTransfersUpdatedAt ?? null,
@@ -100,7 +109,7 @@ async function readState(): Promise<TrackerState | null> {
     }
     return {
       ...stored,
-      schemaVersion: 2,
+      schemaVersion: 3,
       transfers: stored.transfers.map((transfer) => ({
         ...transfer,
         id: normalizedTransferId(transfer),
@@ -110,6 +119,7 @@ async function readState(): Promise<TrackerState | null> {
         source: transaction.source ?? "normal",
       })),
       cursors: migratedCursors,
+      deliveredSignalIds: stored.deliveredSignalIds ?? {},
     };
   } catch (error) {
     if ((error as NodeJS.ErrnoException).code === "ENOENT") return null;
@@ -393,7 +403,7 @@ async function main() {
       !cursor.internalTransactionsUpdatedAt;
   });
   if (deriveOnly && baselineIncomplete) {
-    throw new Error("--derive-only requires a complete schema-v2 baseline for every selected wallet feed.");
+    throw new Error("--derive-only requires a complete tracker baseline for every selected wallet feed.");
   }
   const effectiveMode = !previous || baselineIncomplete ? "bootstrap" : mode;
   const retentionCutoff = Date.parse(isoCutoff(startedAt, TRACKING_WINDOW_DAYS));
@@ -543,19 +553,12 @@ async function main() {
   }
   const observedBlocks = [...transfers, ...transactions].map((item) => item.blockNumber);
   const toBlock = observedBlocks.length > 0 ? Math.max(...observedBlocks) : previous?.lastProcessedBlock ?? null;
-  const state: TrackerState = {
-    schemaVersion: 2,
-    updatedAt: generatedAt,
-    lastProcessedBlock: toBlock,
-    transfers,
-    transactions,
-    tokenMetadata,
-    cursors,
-  };
   const snapshot = buildDashboardSnapshot({
     wallets: seed.wallets,
     cohort: seed.summary,
     activities,
+    transfers,
+    transactions,
     generatedAt,
     mode: effectiveMode === "reconcile" ? "incremental" : effectiveMode,
     fromBlock: previous?.lastProcessedBlock ?? null,
@@ -563,7 +566,56 @@ async function main() {
     trackingWindowDays: TRACKING_WINDOW_DAYS,
     warnings,
     failedWallets,
+    refreshScope: walletFilter.size > 0 ? "top100" : "all",
+    refreshedWalletCount: deriveOnly ? 0 : walletsToFetch.length,
   });
+
+  const deliveredSignalIds = Object.fromEntries(
+    Object.entries(previous?.deliveredSignalIds ?? {}).filter(
+      ([, deliveredAt]) => Date.parse(deliveredAt) >= Date.parse(generatedAt) - 45 * 86_400_000,
+    ),
+  );
+  if (!deriveOnly) {
+    const webhookFormat = process.env.ALERT_WEBHOOK_FORMAT === "discord"
+      ? "discord"
+      : "generic";
+    const alertResult = await deliverSignalAlerts({
+      signals: snapshot.signals,
+      deliveredSignalIds,
+      generatedAt,
+      webhookUrl: process.env.ALERT_WEBHOOK_URL,
+      webhookFormat,
+      minScore: positiveInteger(process.env.ALERT_MIN_SCORE, 70),
+      lookbackHours: positiveInteger(process.env.ALERT_LOOKBACK_HOURS, 6),
+      maxSignals: positiveInteger(process.env.ALERT_MAX_SIGNALS, 10),
+      dashboardUrl: process.env.DASHBOARD_URL,
+    });
+    if (alertResult.warning) {
+      const warning = `signal-alerts: ${alertResult.warning}`;
+      warnings.push(warning);
+      snapshot.source.warnings = [...warnings];
+      snapshot.source.degraded = true;
+      process.stderr.write(`${warning}\n`);
+    }
+    for (const signalId of alertResult.deliveredSignalIds) {
+      deliveredSignalIds[signalId] = generatedAt;
+    }
+    if (alertResult.deliveredSignalIds.length > 0) {
+      process.stdout.write(
+        `Delivered ${alertResult.deliveredSignalIds.length} intelligence signal alerts.\n`,
+      );
+    }
+  }
+  const state: TrackerState = {
+    schemaVersion: 3,
+    updatedAt: generatedAt,
+    lastProcessedBlock: toBlock,
+    transfers,
+    transactions,
+    tokenMetadata,
+    cursors,
+    deliveredSignalIds,
+  };
 
   await Promise.all([
     atomicWrite(STATE_PATH, state),

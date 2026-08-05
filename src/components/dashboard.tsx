@@ -2,7 +2,6 @@
 
 import {
   Activity,
-  ArrowDownToLine,
   ArrowUpRight,
   CheckCircle2,
   ChevronRight,
@@ -20,24 +19,45 @@ import {
 } from "lucide-react";
 import dynamic from "next/dynamic";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { CATEGORY_LABELS } from "@/lib/activity-labels";
 import type {
   ActivityCategory,
   ActivityEvent,
   DashboardSnapshot,
   Exchange,
+  IntelligenceSignal,
+  SignalClass,
+  SignalKind,
   WalletActivitySummary,
 } from "@/lib/domain";
-import { CATEGORY_LABELS } from "@/lib/snapshot";
 import styles from "./dashboard.module.css";
 
-const ActivityChart = dynamic(
-  () => import("./activity-chart").then((module) => module.ActivityChart),
-  { ssr: false, loading: () => <div className={styles.chartLoading}>차트 불러오는 중</div> },
+const SignalChart = dynamic(
+  () => import("./activity-chart").then((module) => module.SignalChart),
+  {
+    ssr: false,
+    loading: () => <div className={styles.chartLoading}>신호 차트 불러오는 중</div>,
+  },
 );
 
 type Period = 1 | 7 | 30;
 type ExchangeFilter = "all" | Exchange;
-type CategoryFilter = "all" | "buy" | "nft" | "defi" | "airdrop" | "transfer";
+type SignalClassFilter = "all" | SignalClass;
+
+export type DashboardData = Pick<
+  DashboardSnapshot,
+  | "generatedAt"
+  | "source"
+  | "coverage"
+  | "metrics"
+  | "wallets"
+  | "activities"
+  | "signals"
+  | "assetWatchlist"
+>;
+
+const DAY_MS = 86_400_000;
+const ACTIONABLE_SCORE = 70;
 
 const CATEGORY_COLORS: Record<ActivityCategory, string> = {
   airdrop_received: "purple",
@@ -57,8 +77,25 @@ const CATEGORY_COLORS: Record<ActivityCategory, string> = {
   contract_interaction: "slate",
 };
 
+const SIGNAL_KIND_LABELS: Record<SignalKind, string> = {
+  cohort_trade: "코호트 매수·민팅",
+  cohort_accumulation: "코호트 순유입",
+  coordinated_outflow: "동시 유출",
+  distribution_blast: "대량 살포",
+  wallet_activity_burst: "행동 급증",
+  contract_convergence: "컨트랙트 수렴",
+  bridge_follow_through: "브리지 후속 행동",
+};
+
+const SIGNAL_CLASS_LABELS: Record<SignalClass, string> = {
+  alpha: "ALPHA",
+  anomaly: "ANOMALY",
+  noise: "NOISE",
+};
+
 const KST_DATE_FORMATTER = new Intl.DateTimeFormat("en-CA", {
   timeZone: "Asia/Seoul",
+  year: "numeric",
   month: "2-digit",
   day: "2-digit",
 });
@@ -87,6 +124,16 @@ function formatQuid(value: string) {
   }).format(Number(value));
 }
 
+function formatUsd(value: number | null | undefined) {
+  if (value === null || value === undefined) return null;
+  return new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+    maximumFractionDigits: value >= 1_000 ? 0 : 2,
+    notation: value >= 1_000_000 ? "compact" : "standard",
+  }).format(value);
+}
+
 function relativeTime(timestamp: string | null, anchor: string) {
   if (!timestamp) return "활동 없음";
   const diffMinutes = Math.max(
@@ -98,69 +145,40 @@ function relativeTime(timestamp: string | null, anchor: string) {
   return `${Math.floor(diffMinutes / 1_440)}일 전`;
 }
 
-function matchesCategory(category: ActivityCategory, filter: CategoryFilter) {
-  if (filter === "all") return true;
-  if (filter === "buy") {
-    return category === "token_buy_candidate" || category === "nft_purchase_candidate";
-  }
-  if (filter === "nft") return category.startsWith("nft_");
-  if (filter === "defi") return ["bridge", "staking", "liquidity"].includes(category);
-  if (filter === "airdrop") return category === "airdrop_received";
-  return ["token_receive", "token_send", "nft_receive", "nft_send"].includes(category);
+function signalClassName(signalClass: SignalClass) {
+  if (signalClass === "alpha") return styles.signalAlpha;
+  if (signalClass === "anomaly") return styles.signalAnomaly;
+  return styles.signalNoise;
 }
 
-function categoryBucket(category: ActivityCategory) {
-  if (category.startsWith("token_") || category === "airdrop_received") return "token" as const;
-  if (category.startsWith("nft_")) return "nft" as const;
-  if (["bridge", "staking", "liquidity"].includes(category)) return "defi" as const;
-  return "other" as const;
+function directionLabel(signal: IntelligenceSignal) {
+  if (signal.direction === "bullish") return "상방 관찰";
+  if (signal.direction === "bearish") return "하방·이탈 관찰";
+  return "중립 조사";
 }
 
-function buildChartData(activities: ActivityEvent[], period: Period, anchor: string) {
+function buildSignalChartData(
+  signals: IntelligenceSignal[],
+  period: Period,
+  anchor: string,
+) {
   const anchorTime = Date.parse(anchor);
   const points = new Map<
     string,
-    { date: string; token: number; nft: number; defi: number; other: number }
+    { date: string; alpha: number; anomaly: number; noise: number }
   >();
   for (let offset = period - 1; offset >= 0; offset -= 1) {
-    const date = KST_DATE_FORMATTER.format(new Date(anchorTime - offset * 86_400_000));
-    points.set(date, { date, token: 0, nft: 0, defi: 0, other: 0 });
+    const date = KST_DATE_FORMATTER.format(new Date(anchorTime - offset * DAY_MS));
+    points.set(date, { date, alpha: 0, anomaly: 0, noise: 0 });
   }
-  for (const item of activities) {
-    const date = KST_DATE_FORMATTER.format(new Date(item.occurredAt));
-    const point = points.get(date);
-    if (point) point[categoryBucket(item.category)] += 1;
+  for (const signal of signals) {
+    const point = points.get(KST_DATE_FORMATTER.format(new Date(signal.occurredAt)));
+    if (point) point[signal.signalClass] += 1;
   }
-  return [...points.values()];
-}
-
-function rankedAssets(
-  activities: ActivityEvent[],
-  predicate: (activity: ActivityEvent) => boolean,
-) {
-  const rows = new Map<
-    string,
-    { key: string; label: string; name: string; count: number; address: string }
-  >();
-  for (const activity of activities.filter(predicate)) {
-    const asset = activity.primaryAsset;
-    if (!asset) continue;
-    const key = asset.address.toLowerCase();
-    const row = rows.get(key);
-    if (row) row.count += 1;
-    else {
-      rows.set(key, {
-        key,
-        label: asset.symbol || asset.name,
-        name: asset.name,
-        count: 1,
-        address: asset.address,
-      });
-    }
-  }
-  return [...rows.values()]
-    .sort((a, b) => b.count - a.count || a.label.localeCompare(b.label))
-    .slice(0, 8);
+  return [...points.values()].map((point) => ({
+    ...point,
+    date: point.date.slice(5).replace("-", "/"),
+  }));
 }
 
 function StatusDot({ degraded }: { degraded: boolean }) {
@@ -180,48 +198,98 @@ function ActivityBadge({ category }: { category: ActivityCategory }) {
   );
 }
 
-function AssetRanking({
-  title,
-  eyebrow,
-  rows,
-  emptyText,
-}: {
-  title: string;
-  eyebrow: string;
-  rows: ReturnType<typeof rankedAssets>;
-  emptyText: string;
-}) {
-  const max = rows[0]?.count ?? 1;
+function SignalBadge({ signal }: { signal: IntelligenceSignal }) {
   return (
-    <section className={styles.rankingPanel}>
-      <div className={styles.panelHeader}>
+    <span className={`${styles.signalBadge} ${signalClassName(signal.signalClass)}`}>
+      {SIGNAL_CLASS_LABELS[signal.signalClass]} · {signal.score}
+    </span>
+  );
+}
+
+function SignalReasons({ signal }: { signal: IntelligenceSignal }) {
+  return (
+    <ul className={styles.reasonList}>
+      {signal.reasons.slice(0, 6).map((reason) => (
+        <li key={reason.code}>
+          <b>{reason.points > 0 ? "+" : ""}{reason.points}</b>
+          <span>{reason.label}</span>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+function PrioritySignal({
+  signal,
+  anchor,
+}: {
+  signal: IntelligenceSignal | null;
+  anchor: string;
+}) {
+  if (!signal) {
+    return (
+      <section className={`${styles.prioritySignal} ${styles.priorityEmpty}`}>
         <div>
-          <p>{eyebrow}</p>
-          <h2>{title}</h2>
+          <p className={styles.eyebrow}>PRIORITY SIGNAL</p>
+          <h2>현재 조건에 맞는 유의미 신호가 없습니다.</h2>
+          <span>점수 기준을 낮추거나 기간·거래소 필터를 넓혀 확인하세요.</span>
         </div>
-        <span>{rows.length} ASSETS</span>
+      </section>
+    );
+  }
+
+  return (
+    <section className={`${styles.prioritySignal} ${signalClassName(signal.signalClass)}`}>
+      <div className={styles.priorityLead}>
+        <div className={styles.scoreDial} aria-label={`신호 점수 ${signal.score}점`}>
+          <strong>{signal.score}</strong>
+          <span>/ 100</span>
+        </div>
+        <div>
+          <div className={styles.signalMeta}>
+            <SignalBadge signal={signal} />
+            <span>{SIGNAL_KIND_LABELS[signal.kind]}</span>
+            <time>{relativeTime(signal.occurredAt, anchor)}</time>
+          </div>
+          <p className={styles.eyebrow}>HIGHEST PRIORITY / CURRENT FILTER</p>
+          <h2>{signal.title}</h2>
+          <p className={styles.prioritySummary}>{signal.summary}</p>
+        </div>
       </div>
-      {rows.length ? (
-        <ol className={styles.rankingList}>
-          {rows.map((row, index) => (
-            <li key={row.key}>
-              <span className={styles.rankNumber}>{String(index + 1).padStart(2, "0")}</span>
-              <div className={styles.rankBody}>
-                <div className={styles.rankLabel}>
-                  <strong>{row.label}</strong>
-                  <small>{row.name}</small>
-                </div>
-                <div className={styles.rankTrack} aria-hidden="true">
-                  <span style={{ width: `${Math.max(8, (row.count / max) * 100)}%` }} />
-                </div>
-              </div>
-              <b>{row.count}</b>
-            </li>
-          ))}
-        </ol>
-      ) : (
-        <div className={styles.emptyBlock}>{emptyText}</div>
-      )}
+      <div className={styles.priorityFacts}>
+        <dl>
+          <div><dt>방향</dt><dd>{directionLabel(signal)}</dd></div>
+          <div><dt>지갑</dt><dd>{signal.wallets.length}개</dd></div>
+          <div><dt>거래소 코호트</dt><dd>{signal.exchangeCount}개</dd></div>
+          <div><dt>추정 가치</dt><dd>{formatUsd(signal.estimatedUsd) ?? "미확인"}</dd></div>
+        </dl>
+        <SignalReasons signal={signal} />
+        <div className={styles.signalLinks}>
+          {signal.asset?.address ? (
+            <a
+              href={`https://basescan.org/token/${signal.asset.address}`}
+              target="_blank"
+              rel="noreferrer"
+            >
+              자산 확인 <ExternalLink size={13} />
+            </a>
+          ) : null}
+          {signal.targetAddress ? (
+            <a
+              href={`https://basescan.org/address/${signal.targetAddress}`}
+              target="_blank"
+              rel="noreferrer"
+            >
+              컨트랙트 확인 <ExternalLink size={13} />
+            </a>
+          ) : null}
+          {signal.basescanUrls[0] ? (
+            <a href={signal.basescanUrls[0]} target="_blank" rel="noreferrer">
+              근거 트랜잭션 <ExternalLink size={13} />
+            </a>
+          ) : null}
+        </div>
+      </div>
     </section>
   );
 }
@@ -229,11 +297,13 @@ function AssetRanking({
 function WalletDrawer({
   wallet,
   activities,
+  signals,
   generatedAt,
   onClose,
 }: {
   wallet: WalletActivitySummary;
   activities: ActivityEvent[];
+  signals: IntelligenceSignal[];
   generatedAt: string;
   onClose: () => void;
 }) {
@@ -263,14 +333,11 @@ function WalletDrawer({
         if (event.target === event.currentTarget) onClose();
       }}
     >
-      <aside
-        className={styles.drawer}
-        onMouseDown={(event) => event.stopPropagation()}
-      >
+      <aside className={styles.drawer} onMouseDown={(event) => event.stopPropagation()}>
         <div className={styles.drawerHeader}>
           <div>
             <p>{wallet.exchange.toUpperCase()} / DEPOSIT RANK #{wallet.rank}</p>
-            <h2 id="wallet-detail-title">지갑 상세</h2>
+            <h2 id="wallet-detail-title">지갑 인텔리전스</h2>
           </div>
           <button ref={closeButtonRef} type="button" onClick={onClose} aria-label="지갑 상세 닫기">
             <X size={20} />
@@ -279,70 +346,60 @@ function WalletDrawer({
         <div className={styles.addressBlock}>
           <code>{wallet.address}</code>
           <div>
-            <button
-              type="button"
-              onClick={() => navigator.clipboard.writeText(wallet.address)}
-            >
+            <button type="button" onClick={() => navigator.clipboard.writeText(wallet.address)}>
               <Copy size={14} /> 복사
             </button>
-            <a
-              href={`https://basescan.org/address/${wallet.address}`}
-              target="_blank"
-              rel="noreferrer"
-            >
+            <a href={`https://basescan.org/address/${wallet.address}`} target="_blank" rel="noreferrer">
               BaseScan <ExternalLink size={13} />
             </a>
           </div>
         </div>
         <dl className={styles.drawerStats}>
-          <div>
-            <dt>QUID 입금량</dt>
-            <dd>{formatQuid(wallet.depositAmountQuid)}</dd>
-          </div>
-          <div>
-            <dt>입금 트랜잭션</dt>
-            <dd>{wallet.depositTransferCount}</dd>
-          </div>
-          <div>
-            <dt>최근 7일 활동</dt>
-            <dd>{wallet.eventCount7d}</dd>
-          </div>
-          <div>
-            <dt>마지막 활동</dt>
-            <dd>{relativeTime(wallet.lastActivityAt, generatedAt)}</dd>
-          </div>
+          <div><dt>7일 신호</dt><dd>{wallet.signalCount7d}</dd></div>
+          <div><dt>최고 점수</dt><dd>{wallet.maxSignalScore || "–"}</dd></div>
+          <div><dt>QUID 입금량</dt><dd>{formatQuid(wallet.depositAmountQuid)}</dd></div>
+          <div><dt>마지막 활동</dt><dd>{relativeTime(wallet.lastActivityAt, generatedAt)}</dd></div>
         </dl>
         <section className={styles.drawerActivity}>
           <div className={styles.drawerSectionTitle}>
-            <h3>최근 판별 활동</h3>
+            <h3>연관 신호</h3>
+            <span>{signals.length}건</span>
+          </div>
+          {signals.length ? (
+            <ul>
+              {signals.slice(0, 12).map((signal) => (
+                <li key={signal.id}>
+                  <div><SignalBadge signal={signal} /><time>{KST_FULL_FORMATTER.format(new Date(signal.occurredAt))}</time></div>
+                  <strong>{signal.title}</strong>
+                  <p>{signal.summary}</p>
+                  <div className={styles.evidence}>{signal.evidence.map((item) => <span key={item}>{item}</span>)}</div>
+                </li>
+              ))}
+            </ul>
+          ) : <div className={styles.emptyBlock}>최근 30일 연관 신호가 없습니다.</div>}
+        </section>
+        <section className={styles.drawerActivity}>
+          <div className={styles.drawerSectionTitle}>
+            <h3>원문 활동</h3>
             <span>{activities.length}건</span>
           </div>
           {activities.length ? (
             <ul>
-              {activities.slice(0, 30).map((item) => (
+              {activities.slice(0, 24).map((item) => (
                 <li key={item.id}>
                   <div>
                     <ActivityBadge category={item.category} />
-                    {item.suspectedSpam ? <span className={styles.riskFlag}>SPAM?</span> : null}
-                    {!item.initiatedByWallet ? <span className={styles.passiveFlag}>PASSIVE</span> : null}
                     <time>{KST_FULL_FORMATTER.format(new Date(item.occurredAt))}</time>
                   </div>
                   <strong>{item.title}</strong>
                   <p>{item.description}</p>
-                  <div className={styles.evidence}>
-                    {item.evidence.map((evidence) => (
-                      <span key={evidence}>{evidence}</span>
-                    ))}
-                  </div>
                   <a href={item.basescanUrl} target="_blank" rel="noreferrer">
                     트랜잭션 확인 <ArrowUpRight size={13} />
                   </a>
                 </li>
               ))}
             </ul>
-          ) : (
-            <div className={styles.emptyBlock}>선택 기간에 판별된 활동이 없습니다.</div>
-          )}
+          ) : <div className={styles.emptyBlock}>표시할 원문 활동이 없습니다.</div>}
         </section>
       </aside>
     </dialog>
@@ -353,51 +410,102 @@ export function Dashboard({
   data,
   logoutAction,
 }: {
-  data: DashboardSnapshot;
+  data: DashboardData;
   logoutAction: () => Promise<void>;
 }) {
   const [period, setPeriod] = useState<Period>(7);
   const [exchange, setExchange] = useState<ExchangeFilter>("all");
-  const [category, setCategory] = useState<CategoryFilter>("all");
+  const [signalClass, setSignalClass] = useState<SignalClassFilter>("all");
+  const [minScore, setMinScore] = useState(50);
   const [query, setQuery] = useState("");
   const [top100Only, setTop100Only] = useState(false);
   const [selectedAddress, setSelectedAddress] = useState<string | null>(null);
   const [visibleLimit, setVisibleLimit] = useState(60);
   const closeDrawer = useCallback(() => setSelectedAddress(null), []);
-  const cutoff = Date.parse(data.generatedAt) - period * 86_400_000;
+  const cutoff = Date.parse(data.generatedAt) - period * DAY_MS;
+  const normalizedQuery = query.trim().toLowerCase();
   const walletByAddress = useMemo(
     () => new Map(data.wallets.map((wallet) => [wallet.address, wallet])),
     [data.wallets],
   );
 
-  const visibleActivities = useMemo(() => {
-    const normalizedQuery = query.trim().toLowerCase();
-    return data.activities.filter((item) => {
-      if (Date.parse(item.occurredAt) < cutoff) return false;
-      if (exchange !== "all" && item.exchange !== exchange) return false;
-      if (top100Only && !walletByAddress.get(item.walletAddress)?.inTop100) return false;
-      if (!matchesCategory(item.category, category)) return false;
+  const visibleSignals = useMemo(
+    () => data.signals
+      .filter((signal) => Date.parse(signal.occurredAt) >= cutoff)
+      .filter((signal) => signalClass === "all" || signal.signalClass === signalClass)
+      .filter((signal) => signal.score >= minScore)
+      .filter(
+        (signal) =>
+          exchange === "all" || signal.wallets.some((wallet) => wallet.exchange === exchange),
+      )
+      .filter(
+        (signal) => !top100Only || signal.wallets.some((wallet) => wallet.inTop100),
+      )
+      .filter((signal) => {
+        if (!normalizedQuery) return true;
+        return [
+          signal.title,
+          signal.summary,
+          signal.asset?.symbol,
+          signal.asset?.name,
+          signal.asset?.address,
+          signal.targetAddress,
+          ...signal.wallets.map((wallet) => wallet.address),
+          ...signal.transactionHashes,
+        ]
+          .filter(Boolean)
+          .some((value) => value?.toLowerCase().includes(normalizedQuery));
+      })
+      .sort(
+        (a, b) =>
+          Number(b.signalClass !== "noise") - Number(a.signalClass !== "noise") ||
+          b.score - a.score ||
+          Date.parse(b.occurredAt) - Date.parse(a.occurredAt),
+      ),
+    [cutoff, data.signals, exchange, minScore, normalizedQuery, signalClass, top100Only],
+  );
+
+  const prioritySignal =
+    visibleSignals.find((signal) => signal.signalClass !== "noise") ??
+    visibleSignals[0] ??
+    null;
+  const signalChartData = useMemo(
+    () => buildSignalChartData(visibleSignals, period, data.generatedAt),
+    [data.generatedAt, period, visibleSignals],
+  );
+  const visibleAssetAddresses = useMemo(
+    () => new Set(
+      visibleSignals
+        .filter((signal) => signal.asset)
+        .map((signal) => signal.asset?.address.toLowerCase()),
+    ),
+    [visibleSignals],
+  );
+  const visibleWatchlist = data.assetWatchlist
+    .filter((asset) => visibleAssetAddresses.has(asset.address.toLowerCase()))
+    .slice(0, 10);
+
+  const visibleActivities = useMemo(
+    () => data.activities.filter((activity) => {
+      if (Date.parse(activity.occurredAt) < cutoff) return false;
+      if (exchange !== "all" && activity.exchange !== exchange) return false;
+      if (top100Only && !walletByAddress.get(activity.walletAddress)?.inTop100) return false;
       if (!normalizedQuery) return true;
       return [
-        item.walletAddress,
-        item.title,
-        item.primaryAsset?.symbol,
-        item.primaryAsset?.name,
-        item.transactionHash,
+        activity.walletAddress,
+        activity.title,
+        activity.primaryAsset?.symbol,
+        activity.primaryAsset?.name,
+        activity.transactionHash,
       ]
         .filter(Boolean)
         .some((value) => value?.toLowerCase().includes(normalizedQuery));
-    });
-  }, [category, cutoff, data.activities, exchange, query, top100Only, walletByAddress]);
-
-  const activityWallets = useMemo(
-    () => new Set(visibleActivities.map((item) => item.walletAddress)),
-    [visibleActivities],
+    }),
+    [cutoff, data.activities, exchange, normalizedQuery, top100Only, walletByAddress],
   );
 
-  const visibleWallets = useMemo(() => {
-    const normalizedQuery = query.trim().toLowerCase();
-    return data.wallets
+  const visibleWallets = useMemo(
+    () => data.wallets
       .filter((wallet) => exchange === "all" || wallet.exchange === exchange)
       .filter((wallet) => !top100Only || wallet.inTop100)
       .filter(
@@ -406,70 +514,26 @@ export function Dashboard({
           wallet.address.includes(normalizedQuery) ||
           wallet.topAssets.some((asset) => asset.toLowerCase().includes(normalizedQuery)),
       )
-      .sort((a, b) => {
-        const aActive = activityWallets.has(a.address) ? 1 : 0;
-        const bActive = activityWallets.has(b.address) ? 1 : 0;
-        return bActive - aActive || b.eventCount7d - a.eventCount7d || Number(b.depositAmountQuid) - Number(a.depositAmountQuid);
-      });
-  }, [activityWallets, data.wallets, exchange, query, top100Only]);
+      .sort(
+        (a, b) =>
+          b.maxSignalScore - a.maxSignalScore ||
+          b.signalCount24h - a.signalCount24h ||
+          b.eventCount7d - a.eventCount7d ||
+          Number(b.depositAmountQuid) - Number(a.depositAmountQuid),
+      ),
+    [data.wallets, exchange, normalizedQuery, top100Only],
+  );
 
-  const filtersAreGlobal =
-    exchange === "all" && category === "all" && !top100Only && query.trim() === "";
-
-  const chartData = useMemo(
-    () =>
-      filtersAreGlobal
-        ? data.dailyActivity.slice(-period).map((point) => ({
-            ...point,
-            date: point.date.slice(5).replace("-", "/"),
-          }))
-        : buildChartData(visibleActivities, period, data.generatedAt),
-    [data.dailyActivity, data.generatedAt, filtersAreGlobal, period, visibleActivities],
-  );
-  const tokenRanking = useMemo(
-    () =>
-      filtersAreGlobal && period === 30
-        ? data.topTokens.map((item) => ({
-            key: item.key,
-            label: item.label,
-            name: item.sublabel ?? item.label,
-            count: item.count,
-            address: item.address ?? item.key,
-          }))
-        : rankedAssets(
-            visibleActivities,
-            (item) => item.category === "token_buy_candidate" && !item.suspectedSpam,
-          ),
-    [data.topTokens, filtersAreGlobal, period, visibleActivities],
-  );
-  const nftRanking = useMemo(
-    () =>
-      filtersAreGlobal && period === 30
-        ? data.topNfts.map((item) => ({
-            key: item.key,
-            label: item.label,
-            name: item.sublabel ?? item.label,
-            count: item.count,
-            address: item.address ?? item.key,
-          }))
-        : rankedAssets(
-            visibleActivities,
-            (item) => item.category.startsWith("nft_") && !item.suspectedSpam,
-          ),
-    [data.topNfts, filtersAreGlobal, period, visibleActivities],
-  );
-  const displayedEventCount = filtersAreGlobal
-    ? period === 1
-      ? data.metrics.activities24h
-      : period === 7
-        ? data.metrics.activities7d
-        : data.metrics.activities30d
-    : visibleActivities.length;
   const selectedWallet = selectedAddress
     ? data.wallets.find((wallet) => wallet.address === selectedAddress) ?? null
     : null;
   const selectedActivities = selectedAddress
-    ? data.activities.filter((item) => item.walletAddress === selectedAddress)
+    ? data.activities.filter((activity) => activity.walletAddress === selectedAddress)
+    : [];
+  const selectedSignals = selectedAddress
+    ? data.signals.filter((signal) =>
+        signal.wallets.some((wallet) => wallet.address === selectedAddress),
+      )
     : [];
 
   return (
@@ -478,35 +542,27 @@ export function Dashboard({
         <a href="#main-content" className={styles.skipLink}>본문으로 건너뛰기</a>
         <div className={styles.brand}>
           <span>KGW</span>
-          <div>
-            <strong>KOREAN GOSU WALLET</strong>
-            <small>BASE ONCHAIN INTELLIGENCE</small>
-          </div>
+          <div><strong>KOREAN GOSU WALLET</strong><small>ALPHA SIGNAL INTELLIGENCE</small></div>
         </div>
         <div className={styles.topbarActions}>
-          <span className={styles.privateBadge}>
-            <ShieldCheck size={14} /> PRIVATE
-          </span>
-          <form action={logoutAction}>
-            <button type="submit">
-              <LogOut size={15} /> 로그아웃
-            </button>
-          </form>
+          <span className={styles.privateBadge}><ShieldCheck size={14} /> PRIVATE</span>
+          <form action={logoutAction}><button type="submit"><LogOut size={15} /> 로그아웃</button></form>
         </div>
       </header>
 
       <div className={styles.content} id="main-content">
         <section className={styles.hero}>
           <div>
-            <p className={styles.eyebrow}>QUID DEPOSIT COHORT / 2026-08-04</p>
-            <h1>거래소 입금 지갑군<br />활동 관제실</h1>
+            <p className={styles.eyebrow}>ALPHA RADAR / QUID DEPOSIT COHORT</p>
+            <h1>움직임이 아니라<br />의도를 찾는다.</h1>
+            <p className={styles.heroCopy}>406개 거래소 입금 지갑의 집단 행동에서 매수·축적·신규 프로토콜 접근과 이례적 이탈을 먼저 포착합니다.</p>
           </div>
           <div className={styles.heroMeta}>
             <StatusDot degraded={data.source.degraded} />
             <dl>
               <div><dt>LAST SYNC</dt><dd>{KST_FULL_FORMATTER.format(new Date(data.generatedAt))} KST</dd></div>
-              <div><dt>CHAIN</dt><dd>BASE / 8453</dd></div>
-              <div><dt>WINDOW</dt><dd>{data.source.trackingWindowDays} DAYS</dd></div>
+              <div><dt>REFRESH</dt><dd>{data.source.refreshScope.toUpperCase()} / {data.source.refreshedWalletCount} WALLETS</dd></div>
+              <div><dt>ACTIONABLE</dt><dd>SCORE {ACTIONABLE_SCORE}+</dd></div>
             </dl>
           </div>
         </section>
@@ -514,136 +570,123 @@ export function Dashboard({
         {data.source.degraded ? (
           <section className={styles.warning} role="status">
             <CircleAlert size={17} />
-            <div>
-              <strong>수집 상태를 확인하세요.</strong>
-              <span>{data.source.warnings[0] ?? `${data.source.failedWallets.length}개 지갑 수집 실패`}</span>
-            </div>
+            <div><strong>수집 또는 알림 상태를 확인하세요.</strong><span>{data.source.warnings[0] ?? `${data.source.failedWallets.length}개 지갑 수집 실패`}</span></div>
           </section>
         ) : null}
 
-        <section className={styles.metricGrid} aria-label="핵심 지표">
-          <article>
-            <div><Users size={18} /><span>TRACKED EXTERNAL</span></div>
-            <strong>{data.coverage.trackedWallets}</strong>
-            <p>업비트 {data.coverage.upbitWallets} · 빗썸 {data.coverage.bithumbWallets}</p>
+        <section className={styles.metricGrid} aria-label="알파 탐지 핵심 지표">
+          <article className={styles.metricHot}>
+            <div><Sparkles size={18} /><span>ACTIONABLE / 24H</span></div>
+            <strong>{data.metrics.actionableSignals24h}</strong>
+            <p>70점 이상 알파·이상 신호</p>
           </article>
           <article>
-            <div><ArrowDownToLine size={18} /><span>DEPOSIT SENDERS</span></div>
-            <strong>{data.coverage.depositSenderWallets}</strong>
-            <p>업비트 {data.coverage.upbitDepositSenders} · 빗썸 {data.coverage.bithumbDepositSenders}</p>
+            <div><Database size={18} /><span>SIGNAL ASSETS / 7D</span></div>
+            <strong>{data.metrics.signalAssets7d}</strong>
+            <p>노이즈 제외 관찰 자산</p>
           </article>
           <article>
-            <div><Activity size={18} /><span>ACTIVE / 7D</span></div>
-            <strong>{data.metrics.activeWallets7d}</strong>
-            <p>{formatNumber(data.metrics.activities7d)}개 판별 활동</p>
+            <div><Activity size={18} /><span>ALPHA / 7D</span></div>
+            <strong>{data.metrics.alphaSignals7d}</strong>
+            <p>매수·축적·컨트랙트 수렴</p>
           </article>
           <article>
-            <div><Sparkles size={18} /><span>BUY SIGNAL / 30D</span></div>
-            <strong>{data.metrics.inferredBuys30d}</strong>
-            <p>에어드롭 {formatNumber(data.metrics.airdrops30d)} · NFT {formatNumber(data.metrics.nftActivities30d)}</p>
+            <div><CircleAlert size={18} /><span>HIGH ANOMALY / 24H</span></div>
+            <strong>{data.metrics.highAnomalies24h}</strong>
+            <p>급증·동시 유출 70점 이상</p>
           </article>
         </section>
 
         <section className={styles.cohortNote}>
-          <Database size={17} />
-          <p>
-            입금 발신 주소는 총 <strong>{data.coverage.depositSenderWallets}개</strong>입니다. 두 거래소 공통 주소는 <strong>{data.coverage.crossExchangeOverlap}개</strong>이며,
-            거래소 내부 핫월렛 이동 {data.coverage.internalWalletsExcluded}개를 제외한 <strong>{data.coverage.trackedWallets}개</strong>를 추적합니다.
-          </p>
+          <Users size={17} />
+          <p>입금 요청 주소 <strong>{data.coverage.depositSenderWallets}개</strong> 중 내부 이동 {data.coverage.internalWalletsExcluded}개를 제외한 <strong>{data.coverage.trackedWallets}개</strong>를 추적합니다. 업비트·빗썸 공통 주소는 <strong>{data.coverage.crossExchangeOverlap}개</strong>이며, 최근 24시간 원문 {formatNumber(data.metrics.activities24h)}건 중 의미 행동은 {formatNumber(data.metrics.meaningfulActivities24h)}건으로 분리했습니다.</p>
         </section>
 
-        <section className={styles.filters} aria-label="대시보드 필터">
-          <div className={styles.filterLabel}><Filter size={15} /> FILTER</div>
+        <section className={`${styles.filters} ${styles.signalFilters}`} aria-label="신호 필터">
+          <div className={styles.filterLabel}><Filter size={15} /> SIGNAL FILTER</div>
           <div className={styles.segmented} aria-label="기간 선택">
             {([1, 7, 30] as Period[]).map((value) => (
-              <button key={value} type="button" aria-pressed={period === value} onClick={() => { setPeriod(value); setVisibleLimit(60); }}>
-                {value === 1 ? "24H" : `${value}D`}
-              </button>
+              <button key={value} type="button" aria-pressed={period === value} onClick={() => setPeriod(value)}>{value === 1 ? "24H" : `${value}D`}</button>
             ))}
           </div>
-          <select value={exchange} onChange={(event) => { setExchange(event.target.value as ExchangeFilter); setVisibleLimit(60); }} aria-label="거래소">
-            <option value="all">전체 거래소</option>
-            <option value="Upbit">업비트</option>
-            <option value="Bithumb">빗썸</option>
+          <select value={signalClass} onChange={(event) => setSignalClass(event.target.value as SignalClassFilter)} aria-label="신호 종류">
+            <option value="all">전체 신호</option><option value="alpha">알파</option><option value="anomaly">이상 행동</option><option value="noise">노이즈</option>
           </select>
-          <select value={category} onChange={(event) => { setCategory(event.target.value as CategoryFilter); setVisibleLimit(60); }} aria-label="활동 유형">
-            <option value="all">전체 활동</option>
-            <option value="buy">매수 추정</option>
-            <option value="nft">NFT</option>
-            <option value="defi">DeFi</option>
-            <option value="airdrop">에어드롭</option>
-            <option value="transfer">단순 이동</option>
+          <select value={minScore} onChange={(event) => setMinScore(Number(event.target.value))} aria-label="최소 점수">
+            <option value={0}>전체 점수</option><option value={50}>50+ 관찰</option><option value={70}>70+ 유의미</option><option value={85}>85+ 긴급</option>
           </select>
-          <label className={styles.checkbox}>
-            <input type="checkbox" checked={top100Only} onChange={(event) => { setTop100Only(event.target.checked); setVisibleLimit(60); }} />
-            거래소별 TOP 100
-          </label>
-          <label className={styles.search}>
-            <Search size={15} />
-            <input aria-label="주소·토큰·트랜잭션 검색" value={query} onChange={(event) => { setQuery(event.target.value); setVisibleLimit(60); }} placeholder="주소·토큰·트랜잭션 검색" />
-          </label>
+          <select value={exchange} onChange={(event) => setExchange(event.target.value as ExchangeFilter)} aria-label="거래소">
+            <option value="all">전체 거래소</option><option value="Upbit">업비트 코호트</option><option value="Bithumb">빗썸 코호트</option>
+          </select>
+          <label className={styles.checkbox}><input type="checkbox" checked={top100Only} onChange={(event) => setTop100Only(event.target.checked)} />TOP100 포함</label>
+          <label className={styles.search}><Search size={15} /><input aria-label="지갑·자산·트랜잭션 검색" value={query} onChange={(event) => setQuery(event.target.value)} placeholder="지갑·자산·컨트랙트 검색" /></label>
         </section>
 
-        <section className={styles.analyticsGrid}>
+        <PrioritySignal signal={prioritySignal} anchor={data.generatedAt} />
+
+        <section className={`${styles.analyticsGrid} ${styles.intelligenceGrid}`}>
           <div className={styles.chartPanel}>
-            <div className={styles.panelHeader}>
-              <div><p>ACTIVITY FLOW</p><h2>일별 활동 흐름</h2></div>
-            <span>{displayedEventCount} EVENTS / {period === 1 ? "24H" : `${period}D`}</span>
+            <div className={styles.panelHeader}><div><p>SIGNAL PULSE</p><h2>신호 발생 흐름</h2></div><span>{visibleSignals.length} SIGNALS / {period === 1 ? "24H" : `${period}D`}</span></div>
+            <div className={styles.chart} role="img" aria-label="알파, 이상 행동, 노이즈 신호 막대 차트">
+              {visibleSignals.length ? <SignalChart data={signalChartData} /> : <div className={styles.emptyChart}>현재 필터에 맞는 신호가 없습니다.</div>}
             </div>
-            <div className={styles.chart} role="img" aria-label={`${period}일간 토큰, NFT, 디파이, 기타 활동 막대 차트`}>
-              {visibleActivities.length ? (
-                <ActivityChart data={chartData} />
-              ) : (
-                <div className={styles.emptyChart}>선택 조건에 해당하는 활동이 없습니다.</div>
-              )}
-            </div>
-            <div className={styles.legend}>
-              <span><i className={styles.legendBlue} />토큰</span>
-              <span><i className={styles.legendAmber} />NFT</span>
-              <span><i className={styles.legendOlive} />DeFi</span>
-              <span><i className={styles.legendPurple} />기타</span>
-            </div>
+            <div className={styles.legend}><span><i className={styles.legendAlpha} />알파</span><span><i className={styles.legendAnomaly} />이상 행동</span><span><i className={styles.legendNoise} />노이즈</span></div>
           </div>
 
-          <aside className={styles.signalPanel}>
-            <div className={styles.panelHeader}>
-              <div><p>SIGNAL QUALITY</p><h2>판정 원칙</h2></div>
-            </div>
-            <div className={styles.signalRule}>
-              <span>01</span><div><strong>단순 유입 ≠ 매수</strong><p>토큰 수신만 있으면 ‘수신’으로 분류합니다.</p></div>
-            </div>
-            <div className={styles.signalRule}>
-              <span>02</span><div><strong>결제 유출 + 자산 유입</strong><p>같은 거래에서 확인될 때만 ‘매수 추정’입니다.</p></div>
-            </div>
-            <div className={styles.signalRule}>
-              <span>03</span><div><strong>근거를 함께 보존</strong><p>메서드, 자산 방향, 원문 트랜잭션을 연결합니다.</p></div>
-            </div>
-            <div className={styles.signalRule}>
-              <span>04</span><div><strong>수동 유입은 PASSIVE</strong><p>지갑이 시작하지 않은 수신은 관심·매수와 분리합니다.</p></div>
-            </div>
+          <aside className={styles.watchPanel}>
+            <div className={styles.panelHeader}><div><p>ASSET WATCHLIST</p><h2>집중 관찰 자산</h2></div><span>7D</span></div>
+            {visibleWatchlist.length ? (
+              <ol className={styles.watchList}>
+                {visibleWatchlist.map((asset, index) => (
+                  <li key={asset.address}>
+                    <span>{String(index + 1).padStart(2, "0")}</span>
+                    <div><strong>{asset.symbol || asset.name}</strong><small>{asset.walletCount} wallets · {asset.exchangeCount} cohort · {asset.signalCount} signals</small></div>
+                    <b className={asset.direction === "bearish" ? styles.scoreBearish : styles.scoreBullish}>{asset.score}</b>
+                    <a href={`https://basescan.org/token/${asset.address}`} target="_blank" rel="noreferrer" aria-label={`${asset.symbol} BaseScan 열기`}><ExternalLink size={14} /></a>
+                  </li>
+                ))}
+              </ol>
+            ) : <div className={styles.emptyBlock}>현재 조건에 맞는 관찰 자산이 없습니다.</div>}
           </aside>
         </section>
 
-        <section className={styles.rankingGrid}>
-          <AssetRanking title="매수 추정 토큰" eyebrow="TOKEN ACCUMULATION" rows={tokenRanking} emptyText="선택 기간에 결제 흐름까지 확인된 토큰 매수가 없습니다." />
-          <AssetRanking title="확인된 NFT 컬렉션" eyebrow="NFT COLLECTIONS" rows={nftRanking} emptyText="선택 기간에 확인된 NFT 활동이 없습니다." />
+        <section className={styles.signalFeedPanel}>
+          <div className={styles.panelHeader}><div><p>INTELLIGENCE QUEUE</p><h2>유의미·수상 행동 신호</h2></div><span>SCORE + REASONS + EVIDENCE</span></div>
+          {visibleSignals.length ? (
+            <ol className={styles.signalFeed}>
+              {visibleSignals.slice(0, 30).map((signal) => (
+                <li key={signal.id} className={signalClassName(signal.signalClass)}>
+                  <div className={styles.signalScore}><strong>{signal.score}</strong><span>{signal.severity}</span></div>
+                  <div className={styles.signalBody}>
+                    <div className={styles.signalMeta}><SignalBadge signal={signal} /><span>{SIGNAL_KIND_LABELS[signal.kind]}</span><time>{KST_FULL_FORMATTER.format(new Date(signal.occurredAt))}</time></div>
+                    <h3>{signal.title}</h3><p>{signal.summary}</p>
+                    <div className={styles.signalEvidence}>{signal.evidence.slice(0, 4).map((item) => <span key={item}>{item}</span>)}</div>
+                  </div>
+                  <div className={styles.signalCohort}><strong>{signal.wallets.length}</strong><span>WALLETS</span><small>{signal.exchangeCount} EXCHANGE COHORT</small><em>{directionLabel(signal)}</em></div>
+                  <SignalReasons signal={signal} />
+                  <div className={styles.signalRowLinks}>
+                    {signal.wallets[0] ? <button type="button" onClick={() => setSelectedAddress(signal.wallets[0].address)}><code>{shortAddress(signal.wallets[0].address)}</code><ChevronRight size={14} /></button> : null}
+                    {signal.basescanUrls[0] ? <a href={signal.basescanUrls[0]} target="_blank" rel="noreferrer"><ExternalLink size={15} /></a> : null}
+                  </div>
+                </li>
+              ))}
+            </ol>
+          ) : <div className={styles.emptyBlock}>현재 필터에 맞는 신호가 없습니다.</div>}
         </section>
 
         <section className={styles.tablePanel}>
-          <div className={styles.panelHeader}>
-            <div><p>WALLET ROSTER</p><h2>추적 지갑</h2></div>
-            <span>{visibleWallets.length} / {data.wallets.length} WALLETS</span>
-          </div>
+          <div className={styles.panelHeader}><div><p>WALLET ROSTER</p><h2>신호 우선 지갑 목록</h2></div><span>{visibleWallets.length} / {data.wallets.length} WALLETS</span></div>
           <div className={styles.tableWrap}>
             <table>
-              <thead><tr><th>거래소 / 순위</th><th>지갑</th><th>QUID 입금</th><th>활동 24H / 7D</th><th>주요 자산</th><th>마지막 활동</th><th aria-label="상세" /></tr></thead>
+              <thead><tr><th>거래소 / 순위</th><th>지갑</th><th>최고 점수</th><th>신호 24H / 7D</th><th>활동 24H / 7D</th><th>주요 자산</th><th>마지막 활동</th><th aria-label="상세" /></tr></thead>
               <tbody>
                 {visibleWallets.slice(0, visibleLimit).map((wallet) => (
                   <tr key={`${wallet.exchange}:${wallet.address}`} onClick={() => setSelectedAddress(wallet.address)}>
                     <td><span className={wallet.exchange === "Upbit" ? styles.upbit : styles.bithumb}>{wallet.exchange}</span><b>#{wallet.rank}</b></td>
                     <td><code>{shortAddress(wallet.address, 8, 6)}</code>{wallet.inTop100 ? <small>TOP 100</small> : null}</td>
-                    <td><strong>{formatQuid(wallet.depositAmountQuid)}</strong><small>{wallet.depositTransferCount} tx</small></td>
-                    <td><strong>{wallet.eventCount24h}</strong><span>/ {wallet.eventCount7d}</span></td>
+                    <td><strong className={wallet.maxSignalScore >= 70 ? styles.scoreBullish : ""}>{wallet.maxSignalScore || "–"}</strong></td>
+                    <td><strong>{wallet.signalCount24h}</strong><span> / {wallet.signalCount7d}</span></td>
+                    <td><strong>{wallet.eventCount24h}</strong><span> / {wallet.eventCount7d}</span></td>
                     <td><div className={styles.assetTags}>{wallet.topAssets.length ? wallet.topAssets.map((asset) => <span key={asset}>{asset}</span>) : <small>–</small>}</div></td>
                     <td>{relativeTime(wallet.lastActivityAt, data.generatedAt)}</td>
                     <td><button type="button" aria-label={`${shortAddress(wallet.address)} 상세 보기`} onClick={(event) => { event.stopPropagation(); setSelectedAddress(wallet.address); }}><ChevronRight size={17} /></button></td>
@@ -652,53 +695,32 @@ export function Dashboard({
               </tbody>
             </table>
           </div>
-          {visibleWallets.length > visibleLimit ? (
-            <div className={styles.tableFoot}>
-              <span>{visibleLimit}개 표시 중 · 검색과 필터는 전체 {visibleWallets.length}개에 적용됩니다.</span>
-              <button type="button" onClick={() => setVisibleLimit((current) => current + 60)}>
-                60개 더 보기
-              </button>
-            </div>
-          ) : null}
+          {visibleWallets.length > visibleLimit ? <div className={styles.tableFoot}><span>{visibleLimit}개 표시 중</span><button type="button" onClick={() => setVisibleLimit((current) => current + 60)}>60개 더 보기</button></div> : null}
         </section>
 
         <section className={styles.feedPanel}>
-          <div className={styles.panelHeader}>
-            <div><p>LIVE CLASSIFICATION</p><h2>최근 활동</h2></div>
-            <span>CONFIDENCE + EVIDENCE</span>
-          </div>
+          <div className={styles.panelHeader}><div><p>EVIDENCE LAYER</p><h2>최근 원문 활동</h2></div><span>HEURISTIC SIGNAL ≠ VERIFIED INTENT</span></div>
           {visibleActivities.length ? (
             <ol className={styles.feed}>
-              {visibleActivities.slice(0, 20).map((item) => (
+              {visibleActivities.slice(0, 16).map((item) => (
                 <li key={item.id}>
                   <time>{KST_FULL_FORMATTER.format(new Date(item.occurredAt))}</time>
-                  <div className={styles.feedMain}>
-                    <div>
-                      <ActivityBadge category={item.category} />
-                      <span className={styles.confidence}>{item.confidence}</span>
-                      {item.suspectedSpam ? <span className={styles.riskFlag}>SPAM?</span> : null}
-                      {!item.initiatedByWallet ? <span className={styles.passiveFlag}>PASSIVE</span> : null}
-                    </div>
-                    <strong>{item.title}</strong>
-                    <p>{item.description}</p>
-                  </div>
+                  <div className={styles.feedMain}><div><ActivityBadge category={item.category} /><span className={styles.confidence}>{item.confidence}</span>{item.suspectedSpam ? <span className={styles.riskFlag}>SPAM?</span> : null}{!item.initiatedByWallet ? <span className={styles.passiveFlag}>PASSIVE</span> : null}</div><strong>{item.title}</strong><p>{item.description}</p></div>
                   <button type="button" onClick={() => setSelectedAddress(item.walletAddress)}><code>{shortAddress(item.walletAddress)}</code></button>
                   <a href={item.basescanUrl} target="_blank" rel="noreferrer" aria-label="BaseScan에서 트랜잭션 열기"><ExternalLink size={16} /></a>
                 </li>
               ))}
             </ol>
-          ) : <div className={styles.emptyBlock}>현재 필터에 맞는 최근 활동이 없습니다.</div>}
+          ) : <div className={styles.emptyBlock}>현재 조건에 맞는 원문 활동이 없습니다.</div>}
         </section>
 
         <footer className={styles.footer}>
-          <span>KGW / PRIVATE RESEARCH SYSTEM</span>
-          <p>최근 {formatNumber(data.metrics.activityRowsIncluded)}개 원문을 표시하며 집계는 전체 {formatNumber(data.metrics.activities30d)}건 기준입니다. 분류는 실소유자 식별을 의미하지 않습니다.</p>
+          <span>KGW / PRIVATE ALPHA RESEARCH</span>
+          <p>신호는 공개 체인의 패턴 기반 휴리스틱이며 실소유자·불법성·매수 의도를 확정하지 않습니다. 점수 근거와 BaseScan 원문을 함께 검토하세요.</p>
         </footer>
       </div>
 
-      {selectedWallet ? (
-        <WalletDrawer wallet={selectedWallet} activities={selectedActivities} generatedAt={data.generatedAt} onClose={closeDrawer} />
-      ) : null}
+      {selectedWallet ? <WalletDrawer wallet={selectedWallet} activities={selectedActivities} signals={selectedSignals} generatedAt={data.generatedAt} onClose={closeDrawer} /> : null}
     </main>
   );
 }

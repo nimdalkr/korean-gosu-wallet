@@ -16,6 +16,7 @@ import {
 } from "../src/lib/blockscout";
 import { classifyActivities } from "../src/lib/activity-classifier";
 import type {
+  DashboardSnapshot,
   NormalizedTransaction,
   NormalizedTransfer,
   TokenMetadata,
@@ -121,6 +122,18 @@ async function readState(): Promise<TrackerState | null> {
       cursors: migratedCursors,
       deliveredSignalIds: stored.deliveredSignalIds ?? {},
     };
+  } catch (error) {
+    if ((error as NodeJS.ErrnoException).code === "ENOENT") return null;
+    throw error;
+  }
+}
+
+async function readSnapshotSource() {
+  try {
+    const stored = await readJson<{
+      source: DashboardSnapshot["source"];
+    }>(SNAPSHOT_PATH);
+    return stored.source;
   } catch (error) {
     if ((error as NodeJS.ErrnoException).code === "ENOENT") return null;
     throw error;
@@ -386,6 +399,7 @@ async function main() {
     throw new Error("WALLET_FILTER contains an address that is not in the tracking seed.");
   }
   const previous = await readState();
+  const previousSnapshotSource = deriveOnly ? await readSnapshotSource() : null;
   if (deriveOnly && !previous) {
     throw new Error("--derive-only requires data/tracker-state.json; refusing to overwrite with empty state.");
   }
@@ -538,13 +552,17 @@ async function main() {
     seed.wallets.map((wallet) => [wallet.address.toLowerCase(), wallet.exchange]),
   );
   const activities = classifyActivities({ walletExchange, transfers, transactions });
-  const failedWallets = results
-    .filter((result) => result.failed)
-    .map((result) => result.walletAddress);
-  const warnings = results
-    .filter((result) => result.warnings.length > 0)
-    .slice(0, 30)
-    .map((result) => `${result.walletAddress}: ${result.warnings.join(" | ")}`);
+  const failedWallets = deriveOnly && previousSnapshotSource
+    ? previousSnapshotSource.failedWallets
+    : results
+        .filter((result) => result.failed)
+        .map((result) => result.walletAddress);
+  const warnings = deriveOnly && previousSnapshotSource
+    ? [...previousSnapshotSource.warnings]
+    : results
+        .filter((result) => result.warnings.length > 0)
+        .slice(0, 30)
+        .map((result) => `${result.walletAddress}: ${result.warnings.join(" | ")}`);
   if (results.filter((result) => result.warnings.length > 0).length > warnings.length) {
     warnings.push("추가 수집 경고는 실행 로그를 확인하세요.");
   }
@@ -560,14 +578,26 @@ async function main() {
     transfers,
     transactions,
     generatedAt,
-    mode: effectiveMode === "reconcile" ? "incremental" : effectiveMode,
-    fromBlock: previous?.lastProcessedBlock ?? null,
+    mode: deriveOnly && previousSnapshotSource
+      ? previousSnapshotSource.mode
+      : effectiveMode === "reconcile"
+        ? "incremental"
+        : effectiveMode,
+    fromBlock: deriveOnly && previousSnapshotSource
+      ? previousSnapshotSource.fromBlock
+      : previous?.lastProcessedBlock ?? null,
     toBlock,
     trackingWindowDays: TRACKING_WINDOW_DAYS,
     warnings,
     failedWallets,
-    refreshScope: walletFilter.size > 0 ? "top100" : "all",
-    refreshedWalletCount: deriveOnly ? 0 : walletsToFetch.length,
+    refreshScope: deriveOnly && previousSnapshotSource
+      ? previousSnapshotSource.refreshScope
+      : walletFilter.size > 0
+        ? "top100"
+        : "all",
+    refreshedWalletCount: deriveOnly && previousSnapshotSource
+      ? previousSnapshotSource.refreshedWalletCount
+      : walletsToFetch.length,
   });
 
   const deliveredSignalIds = Object.fromEntries(

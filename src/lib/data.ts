@@ -5,6 +5,12 @@ import path from "node:path";
 import type { DashboardSnapshot, WalletSeedDocument } from "./domain";
 import { buildIntelligence } from "./signal-engine";
 import { buildDashboardSnapshot } from "./snapshot";
+import { buildWalletResearch } from "./wallet-research";
+
+type StoredDashboardSnapshot = Omit<DashboardSnapshot, "schemaVersion" | "research"> & {
+  schemaVersion: number;
+  research?: DashboardSnapshot["research"];
+};
 
 async function readJson<T>(filePath: string): Promise<T> {
   return JSON.parse(await readFile(filePath, "utf8")) as T;
@@ -13,8 +19,10 @@ async function readJson<T>(filePath: string): Promise<T> {
 export async function getDashboardSnapshot(): Promise<DashboardSnapshot> {
   const dataDirectory = path.join(process.cwd(), "data");
   try {
-    const stored = await readJson<DashboardSnapshot>(path.join(dataDirectory, "snapshot.json"));
-    if (stored.schemaVersion === 2 && Array.isArray(stored.signals)) return stored;
+    const stored = await readJson<StoredDashboardSnapshot>(path.join(dataDirectory, "snapshot.json"));
+    if (stored.schemaVersion === 3 && stored.research && Array.isArray(stored.signals)) {
+      return stored as DashboardSnapshot;
+    }
 
     const intelligence = buildIntelligence({
       wallets: stored.wallets,
@@ -24,7 +32,7 @@ export async function getDashboardSnapshot(): Promise<DashboardSnapshot> {
     });
     return {
       ...stored,
-      schemaVersion: 2,
+      schemaVersion: 3,
       source: {
         ...stored.source,
         refreshScope: "all",
@@ -45,6 +53,12 @@ export async function getDashboardSnapshot(): Promise<DashboardSnapshot> {
       signals: intelligence.signals,
       signalTrend: intelligence.signalTrend,
       assetWatchlist: intelligence.assetWatchlist,
+      research: buildWalletResearch({
+        wallets: stored.wallets,
+        activities: stored.activities,
+        signals: intelligence.signals,
+        generatedAt: stored.generatedAt,
+      }),
     };
   } catch (error) {
     if ((error as NodeJS.ErrnoException).code !== "ENOENT") throw error;

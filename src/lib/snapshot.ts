@@ -12,6 +12,7 @@ import type {
 } from "./domain";
 import { CATEGORY_LABELS } from "./activity-labels";
 import { buildIntelligence } from "./signal-engine";
+import { buildWalletResearch } from "./wallet-research";
 
 const DAY_MS = 86_400_000;
 const ACTIVITY_ROW_LIMIT = 750;
@@ -142,6 +143,14 @@ export function buildDashboardSnapshot(input: {
     transactions: input.transactions,
     generatedAt: input.generatedAt,
   });
+  const research = buildWalletResearch({
+    wallets: input.wallets,
+    activities: input.activities,
+    transfers: input.transfers,
+    transactions: input.transactions,
+    signals: intelligence.signals,
+    generatedAt: input.generatedAt,
+  });
 
   for (const activity of activities30d) {
     const key = activity.walletAddress.toLowerCase();
@@ -195,7 +204,7 @@ export function buildDashboardSnapshot(input: {
   const activityRows = activities30d.slice(0, ACTIVITY_ROW_LIMIT);
 
   return {
-    schemaVersion: 2,
+    schemaVersion: 3,
     generatedAt: input.generatedAt,
     source: {
       chain: "Base",
@@ -256,6 +265,7 @@ export function buildDashboardSnapshot(input: {
     signals: intelligence.signals,
     signalTrend: intelligence.signalTrend,
     assetWatchlist: intelligence.assetWatchlist,
+    research,
     dailyActivity: buildDailyActivity(activities30d, input.generatedAt, 30),
     topTokens: rankedAssets(
       activities30d,

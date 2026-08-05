@@ -28,7 +28,8 @@ async function readInputs() {
   const snapshot = JSON.parse(snapshotBytes.toString("utf8"));
   const supportedSchemaPair =
     (state.schemaVersion === 2 && snapshot.schemaVersion === 1) ||
-    (state.schemaVersion === 3 && snapshot.schemaVersion === 2);
+    (state.schemaVersion === 3 && snapshot.schemaVersion === 2) ||
+    (state.schemaVersion === 3 && snapshot.schemaVersion === 3);
   if (!supportedSchemaPair) {
     throw new Error(
       `Unsupported checkpoint schema pair: tracker v${state.schemaVersion}, snapshot v${snapshot.schemaVersion}.`,

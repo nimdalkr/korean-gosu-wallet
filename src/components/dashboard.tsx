@@ -2,11 +2,9 @@
 
 import {
   Activity,
-  ArrowUpRight,
   CheckCircle2,
   ChevronRight,
   CircleAlert,
-  Copy,
   Database,
   ExternalLink,
   Filter,
@@ -15,22 +13,22 @@ import {
   ShieldCheck,
   Sparkles,
   Users,
-  X,
 } from "lucide-react";
 import dynamic from "next/dynamic";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { CATEGORY_LABELS } from "@/lib/activity-labels";
 import type {
   ActivityCategory,
-  ActivityEvent,
   DashboardSnapshot,
   Exchange,
   IntelligenceSignal,
   SignalClass,
   SignalKind,
-  WalletActivitySummary,
+  WalletResearchDeskSummary,
+  WalletResearchProfile,
 } from "@/lib/domain";
 import styles from "./dashboard.module.css";
+import { ResearchDesk, WalletDossier } from "./wallet-research";
 
 const SignalChart = dynamic(
   () => import("./activity-chart").then((module) => module.SignalChart),
@@ -44,7 +42,7 @@ type Period = 1 | 7 | 30;
 type ExchangeFilter = "all" | Exchange;
 type SignalClassFilter = "all" | SignalClass;
 
-export type DashboardData = Pick<
+export type DashboardData = Omit<Pick<
   DashboardSnapshot,
   | "generatedAt"
   | "source"
@@ -54,7 +52,8 @@ export type DashboardData = Pick<
   | "activities"
   | "signals"
   | "assetWatchlist"
->;
+  | "research"
+>, "research"> & { research: WalletResearchDeskSummary };
 
 const DAY_MS = 86_400_000;
 const ACTIONABLE_SCORE = 70;
@@ -115,13 +114,6 @@ function shortAddress(address: string, head = 6, tail = 4) {
 
 function formatNumber(value: number) {
   return new Intl.NumberFormat("ko-KR").format(value);
-}
-
-function formatQuid(value: string) {
-  return new Intl.NumberFormat("ko-KR", {
-    maximumFractionDigits: 2,
-    notation: Number(value) >= 1_000_000 ? "compact" : "standard",
-  }).format(Number(value));
 }
 
 function formatUsd(value: number | null | undefined) {
@@ -294,118 +286,6 @@ function PrioritySignal({
   );
 }
 
-function WalletDrawer({
-  wallet,
-  activities,
-  signals,
-  generatedAt,
-  onClose,
-}: {
-  wallet: WalletActivitySummary;
-  activities: ActivityEvent[];
-  signals: IntelligenceSignal[];
-  generatedAt: string;
-  onClose: () => void;
-}) {
-  const dialogRef = useRef<HTMLDialogElement>(null);
-  const closeButtonRef = useRef<HTMLButtonElement>(null);
-  useEffect(() => {
-    const dialog = dialogRef.current;
-    const previouslyFocused = document.activeElement as HTMLElement | null;
-    if (dialog && !dialog.open) dialog.showModal();
-    closeButtonRef.current?.focus();
-    return () => {
-      if (dialog?.open) dialog.close();
-      previouslyFocused?.focus();
-    };
-  }, [onClose]);
-
-  return (
-    <dialog
-      ref={dialogRef}
-      className={styles.drawerDialog}
-      aria-labelledby="wallet-detail-title"
-      onCancel={(event) => {
-        event.preventDefault();
-        onClose();
-      }}
-      onMouseDown={(event) => {
-        if (event.target === event.currentTarget) onClose();
-      }}
-    >
-      <aside className={styles.drawer} onMouseDown={(event) => event.stopPropagation()}>
-        <div className={styles.drawerHeader}>
-          <div>
-            <p>{wallet.exchange.toUpperCase()} / DEPOSIT RANK #{wallet.rank}</p>
-            <h2 id="wallet-detail-title">지갑 인텔리전스</h2>
-          </div>
-          <button ref={closeButtonRef} type="button" onClick={onClose} aria-label="지갑 상세 닫기">
-            <X size={20} />
-          </button>
-        </div>
-        <div className={styles.addressBlock}>
-          <code>{wallet.address}</code>
-          <div>
-            <button type="button" onClick={() => navigator.clipboard.writeText(wallet.address)}>
-              <Copy size={14} /> 복사
-            </button>
-            <a href={`https://basescan.org/address/${wallet.address}`} target="_blank" rel="noreferrer">
-              BaseScan <ExternalLink size={13} />
-            </a>
-          </div>
-        </div>
-        <dl className={styles.drawerStats}>
-          <div><dt>7일 신호</dt><dd>{wallet.signalCount7d}</dd></div>
-          <div><dt>최고 점수</dt><dd>{wallet.maxSignalScore || "–"}</dd></div>
-          <div><dt>QUID 입금량</dt><dd>{formatQuid(wallet.depositAmountQuid)}</dd></div>
-          <div><dt>마지막 활동</dt><dd>{relativeTime(wallet.lastActivityAt, generatedAt)}</dd></div>
-        </dl>
-        <section className={styles.drawerActivity}>
-          <div className={styles.drawerSectionTitle}>
-            <h3>연관 신호</h3>
-            <span>{signals.length}건</span>
-          </div>
-          {signals.length ? (
-            <ul>
-              {signals.slice(0, 12).map((signal) => (
-                <li key={signal.id}>
-                  <div><SignalBadge signal={signal} /><time>{KST_FULL_FORMATTER.format(new Date(signal.occurredAt))}</time></div>
-                  <strong>{signal.title}</strong>
-                  <p>{signal.summary}</p>
-                  <div className={styles.evidence}>{signal.evidence.map((item) => <span key={item}>{item}</span>)}</div>
-                </li>
-              ))}
-            </ul>
-          ) : <div className={styles.emptyBlock}>최근 30일 연관 신호가 없습니다.</div>}
-        </section>
-        <section className={styles.drawerActivity}>
-          <div className={styles.drawerSectionTitle}>
-            <h3>원문 활동</h3>
-            <span>{activities.length}건</span>
-          </div>
-          {activities.length ? (
-            <ul>
-              {activities.slice(0, 24).map((item) => (
-                <li key={item.id}>
-                  <div>
-                    <ActivityBadge category={item.category} />
-                    <time>{KST_FULL_FORMATTER.format(new Date(item.occurredAt))}</time>
-                  </div>
-                  <strong>{item.title}</strong>
-                  <p>{item.description}</p>
-                  <a href={item.basescanUrl} target="_blank" rel="noreferrer">
-                    트랜잭션 확인 <ArrowUpRight size={13} />
-                  </a>
-                </li>
-              ))}
-            </ul>
-          ) : <div className={styles.emptyBlock}>표시할 원문 활동이 없습니다.</div>}
-        </section>
-      </aside>
-    </dialog>
-  );
-}
-
 export function Dashboard({
   data,
   logoutAction,
@@ -420,7 +300,10 @@ export function Dashboard({
   const [query, setQuery] = useState("");
   const [top100Only, setTop100Only] = useState(false);
   const [selectedAddress, setSelectedAddress] = useState<string | null>(null);
-  const [visibleLimit, setVisibleLimit] = useState(60);
+  const [dossierProfile, setDossierProfile] = useState<WalletResearchProfile | null>(null);
+  const [dossierError, setDossierError] = useState<string | null>(null);
+  const [dossierRetry, setDossierRetry] = useState(0);
+  const dossierCache = useRef(new Map<string, WalletResearchProfile>());
   const closeDrawer = useCallback(() => setSelectedAddress(null), []);
   const cutoff = Date.parse(data.generatedAt) - period * DAY_MS;
   const normalizedQuery = query.trim().toLowerCase();
@@ -504,28 +387,11 @@ export function Dashboard({
     [cutoff, data.activities, exchange, normalizedQuery, top100Only, walletByAddress],
   );
 
-  const visibleWallets = useMemo(
-    () => data.wallets
-      .filter((wallet) => exchange === "all" || wallet.exchange === exchange)
-      .filter((wallet) => !top100Only || wallet.inTop100)
-      .filter(
-        (wallet) =>
-          !normalizedQuery ||
-          wallet.address.includes(normalizedQuery) ||
-          wallet.topAssets.some((asset) => asset.toLowerCase().includes(normalizedQuery)),
-      )
-      .sort(
-        (a, b) =>
-          b.maxSignalScore - a.maxSignalScore ||
-          b.signalCount24h - a.signalCount24h ||
-          b.eventCount7d - a.eventCount7d ||
-          Number(b.depositAmountQuid) - Number(a.depositAmountQuid),
-      ),
-    [data.wallets, exchange, normalizedQuery, top100Only],
-  );
-
   const selectedWallet = selectedAddress
     ? data.wallets.find((wallet) => wallet.address === selectedAddress) ?? null
+    : null;
+  const activeDossierProfile = dossierProfile?.address === selectedAddress
+    ? dossierProfile
     : null;
   const selectedActivities = selectedAddress
     ? data.activities.filter((activity) => activity.walletAddress === selectedAddress)
@@ -536,13 +402,53 @@ export function Dashboard({
       )
     : [];
 
+  useEffect(() => {
+    if (!selectedAddress) return;
+    const cached = dossierCache.current.get(selectedAddress);
+    if (cached) {
+      setDossierProfile(cached);
+      setDossierError(null);
+      return;
+    }
+
+    const controller = new AbortController();
+    setDossierProfile(null);
+    setDossierError(null);
+    fetch(`/api/research/wallet/${selectedAddress}`, {
+      credentials: "same-origin",
+      signal: controller.signal,
+    })
+      .then(async (response) => {
+        const payload = await response.json() as {
+          profile?: WalletResearchProfile;
+          error?: string;
+        };
+        if (!response.ok || !payload.profile) {
+          throw new Error(payload.error ?? "지갑 리포트를 불러오지 못했습니다.");
+        }
+        return payload.profile;
+      })
+      .then((profile) => {
+        dossierCache.current.set(profile.address, profile);
+        setDossierProfile(profile);
+      })
+      .catch((error: unknown) => {
+        if ((error as Error).name !== "AbortError") {
+          setDossierError(
+            error instanceof Error ? error.message : "지갑 리포트를 불러오지 못했습니다.",
+          );
+        }
+      });
+    return () => controller.abort();
+  }, [dossierRetry, selectedAddress]);
+
   return (
     <main className={styles.page}>
       <header className={styles.topbar}>
         <a href="#main-content" className={styles.skipLink}>본문으로 건너뛰기</a>
         <div className={styles.brand}>
           <span>KGW</span>
-          <div><strong>KOREAN GOSU WALLET</strong><small>ALPHA SIGNAL INTELLIGENCE</small></div>
+          <div><strong>KOREAN GOSU WALLET</strong><small>WALLET RESEARCH &amp; ALPHA DESK</small></div>
         </div>
         <div className={styles.topbarActions}>
           <span className={styles.privateBadge}><ShieldCheck size={14} /> PRIVATE</span>
@@ -553,9 +459,9 @@ export function Dashboard({
       <div className={styles.content} id="main-content">
         <section className={styles.hero}>
           <div>
-            <p className={styles.eyebrow}>ALPHA RADAR / QUID DEPOSIT COHORT</p>
-            <h1>움직임이 아니라<br />의도를 찾는다.</h1>
-            <p className={styles.heroCopy}>406개 거래소 입금 지갑의 집단 행동에서 매수·축적·신규 프로토콜 접근과 이례적 이탈을 먼저 포착합니다.</p>
+            <p className={styles.eyebrow}>WALLET RESEARCH / QUID DEPOSIT COHORT</p>
+            <h1>지갑의 성향부터<br />다음 움직임까지.</h1>
+            <p className={styles.heroCopy}>406개 지갑의 반복 행동·관심 자산·최근 변화와 코호트 수렴을 한데 모아, 조사할 가치가 있는 알파 후보를 먼저 좁힙니다.</p>
           </div>
           <div className={styles.heroMeta}>
             <StatusDot degraded={data.source.degraded} />
@@ -602,7 +508,14 @@ export function Dashboard({
           <p>입금 요청 주소 <strong>{data.coverage.depositSenderWallets}개</strong> 중 내부 이동 {data.coverage.internalWalletsExcluded}개를 제외한 <strong>{data.coverage.trackedWallets}개</strong>를 추적합니다. 업비트·빗썸 공통 주소는 <strong>{data.coverage.crossExchangeOverlap}개</strong>이며, 최근 24시간 원문 {formatNumber(data.metrics.activities24h)}건 중 의미 행동은 {formatNumber(data.metrics.meaningfulActivities24h)}건으로 분리했습니다.</p>
         </section>
 
-        <section className={`${styles.filters} ${styles.signalFilters}`} aria-label="신호 필터">
+        <ResearchDesk
+          research={data.research}
+          wallets={data.wallets}
+          generatedAt={data.generatedAt}
+          onSelectWallet={setSelectedAddress}
+        />
+
+        <section id="signal-evidence" className={`${styles.filters} ${styles.signalFilters}`} aria-label="신호 필터">
           <div className={styles.filterLabel}><Filter size={15} /> SIGNAL FILTER</div>
           <div className={styles.segmented} aria-label="기간 선택">
             {([1, 7, 30] as Period[]).map((value) => (
@@ -674,30 +587,6 @@ export function Dashboard({
           ) : <div className={styles.emptyBlock}>현재 필터에 맞는 신호가 없습니다.</div>}
         </section>
 
-        <section className={styles.tablePanel}>
-          <div className={styles.panelHeader}><div><p>WALLET ROSTER</p><h2>신호 우선 지갑 목록</h2></div><span>{visibleWallets.length} / {data.wallets.length} WALLETS</span></div>
-          <div className={styles.tableWrap}>
-            <table>
-              <thead><tr><th>거래소 / 순위</th><th>지갑</th><th>최고 점수</th><th>신호 24H / 7D</th><th>활동 24H / 7D</th><th>주요 자산</th><th>마지막 활동</th><th aria-label="상세" /></tr></thead>
-              <tbody>
-                {visibleWallets.slice(0, visibleLimit).map((wallet) => (
-                  <tr key={`${wallet.exchange}:${wallet.address}`} onClick={() => setSelectedAddress(wallet.address)}>
-                    <td><span className={wallet.exchange === "Upbit" ? styles.upbit : styles.bithumb}>{wallet.exchange}</span><b>#{wallet.rank}</b></td>
-                    <td><code>{shortAddress(wallet.address, 8, 6)}</code>{wallet.inTop100 ? <small>TOP 100</small> : null}</td>
-                    <td><strong className={wallet.maxSignalScore >= 70 ? styles.scoreBullish : ""}>{wallet.maxSignalScore || "–"}</strong></td>
-                    <td><strong>{wallet.signalCount24h}</strong><span> / {wallet.signalCount7d}</span></td>
-                    <td><strong>{wallet.eventCount24h}</strong><span> / {wallet.eventCount7d}</span></td>
-                    <td><div className={styles.assetTags}>{wallet.topAssets.length ? wallet.topAssets.map((asset) => <span key={asset}>{asset}</span>) : <small>–</small>}</div></td>
-                    <td>{relativeTime(wallet.lastActivityAt, data.generatedAt)}</td>
-                    <td><button type="button" aria-label={`${shortAddress(wallet.address)} 상세 보기`} onClick={(event) => { event.stopPropagation(); setSelectedAddress(wallet.address); }}><ChevronRight size={17} /></button></td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-          {visibleWallets.length > visibleLimit ? <div className={styles.tableFoot}><span>{visibleLimit}개 표시 중</span><button type="button" onClick={() => setVisibleLimit((current) => current + 60)}>60개 더 보기</button></div> : null}
-        </section>
-
         <section className={styles.feedPanel}>
           <div className={styles.panelHeader}><div><p>EVIDENCE LAYER</p><h2>최근 원문 활동</h2></div><span>HEURISTIC SIGNAL ≠ VERIFIED INTENT</span></div>
           {visibleActivities.length ? (
@@ -720,7 +609,19 @@ export function Dashboard({
         </footer>
       </div>
 
-      {selectedWallet ? <WalletDrawer wallet={selectedWallet} activities={selectedActivities} signals={selectedSignals} generatedAt={data.generatedAt} onClose={closeDrawer} /> : null}
+      {selectedWallet ? (
+        <WalletDossier
+          key={selectedAddress}
+          profile={activeDossierProfile}
+          wallet={selectedWallet}
+          activities={selectedActivities}
+          signals={selectedSignals}
+          generatedAt={data.generatedAt}
+          error={dossierError}
+          onRetry={() => setDossierRetry((current) => current + 1)}
+          onClose={closeDrawer}
+        />
+      ) : null}
     </main>
   );
 }

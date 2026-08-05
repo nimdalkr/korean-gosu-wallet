@@ -17,6 +17,7 @@ type StoredDashboardSnapshot = Omit<DashboardSnapshot, "schemaVersion"> & {
   signals?: DashboardSnapshot["signals"];
   signalTrend?: DashboardSnapshot["signalTrend"];
   assetWatchlist?: DashboardSnapshot["assetWatchlist"];
+  research?: DashboardSnapshot["research"];
 };
 
 type StoredTrackerState = Omit<TrackerState, "schemaVersion" | "deliveredSignalIds"> & {
@@ -109,7 +110,7 @@ async function main() {
   }
 
   assert(
-    snapshot.schemaVersion === 1 || snapshot.schemaVersion === 2,
+    snapshot.schemaVersion === 1 || snapshot.schemaVersion === 2 || snapshot.schemaVersion === 3,
     "Unsupported snapshot schema.",
   );
   assert(snapshot.wallets.length === 406, "Snapshot does not contain all tracked wallets.");
@@ -131,7 +132,7 @@ async function main() {
     ),
     "Snapshot degraded flag is inconsistent with collection warnings.",
   );
-  if (snapshot.schemaVersion === 2) {
+  if (snapshot.schemaVersion === 2 || snapshot.schemaVersion === 3) {
     assert(Array.isArray(snapshot.signals), "Signal payload is missing.");
     assert(Array.isArray(snapshot.signalTrend), "Signal trend payload is missing.");
     assert(Array.isArray(snapshot.assetWatchlist), "Asset watchlist payload is missing.");
@@ -158,6 +159,48 @@ async function main() {
       "Snapshot refreshed wallet count is invalid.",
     );
   }
+  if (snapshot.schemaVersion === 3) {
+    assert(snapshot.research, "Wallet research payload is missing.");
+    assert(
+      snapshot.research.walletProfiles.length === 406,
+      "Wallet research must contain all tracked wallets.",
+    );
+    assert(
+      unique(snapshot.research.walletProfiles.map((profile) => profile.address)),
+      "Wallet research profiles are duplicated.",
+    );
+    assert(
+      snapshot.research.walletProfiles.every(
+        (profile) =>
+          addresses.includes(profile.address) &&
+          Number.isInteger(profile.researchPriority) &&
+          profile.researchPriority >= 0 &&
+          profile.researchPriority <= 100 &&
+          profile.agencyScore >= 0 &&
+          profile.agencyScore <= 100 &&
+          profile.trend14d.length === 14 &&
+          Array.isArray(profile.behaviorMix) &&
+          profile.assetFlows.every(
+            (asset) => typeof asset.passiveDistribution === "boolean",
+          ),
+      ),
+      "Wallet research score, address, trend, or behavior mix is invalid.",
+    );
+    assert(
+      unique(snapshot.research.themes.map((theme) => theme.id)),
+      "Research themes are duplicated.",
+    );
+    assert(
+      snapshot.research.themes.every(
+        (theme) =>
+          Number.isInteger(theme.score) &&
+          theme.score >= 0 &&
+          theme.score <= 100 &&
+          theme.topWallets.every((address) => addresses.includes(address)),
+      ),
+      "Research theme score or wallet evidence is invalid.",
+    );
+  }
   if (process.env.REQUIRE_TRACKER_STATE === "true") {
     assert(state, "REQUIRE_TRACKER_STATE=true but data/tracker-state.json is missing.");
   }
@@ -170,7 +213,8 @@ async function main() {
       assert(state.updatedAt === snapshot.generatedAt, "State and snapshot generations differ.");
       assert(
         (state.schemaVersion === 2 && snapshot.schemaVersion === 1) ||
-          (state.schemaVersion === 3 && snapshot.schemaVersion === 2),
+          (state.schemaVersion === 3 && snapshot.schemaVersion === 2) ||
+          (state.schemaVersion === 3 && snapshot.schemaVersion === 3),
         "State and snapshot schema generations are incompatible.",
       );
     }
@@ -250,7 +294,7 @@ async function main() {
 
   process.stdout.write(
     state
-      ? `Validated 406 wallets, ${state.transfers.length} transfers, ${state.transactions.length} transactions, ${snapshot.activities.length} activity rows, and ${snapshot.signals?.length ?? 0} intelligence signals.\n`
+      ? `Validated 406 wallets, ${state.transfers.length} transfers, ${state.transactions.length} transactions, ${snapshot.activities.length} activity rows, ${snapshot.signals?.length ?? 0} intelligence signals, and ${snapshot.research?.walletProfiles.length ?? 0} wallet research profiles.\n`
       : `Validated 406 wallets and ${snapshot.activities.length} published activity rows (tracker checkpoint not present).\n`,
   );
 }

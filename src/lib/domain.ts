@@ -230,6 +230,282 @@ export interface AssetWatchItem {
   estimatedUsd?: number | null;
 }
 
+export type WalletPersona =
+  | "active_trader"
+  | "token_operator"
+  | "defi_operator"
+  | "protocol_explorer"
+  | "nft_collector"
+  | "airdrop_hunter"
+  | "accumulator"
+  | "distributor"
+  | "exchange_feeder"
+  | "multi_strategy"
+  | "passive_holder";
+
+export type WalletMomentum =
+  | "surging"
+  | "rising"
+  | "stable"
+  | "cooling"
+  | "inactive";
+
+export type WalletStance =
+  | "accumulating"
+  | "distributing"
+  | "rotating"
+  | "exploring"
+  | "monitoring"
+  | "inactive";
+
+export type ResearchConfidence = "high" | "medium" | "low";
+
+export interface WalletInterestTopic {
+  key: string;
+  label: string;
+  kind: "sector" | "asset" | "protocol" | "nft";
+  score: number;
+  share: number;
+  activityCount30d: number;
+  activityCount7d: number;
+  initiatedCount30d: number;
+  lastSeenAt: string;
+  address?: string | null;
+}
+
+export interface WalletAssetFlow {
+  address: string;
+  name: string;
+  symbol: string;
+  type: TokenType;
+  sector: string;
+  receivedAmount: number;
+  sentAmount: number;
+  netAmount: number;
+  transferCount30d: number;
+  transferCount7d: number;
+  initiatedActivityCount: number;
+  lastSeenAt: string;
+  estimatedReceivedUsd?: number | null;
+  estimatedSentUsd?: number | null;
+  estimatedNetUsd?: number | null;
+  pricingCoverage: "priced" | "unpriced";
+  passiveDistribution: boolean;
+}
+
+export interface WalletProtocolInterest {
+  address: string;
+  name: string;
+  sector: string;
+  interactionCount30d: number;
+  interactionCount7d: number;
+  uniqueMethods: string[];
+  firstSeenAt: string;
+  lastSeenAt: string;
+  isNew7d: boolean;
+}
+
+export interface WalletCounterparty {
+  address: string;
+  label: string;
+  relationship: "exchange" | "cohort" | "contract" | "external";
+  inboundCount: number;
+  outboundCount: number;
+  assetCount: number;
+  interactionCount30d: number;
+  interactionCount7d: number;
+  lastSeenAt: string;
+  estimatedUsd?: number | null;
+}
+
+export interface WalletTrendPoint {
+  date: string;
+  meaningful: number;
+  initiated: number;
+  inbound: number;
+  outbound: number;
+}
+
+export interface WalletBehaviorSlice {
+  category: ActivityCategory;
+  count30d: number;
+  count7d: number;
+  initiatedCount30d: number;
+  share: number;
+  lastSeenAt: string;
+}
+
+export interface WalletNotableMove {
+  id: string;
+  occurredAt: string;
+  category: ActivityCategory;
+  title: string;
+  description: string;
+  whyItMatters: string;
+  importanceScore: number;
+  confidence: Confidence;
+  asset?: ActivityAsset | null;
+  counterparty?: string | null;
+  method?: string | null;
+  estimatedUsd?: number | null;
+  basescanUrl: string;
+}
+
+export interface WalletResearchProfile {
+  address: string;
+  persona: WalletPersona;
+  personaLabel: string;
+  secondaryTags: string[];
+  headline: string;
+  analystView: string;
+  recentChange: string;
+  momentum: WalletMomentum;
+  momentumRatio: number | null;
+  stance: WalletStance;
+  researchPriority: number;
+  agencyScore: number;
+  sophisticationScore: number;
+  evidenceConfidence: ResearchConfidence;
+  evidenceCount: number;
+  activeDays30d: number;
+  activeDays7d: number;
+  meaningfulActions30d: number;
+  meaningfulActions7d: number;
+  initiatedTransactions30d: number;
+  initiatedShare: number;
+  uniqueAssets30d: number;
+  uniqueProtocols30d: number;
+  uniqueCounterparties30d: number;
+  knownFlowUsd30d: number | null;
+  pricingCoverage: number;
+  primarySector: string;
+  behaviorMix: WalletBehaviorSlice[];
+  interests: WalletInterestTopic[];
+  assetFlows: WalletAssetFlow[];
+  protocols: WalletProtocolInterest[];
+  counterparties: WalletCounterparty[];
+  trend14d: WalletTrendPoint[];
+  notableMoves: WalletNotableMove[];
+  watchpoints: string[];
+  flags: string[];
+  latestActivityAt: string | null;
+}
+
+export type CohortThemeStatus =
+  | "emerging"
+  | "accelerating"
+  | "accumulating"
+  | "distributing"
+  | "fading"
+  | "passive_noise";
+
+export interface CohortTheme {
+  id: string;
+  kind: "asset" | "protocol" | "sector";
+  label: string;
+  sublabel: string;
+  address?: string | null;
+  sector: string;
+  status: CohortThemeStatus;
+  score: number;
+  confidence: ResearchConfidence;
+  walletCount7d: number;
+  walletCount30d: number;
+  initiatedWalletCount7d: number;
+  top100WalletCount7d: number;
+  exchangeCount7d: number;
+  actionCount7d: number;
+  priorDailyBaseline: number;
+  recentDailyRate: number;
+  acceleration: number | null;
+  inboundCount7d: number;
+  outboundCount7d: number;
+  estimatedNetUsd7d?: number | null;
+  topWallets: string[];
+  thesis: string;
+  caveat: string;
+  evidenceUrls: string[];
+  lastSeenAt: string;
+}
+
+export interface WalletStrategyCluster {
+  id: WalletPersona;
+  label: string;
+  description: string;
+  walletCount: number;
+  walletShare: number;
+  upbitWallets: number;
+  bithumbWallets: number;
+  activeWallets7d: number;
+  averagePriority: number;
+  averageAgency: number;
+  topSectors: string[];
+  topAssets: string[];
+  representativeWallets: string[];
+}
+
+export interface AnalystBriefFinding {
+  id: string;
+  title: string;
+  body: string;
+  implication: string;
+  confidence: ResearchConfidence;
+  walletAddresses: string[];
+  evidenceUrls: string[];
+}
+
+export interface AnalystBrief {
+  asOf: string;
+  title: string;
+  headline: string;
+  executiveSummary: string[];
+  keyFindings: AnalystBriefFinding[];
+  priorityWallets: string[];
+  nextChecks: string[];
+  caveats: string[];
+}
+
+export interface WalletResearchDesk {
+  methodologyVersion: 1;
+  brief: AnalystBrief;
+  walletProfiles: WalletResearchProfile[];
+  themes: CohortTheme[];
+  strategyClusters: WalletStrategyCluster[];
+  metrics: {
+    highPriorityWallets: number;
+    highAgencyWallets: number;
+    surgingWallets: number;
+    activeThemes7d: number;
+    crossExchangeThemes7d: number;
+    newlyExploredProtocols7d: number;
+    pricedFlowCoverage: number;
+  };
+}
+
+export type WalletResearchProfileSummary = Pick<
+  WalletResearchProfile,
+  | "address"
+  | "persona"
+  | "personaLabel"
+  | "secondaryTags"
+  | "headline"
+  | "recentChange"
+  | "momentum"
+  | "stance"
+  | "researchPriority"
+  | "agencyScore"
+  | "sophisticationScore"
+  | "evidenceConfidence"
+  | "meaningfulActions7d"
+  | "primarySector"
+  | "interests"
+  | "latestActivityAt"
+>;
+
+export type WalletResearchDeskSummary = Omit<WalletResearchDesk, "walletProfiles"> & {
+  walletProfiles: WalletResearchProfileSummary[];
+};
+
 export interface DailyActivityPoint {
   date: string;
   total: number;
@@ -249,7 +525,7 @@ export interface RankedActivityItem {
 }
 
 export interface DashboardSnapshot {
-  schemaVersion: 2;
+  schemaVersion: 3;
   generatedAt: string;
   source: {
     chain: "Base";
@@ -298,6 +574,7 @@ export interface DashboardSnapshot {
   signals: IntelligenceSignal[];
   signalTrend: SignalTrendPoint[];
   assetWatchlist: AssetWatchItem[];
+  research: WalletResearchDesk;
   dailyActivity: DailyActivityPoint[];
   topTokens: RankedActivityItem[];
   topNfts: RankedActivityItem[];
